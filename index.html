@@ -61,7 +61,7 @@
     body { min-height: 100dvh; font-family: var(--fb); font-size: var(--base); color: var(--txt); background: var(--bg); overflow-x: hidden; }
     ul { list-style: none; }
     a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+    button { pointer: pointer; background: none; border: none; font: inherit; color: inherit; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
@@ -575,7 +575,7 @@
                 <div class="cb"><div class="cb-text"><strong>Talent Acquisition:</strong> Gestione end-to-end dell'iter selettivo, dallo screening dei CV alla proposta economica. Rappresentanza aziendale ai Career Day universitari con focus su profili R&amp;D e tecnici.</div></div>
                 <div class="cb"><div class="cb-text"><strong>Organizational Development:</strong> Collaborazione attiva al processo di Manager Evaluation e supporto al progetto di Job Levelling, garantendo l'allineamento ai requisiti della Direttiva Europea sulla Pay Transparency.</div></div>
                 <div class="cb"><div class="cb-text"><strong>HQ Services:</strong> Rilascio Comunicazioni Organizzative e aggiornamento degli Organigrammi della BU Heating &amp; Ventilation, interfacciandomi mensilmente con plant produttivi internazionali.</div></div>
-                <div class="cb"><div class="cb-text"><strong>HR Analytics &amp; AI Adoption:</strong> Utilizzo avanzato di Excel, monitoraggio KPI e integrazione di tool AI nel workflow aziendale.</div></div>
+                <div class="cb"><div class="cb-text"><strong>HR Analytics &amp; AI Adoption:</strong> Utilizzo avanzàto di Excel, monitoraggio KPI e integrazione di tool AI nel workflow aziendale.</div></div>
               </div>
             </div>
 
@@ -1143,7 +1143,7 @@
     }
   }
 
-  // ── LOGICA INTERATTIVA EASTER EGG: TIC TAC TOE ──
+  // ── LOGICA STRATEGICA EASTER EGG: TIC TAC TOE IMBATTIBILE (MINIMAX) ──
   const tttCells = document.querySelectorAll('.ttt-cell');
   const tttStatus = document.getElementById('tttStatus');
   let tttBoard = ["", "", "", "", "", "", "", "", ""];
@@ -1153,35 +1153,51 @@
   const losePhrases = "🤖 Ops! Turnover imprevisto. L'algoritmo ha vinto.";
   const drawPhrases = "⚖️ Accordo sindacale! Un pareggio perfetto.";
 
-  const winningConditions = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
-  ];
-
   tttCells.forEach(cell => {
     cell.addEventListener('click', () => {
-      const index = cell.getAttribute('data-index');
+      const index = parseInt(cell.getAttribute('data-index'));
       if (tttBoard[index] !== "" || !tttGameActive) return;
 
+      // Mossa del Giocatore (X)
       makeMove(index, "X");
-      if (checkWin("X")) {
+      
+      if (checkWinCondition(tttBoard, "X")) {
         tttStatus.innerText = winPhrases;
         tttGameActive = false;
-        setTimeout(resetTTT, 4000);
+        setTimeout(resetTTT, 4500);
         return;
       }
 
-      if (tttBoard.every(cell => cell !== "")) {
+      if (tttBoard.every(c => c !== "")) {
         tttStatus.innerText = drawPhrases;
         tttGameActive = false;
-        setTimeout(resetTTT, 4000);
+        setTimeout(resetTTT, 4500);
         return;
       }
 
+      // Mossa dell'AI (O) - Calcolata con Minimax
       tttGameActive = false;
       tttStatus.innerText = "L'AI sta valutando la mossa... 🤔";
-      setTimeout(aiMove, 500);
+      
+      setTimeout(() => {
+        const bestMoveIndex = getBestMove(tttBoard);
+        makeMove(bestMoveIndex, "O");
+
+        if (checkWinCondition(tttBoard, "O")) {
+          tttStatus.innerText = losePhrases;
+          setTimeout(resetTTT, 4500);
+          return;
+        }
+
+        if (tttBoard.every(c => c !== "")) {
+          tttStatus.innerText = drawPhrases;
+          setTimeout(resetTTT, 4500);
+          return;
+        }
+
+        tttStatus.innerText = "Tocca a te! ☕";
+        tttGameActive = true;
+      }, 400);
     });
   });
 
@@ -1191,39 +1207,69 @@
     tttCells[index].style.color = player === "X" ? "var(--pri)" : "#ea4335";
   }
 
-  function aiMove() {
-    let emptyCells = [];
-    tttBoard.forEach((cell, idx) => { if (cell === "") emptyCells.push(idx); });
-    
-    if (emptyCells.length > 0) {
-      const randomIdx = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-      makeMove(randomIdx, "O");
-
-      if (checkWin("O")) {
-        tttStatus.innerText = losePhrases;
-        setTimeout(resetTTT, 4000);
-        return;
-      }
-
-      if (tttBoard.every(cell => cell !== "")) {
-        tttStatus.innerText = drawPhrases;
-        setTimeout(resetTTT, 4000);
-        return;
-      }
-    }
-    tttStatus.innerText = "Tocca a te! ☕";
-    tttGameActive = true;
+  function checkWinCondition(board, player) {
+    const winStates = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+    return winStates.some(comb => comb.every(idx => board[idx] === player));
   }
 
-  function checkWin(player) {
-    return winningConditions.some(condition => {
-      return condition.every(index => tttBoard[index] === player);
-    });
+  // ALGORITMO DECISIONALE MINIMAX
+  function minimax(board, depth, isMaximizing) {
+    if (checkWinCondition(board, "O")) return 10 - depth;
+    if (checkWinCondition(board, "X")) return depth - 10;
+    if (board.every(c => c !== "")) return 0;
+
+    if (isMaximizing) {
+      let bestScore = -Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (board[i] === "") {
+          board[i] = "O";
+          let score = minimax(board, depth + 1, false);
+          board[i] = "";
+          bestScore = Math.max(score, bestScore);
+        }
+      }
+      return bestScore;
+    } else {
+      let bestScore = Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (board[i] === "") {
+          board[i] = "X";
+          let score = minimax(board, depth + 1, true);
+          board[i] = "";
+          bestScore = Math.min(score, bestScore);
+        }
+      }
+      return bestScore;
+    }
+  }
+
+  function getBestMove(board) {
+    let bestScore = -Infinity;
+    let move = -1;
+    for (let i = 0; i < 9; i++) {
+      if (board[i] === "") {
+        board[i] = "O";
+        let score = minimax(board, 0, false);
+        board[i] = "";
+        if (score > bestScore) {
+          bestScore = score;
+          move = i;
+        }
+      }
+    }
+    return move;
   }
 
   function resetTTT() {
     tttBoard = ["", "", "", "", "", "", "", "", ""];
-    tttCells.forEach(cell => cell.innerText = "");
+    tttCells.forEach(cell => {
+      cell.innerText = "";
+      cell.style.color = "var(--txt)";
+    });
     tttStatus.innerText = "Ti annoi? Pausa caffè ☕";
     tttGameActive = true;
   }
