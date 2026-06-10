@@ -5,520 +5,262 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Christian Giannone</title>
 
+  <!-- Security meta tags -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; style-src 'self' 'unsafe-inline' https://api.fontshare.com; font-src 'self' https://api.fontshare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
   <!-- Fonts -->
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── DESIGN TOKENS ─────────────────────────────────────── */
+    /* ── TOKENS ─────────────────────────────────────────────── */
     :root, [data-theme="light"] {
-      --color-bg:             #f7f6f2;
-      --color-surface:        #f9f8f5;
-      --color-surface-2:      #fbfbf9;
-      --color-surface-offset: #f0ede8;
-      --color-divider:        #dcd9d5;
-      --color-border:         rgba(40,37,29,0.10);
-      --color-text:           #28251d;
-      --color-text-muted:     #7a7974;
-      --color-text-faint:     #bab9b4;
-      --color-primary:        #01696f;
-      --color-primary-hover:  #0c4e54;
-      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
-      --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.10);
-      --shadow-lg: 0 12px 40px oklch(0.2 0.01 80 / 0.14);
-      --radius-md: 0.5rem;
-      --radius-lg: 0.75rem;
-      --radius-xl: 1rem;
-      --font-display: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
-      --font-body:    'Satoshi', 'Inter', sans-serif;
-      --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
-      --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
-      --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
-      --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
-      --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
-      --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
-      --text-hero: clamp(3.5rem,   1rem    + 7vw,    9rem);
-      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
-      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
-      --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
-      --transition: 200ms cubic-bezier(0.16, 1, 0.3, 1);
-      --puzzle-gap: clamp(var(--space-8), 6vw, var(--space-16));
+      --bg:      #f7f6f2;
+      --surf:    #f9f8f5;
+      --surf2:   #fbfbf9;
+      --surfoff: #f0ede8;
+      --div:     #dcd9d5;
+      --brd:     rgba(40,37,29,.10);
+      --txt:     #28251d;
+      --muted:   #7a7974;
+      --faint:   #bab9b4;
+      --pri:     #01696f;
+      --prih:    #0c4e54;
+      --sh-sm:   0 1px 3px rgba(0,0,0,.06);
+      --sh-md:   0 4px 14px rgba(0,0,0,.10);
+      --r-lg:    .75rem;
+      --r-xl:    1rem;
+      --fd: 'Cabinet Grotesk','Helvetica Neue',sans-serif;
+      --fb: 'Satoshi','Inter',sans-serif;
+      --xs:   clamp(.75rem,  .7rem  + .25vw, .875rem);
+      --sm:   clamp(.875rem, .8rem  + .35vw, 1rem);
+      --base: clamp(1rem,    .95rem + .25vw, 1.125rem);
+      --lg:   clamp(1.125rem,1rem   + .75vw, 1.5rem);
+      --xl:   clamp(1.5rem,  1.2rem + 1.25vw,2.25rem);
+      --2xl:  clamp(2rem,    1.2rem + 2.5vw, 3.5rem);
+      --hero: clamp(3.5rem,  1rem   + 7vw,   9rem);
+      --gap:  clamp(2rem, 6vw, 4rem);
+      --tr:   200ms cubic-bezier(.16,1,.3,1);
     }
-
     [data-theme="dark"] {
-      --color-bg:             #0f0e0c;
-      --color-surface:        #161513;
-      --color-surface-2:      #1c1b19;
-      --color-surface-offset: #222120;
-      --color-divider:        #262523;
-      --color-border:         rgba(255,255,255,0.08);
-      --color-text:           #e8e6e2;
-      --color-text-muted:     #888784;
-      --color-text-faint:     #4a4946;
-      --color-primary:        #4f98a3;
-      --color-primary-hover:  #7fbfc9;
-      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.25);
-      --shadow-md: 0 4px 16px oklch(0 0 0 / 0.35);
-      --shadow-lg: 0 16px 48px oklch(0 0 0 / 0.50);
+      --bg:      #0f0e0c;
+      --surf:    #161513;
+      --surf2:   #1c1b19;
+      --surfoff: #222120;
+      --div:     #262523;
+      --brd:     rgba(255,255,255,.08);
+      --txt:     #e8e6e2;
+      --muted:   #888784;
+      --faint:   #4a4946;
+      --pri:     #4f98a3;
+      --prih:    #7fbfc9;
+      --sh-sm:   0 1px 3px rgba(0,0,0,.25);
+      --sh-md:   0 4px 16px rgba(0,0,0,.35);
     }
 
-    /* ─── BASE ──────────────────────────────────────────────── */
+    /* ── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-    }
-    body {
-      min-height: 100dvh;
-      font-family: var(--font-body);
-      font-size: var(--text-base);
-      color: var(--color-text);
-      background: var(--color-bg);
-      overflow-x: hidden;
-    }
-    img { display: block; max-width: 100%; height: auto; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body { min-height: 100dvh; font-family: var(--fb); font-size: var(--base); color: var(--txt); background: var(--bg); overflow-x: hidden; }
     ul { list-style: none; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
-
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--div); border-radius: 99px; }
 
-    /* ─── SCROLLBAR ─────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--color-bg); }
-    ::-webkit-scrollbar-thumb { background: var(--color-divider); border-radius: 99px; }
+    /* ── STICKY NAV ─────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+      padding: .75rem clamp(1rem,5vw,2.5rem);
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      background: color-mix(in oklch, var(--bg) 82%, transparent);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--tr);
+    }
+    .nav.scrolled { border-bottom-color: var(--brd); }
+    .nav-logo {
+      font-family: var(--fd); font-weight: 800; font-size: var(--sm);
+      color: var(--txt); opacity: 0; transition: opacity var(--tr);
+    }
+    .nav.scrolled .nav-logo { opacity: 1; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-link { font-size: var(--xs); font-weight: 500; color: var(--muted); letter-spacing: .04em; transition: color var(--tr); }
+    .nav-link:hover { color: var(--pri); }
+    @media (max-width: 480px) { .nav-links { display: none; } }
 
-    /* ─── THEME TOGGLE ──────────────────────────────────────── */
-    .theme-toggle {
-      position: fixed;
-      top: var(--space-4);
-      right: var(--space-4);
-      z-index: 100;
+    /* ── THEME TOGGLE ───────────────────────────────────────── */
+    .toggle {
+      position: fixed; top: 1rem; right: 1rem; z-index: 100;
       width: 40px; height: 40px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
-      transition: background var(--transition), box-shadow var(--transition);
-      color: var(--color-text-muted);
+      border-radius: 50%; background: var(--surf2); border: 1px solid var(--brd);
+      box-shadow: var(--sh-sm); transition: background var(--tr), box-shadow var(--tr);
+      color: var(--muted);
     }
-    .theme-toggle:hover {
-      background: var(--color-surface-offset);
-      box-shadow: var(--shadow-md);
-      color: var(--color-text);
-    }
+    .toggle:hover { background: var(--surfoff); box-shadow: var(--sh-md); color: var(--txt); }
 
-    /* ─── PUZZLE LAYOUT ─────────────────────────────────────── */
-    /*
-      The page is a vertical stack of "puzzle pieces" that
-      snap into place as you scroll. Each section starts
-      slightly translated/faded and slides in on reveal.
-    */
+    /* ── WRAPPER ────────────────────────────────────────────── */
+    .wrap { max-width: 860px; margin-inline: auto; padding-inline: clamp(1rem,5vw,2.5rem); padding-bottom: 5rem; }
 
-    .puzzle-wrapper {
-      max-width: 860px;
-      margin-inline: auto;
-      padding-inline: clamp(var(--space-4), 5vw, var(--space-10));
-      padding-bottom: var(--space-20);
-    }
-
-    /* ─── HERO (Name + Job Title) ───────────────────────────── */
+    /* ── HERO ───────────────────────────────────────────────── */
     .hero {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: var(--space-16);
-      padding-bottom: var(--space-12);
-      position: relative;
+      min-height: 100dvh; display: flex; flex-direction: column;
+      justify-content: center; padding-top: 4rem; padding-bottom: 3rem; position: relative;
     }
-
-    .hero-eyebrow {
-      font-family: var(--font-body);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: var(--space-4);
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeUp 0.7s 0.1s ease forwards;
+    .hero-ey {
+      font-size: var(--xs); font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pri); margin-bottom: 1rem;
+      opacity: 0; transform: translateY(12px); animation: fu .7s .1s ease forwards;
     }
-
     .hero-name {
-      font-family: var(--font-display);
-      font-size: var(--text-hero);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      color: var(--color-text);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s 0.25s ease forwards;
+      font-family: var(--fd); font-size: var(--hero); font-weight: 900;
+      line-height: .95; letter-spacing: -.03em; color: var(--txt);
+      opacity: 0; transform: translateY(20px); animation: fu .8s .25s ease forwards;
+    }
+    .hero-jt {
+      font-family: var(--fd); font-size: var(--xl); font-weight: 500;
+      color: var(--muted); margin-top: 1rem; line-height: 1.3;
+      opacity: 0; transform: translateY(16px); animation: fu .8s .45s ease forwards;
+    }
+    .hero-jt span { color: var(--pri); }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem;
+      opacity: 0; animation: fu .8s .65s ease forwards;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: var(--xs); color: var(--muted); background: var(--surf);
+      border: 1px solid var(--brd); border-radius: 99px; padding: .5rem 1rem;
+      transition: color var(--tr), background var(--tr);
+    }
+    .pill:hover { color: var(--pri); background: var(--surf2); }
+    .hint {
+      position: absolute; bottom: 2rem; left: 0;
+      display: flex; align-items: center; gap: .5rem;
+      font-size: var(--xs); color: var(--faint); letter-spacing: .06em; text-transform: uppercase;
+      opacity: 0; animation: fu .8s 1.1s ease forwards;
+    }
+    .arr { display: inline-block; animation: bounce 1.8s ease-in-out infinite; }
+
+    /* ── PUZZLE REVEAL ──────────────────────────────────────── */
+    .ps {
+      margin-top: var(--gap);
+      opacity: 0; transform: translateY(36px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .ps.on { opacity: 1; transform: translateY(0); }
+    .pdiv {
+      height: 1px; background: var(--div); margin-top: var(--gap);
+      opacity: 0; transform: scaleX(0); transform-origin: left;
+      transition: opacity .5s, transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .pdiv.on { opacity: 1; transform: scaleX(1); }
+
+    /* ── SECTION LABEL ──────────────────────────────────────── */
+    .slabel {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: var(--xs); font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pri); margin-bottom: 1.5rem;
+    }
+    .slabel::before {
+      content: ''; display: block; width: 20px; height: 2px;
+      background: var(--pri); border-radius: 2px;
     }
 
-    .hero-jobtitle {
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 500;
-      color: var(--color-text-muted);
-      margin-top: var(--space-4);
-      line-height: 1.25;
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.8s 0.45s ease forwards;
+    /* ── ABOUT ──────────────────────────────────────────────── */
+    .about-text { font-size: var(--lg); line-height: 1.75; color: var(--muted); max-width: 68ch; }
+    .about-text strong { color: var(--txt); font-weight: 600; }
+    .tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+    .tag {
+      font-size: var(--xs); font-weight: 500; color: var(--muted);
+      background: var(--surf); border: 1px solid var(--brd); border-radius: 99px; padding: .5rem 1rem;
     }
 
-    .hero-jobtitle span {
-      color: var(--color-primary);
+    /* ── CARDS ──────────────────────────────────────────────── */
+    .clist { display: flex; flex-direction: column; gap: 1.5rem; }
+    .card {
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
+      padding: clamp(1.5rem,4vw,2.5rem); box-shadow: var(--sh-sm);
+      transition: box-shadow var(--tr), transform var(--tr);
     }
+    .card:hover { box-shadow: var(--sh-md); transform: translateY(-2px); }
+    .ch {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: .75rem; margin-bottom: .75rem;
+    }
+    .ctitle { font-family: var(--fd); font-size: var(--lg); font-weight: 800; color: var(--txt); line-height: 1.2; }
+    .crole { font-size: var(--sm); font-weight: 500; color: var(--pri); margin-top: .4rem; }
+    .cdate {
+      font-size: var(--xs); color: var(--faint); background: var(--surfoff);
+      border-radius: 99px; padding: .4rem .85rem; white-space: nowrap;
+      flex-shrink: 0; align-self: flex-start;
+    }
+    .cloc { font-size: var(--xs); color: var(--faint); margin-bottom: 1rem; }
 
-    .hero-contacts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-top: var(--space-8);
-      opacity: 0;
-      animation: fadeUp 0.8s 0.65s ease forwards;
+    /* ── BULLETS — FIXED LAYOUT ─────────────────────────────── */
+    /*
+      Previously used grid (auto 1fr) which caused the bold label
+      to float right while body text was left-aligned below it.
+      Now each bullet is a simple block paragraph.
+    */
+    .cbullets {
+      display: flex; flex-direction: column; gap: .85rem;
+      margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--brd);
     }
-
-    .hero-contact-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 99px;
-      padding: var(--space-2) var(--space-4);
-      transition: color var(--transition), background var(--transition);
+    .cb {
+      display: flex; align-items: flex-start; gap: .65rem;
+      font-size: var(--sm); color: var(--muted); line-height: 1.65;
     }
-    .hero-contact-pill:hover {
-      color: var(--color-primary);
-      background: var(--color-surface-2);
-    }
-
-    .hero-scroll-hint {
-      position: absolute;
-      bottom: var(--space-8);
-      left: 0;
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeUp 0.8s 1.1s ease forwards;
-    }
-
-    .scroll-arrow {
-      display: inline-block;
-      animation: bounce 1.8s ease-in-out infinite;
-    }
-
-    /* ─── PUZZLE SECTIONS ───────────────────────────────────── */
-    .puzzle-section {
-      margin-top: var(--puzzle-gap);
-      /* Scroll reveal state */
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
-    }
-    .puzzle-section.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ─── SECTION HEADER ────────────────────────────────────── */
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: var(--space-6);
-    }
-    .section-label::before {
+    .cb::before {
       content: '';
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: var(--color-primary);
-      border-radius: 2px;
+      display: block; flex-shrink: 0;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--pri); margin-top: .5em;
     }
+    .cb-text { flex: 1; }
+    .cb-text strong { color: var(--txt); font-weight: 600; }
 
-    .section-title {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--color-text);
-      margin-bottom: var(--space-6);
-    }
-
-    /* ─── ABOUT ME ──────────────────────────────────────────── */
-    .about-body {
-      font-size: var(--text-lg);
-      font-weight: 400;
-      line-height: 1.75;
-      color: var(--color-text-muted);
-      max-width: 68ch;
-    }
-    .about-body strong {
-      color: var(--color-text);
-      font-weight: 600;
-    }
-    .about-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      margin-top: var(--space-8);
-    }
-    .about-tag {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      color: var(--color-text-muted);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 99px;
-      padding: var(--space-2) var(--space-4);
-    }
-
-    /* ─── DIVIDER ───────────────────────────────────────────── */
-    .puzzle-divider {
-      height: 1px;
-      background: var(--color-divider);
-      margin-top: var(--puzzle-gap);
-      opacity: 0;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: opacity 0.5s, transform 0.7s cubic-bezier(0.16,1,0.3,1);
-    }
-    .puzzle-divider.revealed {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    /* ─── EXPERIENCE CARD ───────────────────────────────────── */
-    .exp-list { display: flex; flex-direction: column; gap: var(--space-6); }
-
-    .exp-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      padding: clamp(var(--space-6), 4vw, var(--space-10));
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-    .exp-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-bottom: var(--space-4);
-    }
-
-    .exp-company {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 800;
-      color: var(--color-text);
-      line-height: 1.2;
-    }
-
-    .exp-role {
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-primary);
-      margin-top: var(--space-2);
-    }
-
-    .exp-period {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      background: var(--color-surface-offset);
-      border-radius: 99px;
-      padding: var(--space-2) var(--space-3);
-      white-space: nowrap;
-      flex-shrink: 0;
-      align-self: flex-start;
-    }
-
-    .exp-location {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      margin-bottom: var(--space-4);
-    }
-
-    .exp-bullets {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-      margin-top: var(--space-4);
-      padding-top: var(--space-4);
-      border-top: 1px solid var(--color-border);
-    }
-
-    .exp-bullet {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: var(--space-3);
-      align-items: baseline;
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.6;
-    }
-    .exp-bullet::before {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--color-primary);
-      margin-top: 0.45em;
-    }
-    .exp-bullet strong {
-      color: var(--color-text);
-      font-weight: 600;
-    }
-
-    /* ─── EDUCATION CARD ────────────────────────────────────── */
-    .edu-list { display: flex; flex-direction: column; gap: var(--space-6); }
-
-    .edu-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      padding: clamp(var(--space-6), 4vw, var(--space-10));
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-    .edu-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .edu-degree {
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 800;
-      color: var(--color-text);
-      line-height: 1.2;
-    }
-
-    .edu-uni {
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-primary);
-      margin-top: var(--space-2);
-    }
-
-    /* ─── SKILLS GRID ───────────────────────────────────────── */
-    .skills-grid {
+    /* ── SKILLS GRID ────────────────────────────────────────── */
+    .sgrid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(220px,100%), 1fr));
-      gap: var(--space-4);
+      gap: 1rem;
     }
+    .scard {
+      background: var(--surf); border: 1px solid var(--brd);
+      border-radius: var(--r-lg); padding: 1.5rem; box-shadow: var(--sh-sm);
+    }
+    .stitle {
+      font-size: var(--sm); font-weight: 700; color: var(--txt);
+      margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem;
+    }
+    .stitle svg { color: var(--pri); flex-shrink: 0; }
+    .sbody { font-size: var(--xs); color: var(--muted); line-height: 1.7; }
 
-    .skill-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      box-shadow: var(--shadow-sm);
-    }
+    /* ── INTERESTS ──────────────────────────────────────────── */
+    .int-text { font-size: var(--base); line-height: 1.8; color: var(--muted); max-width: 65ch; }
+    .int-text strong { color: var(--txt); font-weight: 600; }
 
-    .skill-card-title {
-      font-size: var(--text-sm);
-      font-weight: 700;
-      color: var(--color-text);
-      margin-bottom: var(--space-3);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .footer {
+      margin-top: var(--gap); padding-top: 2rem; padding-bottom: 4rem;
+      border-top: 1px solid var(--div);
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;
     }
+    .fn { font-family: var(--fd); font-weight: 800; font-size: var(--lg); color: var(--txt); }
+    .fs { font-size: var(--xs); color: var(--faint); margin-top: .4rem; }
+    .flinks { display: flex; gap: 1rem; }
+    .flink { font-size: var(--xs); color: var(--muted); transition: color var(--tr); }
+    .flink:hover { color: var(--pri); }
 
-    .skill-card-title svg {
-      color: var(--color-primary);
-      flex-shrink: 0;
-    }
-
-    .skill-card-body {
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-      line-height: 1.7;
-    }
-
-    /* ─── INTERESTS SECTION ─────────────────────────────────── */
-    .interests-body {
-      font-size: var(--text-base);
-      line-height: 1.8;
-      color: var(--color-text-muted);
-      max-width: 65ch;
-    }
-
-    /* ─── FOOTER ────────────────────────────────────────────── */
-    .site-footer {
-      margin-top: var(--puzzle-gap);
-      padding-top: var(--space-8);
-      padding-bottom: var(--space-16);
-      border-top: 1px solid var(--color-divider);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--space-4);
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s ease forwards;
-      animation-play-state: paused;
-    }
-    .site-footer.revealed { animation-play-state: running; }
-
-    .footer-name {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: var(--text-lg);
-      color: var(--color-text);
-    }
-    .footer-sub {
-      font-size: var(--text-xs);
-      color: var(--color-text-faint);
-      margin-top: var(--space-2);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: var(--space-4);
-    }
-    .footer-link {
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-      transition: color var(--transition);
-    }
-    .footer-link:hover { color: var(--color-primary); }
-
-    /* ─── ANIMATIONS ────────────────────────────────────────── */
-    @keyframes fadeUp {
+    /* ── KEYFRAMES ──────────────────────────────────────────── */
+    @keyframes fu {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
@@ -527,348 +269,280 @@
       50%       { transform: translateY(6px); }
     }
 
-    /* ─── STICKY NAV ─────────────────────────────────────────  */
-    .sticky-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 90;
-      padding: var(--space-3) clamp(var(--space-4), 5vw, var(--space-10));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-4);
-      background: color-mix(in oklch, var(--color-bg) 80%, transparent);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color var(--transition), background var(--transition);
-    }
-    .sticky-nav.scrolled {
-      border-bottom-color: var(--color-border);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: var(--text-sm);
-      color: var(--color-text);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-    .sticky-nav.scrolled .nav-logo { opacity: 1; }
-
-    .nav-links {
-      display: flex;
-      gap: var(--space-6);
-    }
-    .nav-link {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      color: var(--color-text-muted);
-      letter-spacing: 0.04em;
-      transition: color var(--transition);
-    }
-    .nav-link:hover { color: var(--color-primary); }
-
-    @media (max-width: 480px) {
-      .nav-links { display: none; }
-    }
-
-    /* ─── MOBILE RESPONSIVE ─────────────────────────────────── */
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 640px) {
-      .exp-header { flex-direction: column; }
-      .exp-period { align-self: auto; }
-      .hero-name { letter-spacing: -0.02em; }
+      .ch { flex-direction: column; }
+      .hero-name { letter-spacing: -.02em; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ─── STICKY NAV ─────────────────────────────── -->
-  <nav class="sticky-nav" id="stickyNav">
-    <span class="nav-logo">Christian Giannone</span>
-    <div class="nav-links">
-      <a href="#about" class="nav-link">About</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#education" class="nav-link">Education</a>
-      <a href="#skills" class="nav-link">Skills</a>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <span class="nav-logo">Christian Giannone</span>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#exp"   class="nav-link">Experience</a>
+    <a href="#edu"   class="nav-link">Education</a>
+    <a href="#skills" class="nav-link">Skills</a>
+  </div>
+</nav>
+
+<!-- THEME TOGGLE -->
+<button class="toggle" data-theme-toggle aria-label="Switch theme"></button>
+
+<!-- PAGE -->
+<div class="wrap">
+
+  <!-- 1 · HERO -->
+  <section class="hero">
+    <p class="hero-ey">HR Generalist &amp; Applied Psychologist · Padova, IT</p>
+    <h1 class="hero-name">Christian<br>Giannone</h1>
+    <p class="hero-jt">HR Generalist &amp; <span>Applied Psychologist</span><br>AI Adoption · People Operations · UX</p>
+    <div class="hero-pills">
+      <a href="tel:+393271204209" class="pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.81a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+        +39 327 120 4209
+      </a>
+      <a href="mailto:christiangiannone.it@gmail.com" class="pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        christiangiannone.it@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer" class="pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
     </div>
-  </nav>
+    <div class="hint">
+      <span>Scorri per scoprire</span>
+      <span class="arr">↓</span>
+    </div>
+  </section>
 
-  <!-- ─── THEME TOGGLE ──────────────────────────── -->
-  <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
-    <!-- icon set by JS -->
-  </button>
+  <!-- 2 · ABOUT -->
+  <section class="ps" id="about">
+    <p class="slabel">About Me</p>
+    <p class="about-text">
+      HR Generalist &amp; Applied Psychologist con una forte passione per l'innovazione.
+      Orientato verso il <strong>mondo tech</strong>, la <strong>psicologia applicata</strong>
+      e la gestione del personale a 360°. Sperimento l'integrazione dell'<strong>AI nel workflow
+      aziendale</strong> per aumentare l'efficienza e la qualità.
+      Non mi stanco mai di apprendere — la <strong>curiosità</strong> è il mio driver principale.
+    </p>
+    <div class="tags">
+      <span class="tag">HR Generalist</span>
+      <span class="tag">Applied Psychology</span>
+      <span class="tag">AI Adoption</span>
+      <span class="tag">Talent Acquisition</span>
+      <span class="tag">UX Research</span>
+      <span class="tag">People Operations</span>
+      <span class="tag">Data Analysis</span>
+      <span class="tag">Org. Development</span>
+    </div>
+  </section>
 
-  <!-- ─── MAIN WRAPPER ──────────────────────────── -->
-  <div class="puzzle-wrapper">
+  <div class="pdiv"></div>
 
-    <!-- 1. HERO -->
-    <section class="hero" id="top">
-      <p class="hero-eyebrow">HR Generalist &amp; Applied Psychologist · Padova, IT</p>
-      <h1 class="hero-name">Christian<br>Giannone</h1>
-      <p class="hero-jobtitle">HR Generalist &amp; <span>Applied Psychologist</span><br>AI Adoption · People Operations · UX</p>
+  <!-- 3 · WORK EXPERIENCE -->
+  <section class="ps" id="exp">
+    <p class="slabel">Esperienza Lavorativa</p>
+    <div class="clist">
 
-      <div class="hero-contacts">
-        <a href="tel:+393271204209" class="hero-contact-pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.81a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
-          +39 327 120 4209
-        </a>
-        <a href="mailto:christiangiannone.it@gmail.com" class="hero-contact-pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          christiangiannone.it@gmail.com
-        </a>
-        <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer" class="hero-contact-pill">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn
-        </a>
-      </div>
-
-      <div class="hero-scroll-hint">
-        <span>Scorri per scoprire</span>
-        <span class="scroll-arrow">↓</span>
-      </div>
-    </section>
-
-    <!-- 2. ABOUT -->
-    <section class="puzzle-section" id="about">
-      <p class="section-label">About Me</p>
-      <p class="about-body">
-        HR Generalist &amp; Applied Psychologist con una forte passione per l'innovazione.
-        Orientato verso il <strong>mondo tech</strong>, la <strong>psicologia applicata</strong> e la gestione
-        del personale a 360°. Sperimento l'integrazione dell'<strong>AI nel workflow aziendale</strong>
-        per aumentare l'efficienza e la qualità.
-        Non mi stanco mai di apprendere — la <strong>curiosità</strong> è il mio driver principale.
-      </p>
-      <div class="about-tags">
-        <span class="about-tag">HR Generalist</span>
-        <span class="about-tag">Applied Psychology</span>
-        <span class="about-tag">AI Adoption</span>
-        <span class="about-tag">Talent Acquisition</span>
-        <span class="about-tag">UX Research</span>
-        <span class="about-tag">People Operations</span>
-        <span class="about-tag">Data Analysis</span>
-        <span class="about-tag">Organizational Development</span>
-      </div>
-    </section>
-
-    <!-- divider -->
-    <div class="puzzle-divider"></div>
-
-    <!-- 3. WORK EXPERIENCE -->
-    <section class="puzzle-section" id="experience">
-      <p class="section-label">Esperienza Lavorativa</p>
-      <div class="exp-list">
-
-        <!-- SIT -->
-        <div class="exp-card">
-          <div class="exp-header">
-            <div>
-              <div class="exp-company">SIT S.p.A.</div>
-              <div class="exp-role">HR Generalist — 1 Year Internship</div>
-            </div>
-            <span class="exp-period">Ott 2025 – Presente</span>
+      <!-- SIT -->
+      <div class="card">
+        <div class="ch">
+          <div>
+            <div class="ctitle">SIT S.p.A.</div>
+            <div class="crole">HR Generalist — 1 Year Internship</div>
           </div>
-          <div class="exp-location">📍 Padova, IT</div>
-          <div class="exp-bullets">
-            <div class="exp-bullet"><strong>HRBP Support &amp; Onboarding:</strong> Supporto operativo all'HRBP nella gestione quotidiana della popolazione aziendale (HQ). Gestione autonoma del processo di Induction tramite colloqui 1:1 periodici con tirocinanti.</div>
-            <div class="exp-bullet"><strong>Talent Acquisition:</strong> Gestione end-to-end dell'iter selettivo, dallo screening dei CV alla proposta economica. Rappresentanza aziendale ai Career Day universitari con focus su profili R&D e tecnici.</div>
-            <div class="exp-bullet"><strong>Organizational Development:</strong> Collaborazione attiva al processo di Manager Evaluation e supporto al progetto di Job Levelling, garantendo l'allineamento ai requisiti della Direttiva Europea sulla Pay Transparency.</div>
-            <div class="exp-bullet"><strong>HQ Services:</strong> Rilascio Comunicazioni Organizzative e aggiornamento degli Organigrammi della BU Heating &amp; Ventilation, interfacciandomi mensilmente con plant produttivi internazionali.</div>
-            <div class="exp-bullet"><strong>HR Analytics &amp; AI Adoption:</strong> Utilizzo avanzato di Excel, monitoraggio KPI e integrazione di tool AI nel workflow aziendale.</div>
-          </div>
+          <span class="cdate">Ott 2025 – Presente</span>
         </div>
-
-        <!-- Randstad -->
-        <div class="exp-card">
-          <div class="exp-header">
-            <div>
-              <div class="exp-company">Randstad Enterprise Italia</div>
-              <div class="exp-role">HR Training Specialist Intern</div>
-            </div>
-            <span class="exp-period">Dic 2024 – Mag 2025</span>
-          </div>
-          <div class="exp-location">📍 Padova, IT</div>
-          <div class="exp-bullets">
-            <div class="exp-bullet"><strong>Coordinamento Formazione (Progetto GOL):</strong> Supporto nella gestione end-to-end dei corsi di formazione finanziata, curando la documentazione di compliance e la pianificazione delle aule. Interfaccia principale tra docenti, partecipanti e fornitori esterni.</div>
-            <div class="exp-bullet"><strong>Data &amp; Process Management:</strong> Monitoraggio della compliance documentale e organizzazione dati strutturati tramite Excel.</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- divider -->
-    <div class="puzzle-divider"></div>
-
-    <!-- 4. EDUCATION -->
-    <section class="puzzle-section" id="education">
-      <p class="section-label">Formazione</p>
-      <div class="edu-list">
-
-        <!-- Magistrale -->
-        <div class="edu-card">
-          <div class="exp-header">
-            <div>
-              <div class="edu-degree">Laurea Magistrale in Psicologia Cognitiva Applicata</div>
-              <div class="edu-uni">Università degli Studi di Padova</div>
-            </div>
-            <span class="exp-period">Sett 2022 – Lug 2025</span>
-          </div>
-          <div class="exp-location">📍 Padova, IT</div>
-          <div class="exp-bullets">
-            <div class="exp-bullet"><strong>Interaction Design &amp; UX Research (Progetto "CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, test di usabilità e analisi delle euristiche psicologiche.</div>
-            <div class="exp-bullet"><strong>Tesi Sperimentale — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div>
-          </div>
-        </div>
-
-        <!-- Triennale -->
-        <div class="edu-card">
-          <div class="exp-header">
-            <div>
-              <div class="edu-degree">Laurea Triennale in Scienze e Tecniche Psicologiche</div>
-              <div class="edu-uni">Università del Salento</div>
-            </div>
-            <span class="exp-period">Sett 2018 – Mar 2022</span>
-          </div>
-          <div class="exp-location">📍 Lecce, IT</div>
-          <div class="exp-bullets">
-            <div class="exp-bullet"><strong>Tesi Sperimentale:</strong> Studio empirico sulle variazioni di stress e qualità del sonno in seguito a training olfattivo, attraverso la comparazione di diverse stimolazioni.</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- divider -->
-    <div class="puzzle-divider"></div>
-
-    <!-- 5. SKILLS & TOOLS -->
-    <section class="puzzle-section" id="skills">
-      <p class="section-label">Competenze &amp; Strumenti</p>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-card-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            Data Analysis
-          </div>
-          <div class="skill-card-body">Excel avanzato (formule, Pivot, Power Query), Power BI — dashboard interattive, KPI monitoring.</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
-            Talent Acquisition
-          </div>
-          <div class="skill-card-body">Screening CV, colloqui strutturati, proposta economica, Career Day universitari, profili R&D e tecnici.</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            AI Adoption
-          </div>
-          <div class="skill-card-body">Integrazione di tool AI nel workflow aziendale per efficienza operativa e qualità dei processi HR.</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            UX Research
-          </div>
-          <div class="skill-card-body">Usability testing, analisi euristiche, prototipazione, Interaction Design — Lab HIT, Unipd.</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Lingue
-          </div>
-          <div class="skill-card-body">Italiano — Madrelingua &nbsp;·&nbsp; Inglese — Fluente.</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            Albo Psicologi
-          </div>
-          <div class="skill-card-body">Psicologo iscritto all'Ordine degli Psicologi della Puglia.</div>
+        <div class="cloc">📍 Padova, IT</div>
+        <div class="cbullets">
+          <div class="cb"><div class="cb-text"><strong>HRBP Support &amp; Onboarding:</strong> Supporto operativo all'HRBP nella gestione quotidiana della popolazione aziendale (HQ). Gestione autonoma del processo di Induction tramite colloqui 1:1 periodici con tirocinanti.</div></div>
+          <div class="cb"><div class="cb-text"><strong>Talent Acquisition:</strong> Gestione end-to-end dell'iter selettivo, dallo screening dei CV alla proposta economica. Rappresentanza aziendale ai Career Day universitari con focus su profili R&amp;D e tecnici.</div></div>
+          <div class="cb"><div class="cb-text"><strong>Organizational Development:</strong> Collaborazione attiva al processo di Manager Evaluation e supporto al progetto di Job Levelling, garantendo l'allineamento ai requisiti della Direttiva Europea sulla Pay Transparency.</div></div>
+          <div class="cb"><div class="cb-text"><strong>HQ Services:</strong> Rilascio Comunicazioni Organizzative e aggiornamento degli Organigrammi della BU Heating &amp; Ventilation, interfacciandomi mensilmente con plant produttivi internazionali.</div></div>
+          <div class="cb"><div class="cb-text"><strong>HR Analytics &amp; AI Adoption:</strong> Utilizzo avanzato di Excel, monitoraggio KPI e integrazione di tool AI nel workflow aziendale.</div></div>
         </div>
       </div>
-    </section>
 
-    <!-- divider -->
-    <div class="puzzle-divider"></div>
-
-    <!-- 6. INTERESTS -->
-    <section class="puzzle-section" id="interests">
-      <p class="section-label">Interessi</p>
-      <p class="interests-body">
-        Sono una persona molto curiosa, mossa dal desiderio di capire come si muove il mondo e sempre interessata a cogliere i trend emergenti.
-        Mi spinge a riempire il tempo libero assorbendo informazioni di tutti i tipi, spaziando dalla <strong>finanza personale</strong>
-        e il <strong>Web 3.0</strong>, fino al <strong>product design</strong> e alla <strong>psicologia comportamentale</strong>.
-        Mi piace molto confrontarmi e parlare con le persone — nei contesti sociali mi viene naturale fare da collante e creare connessioni.
-      </p>
-    </section>
-
-    <!-- ─── FOOTER ──────────────────────────────── -->
-    <footer class="site-footer puzzle-section">
-      <div>
-        <div class="footer-name">Christian Giannone</div>
-        <div class="footer-sub">HR Generalist &amp; Applied Psychologist · Padova, IT</div>
+      <!-- Randstad -->
+      <div class="card">
+        <div class="ch">
+          <div>
+            <div class="ctitle">Randstad Enterprise Italia</div>
+            <div class="crole">HR Training Specialist Intern</div>
+          </div>
+          <span class="cdate">Dic 2024 – Mag 2025</span>
+        </div>
+        <div class="cloc">📍 Padova, IT</div>
+        <div class="cbullets">
+          <div class="cb"><div class="cb-text"><strong>Coordinamento Formazione (Progetto GOL):</strong> Supporto nella gestione end-to-end dei corsi di formazione finanziata, curando la documentazione di compliance e la pianificazione delle aule. Interfaccia principale tra docenti, partecipanti e fornitori esterni.</div></div>
+          <div class="cb"><div class="cb-text"><strong>Data &amp; Process Management:</strong> Monitoraggio della compliance documentale e organizzazione dati strutturati tramite Excel.</div></div>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="mailto:christiangiannone.it@gmail.com" class="footer-link">Email</a>
-        <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
-        <a href="tel:+393271204209" class="footer-link">Telefono</a>
+
+    </div>
+  </section>
+
+  <div class="pdiv"></div>
+
+  <!-- 4 · EDUCATION -->
+  <section class="ps" id="edu">
+    <p class="slabel">Formazione</p>
+    <div class="clist">
+
+      <div class="card">
+        <div class="ch">
+          <div>
+            <div class="ctitle">Laurea Magistrale in Psicologia Cognitiva Applicata</div>
+            <div class="crole">Università degli Studi di Padova</div>
+          </div>
+          <span class="cdate">Sett 2022 – Lug 2025</span>
+        </div>
+        <div class="cloc">📍 Padova, IT</div>
+        <div class="cbullets">
+          <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research (Progetto "CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, test di usabilità e analisi delle euristiche psicologiche.</div></div>
+          <div class="cb"><div class="cb-text"><strong>Tesi Sperimentale — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
+        </div>
       </div>
-    </footer>
 
-  </div><!-- /puzzle-wrapper -->
+      <div class="card">
+        <div class="ch">
+          <div>
+            <div class="ctitle">Laurea Triennale in Scienze e Tecniche Psicologiche</div>
+            <div class="crole">Università del Salento</div>
+          </div>
+          <span class="cdate">Sett 2018 – Mar 2022</span>
+        </div>
+        <div class="cloc">📍 Lecce, IT</div>
+        <div class="cbullets">
+          <div class="cb"><div class="cb-text"><strong>Tesi Sperimentale:</strong> Studio empirico sulle variazioni di stress e qualità del sonno in seguito a training olfattivo, attraverso la comparazione di diverse stimolazioni.</div></div>
+        </div>
+      </div>
 
-  <script>
-    /* ── THEME TOGGLE ────────────────────────────────────── */
-    (function(){
-      const btn = document.querySelector('[data-theme-toggle]');
-      const html = document.documentElement;
-      let theme = html.getAttribute('data-theme') ||
-        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </div>
+  </section>
 
-      function setIcon(t) {
-        btn.innerHTML = t === 'dark'
-          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-        btn.setAttribute('aria-label', 'Switch to ' + (t === 'dark' ? 'light' : 'dark') + ' mode');
-      }
+  <div class="pdiv"></div>
 
-      html.setAttribute('data-theme', theme);
-      setIcon(theme);
+  <!-- 5 · SKILLS -->
+  <section class="ps" id="skills">
+    <p class="slabel">Competenze &amp; Strumenti</p>
+    <div class="sgrid">
+      <div class="scard">
+        <div class="stitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Data Analysis
+        </div>
+        <div class="sbody">Excel avanzato (formule, Pivot, Power Query), Power BI — dashboard interattive e KPI monitoring.</div>
+      </div>
+      <div class="scard">
+        <div class="stitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+          Talent Acquisition
+        </div>
+        <div class="sbody">Screening CV, colloqui strutturati, proposta economica, Career Day universitari, profili R&amp;D e tecnici.</div>
+      </div>
+      <div class="scard">
+        <div class="stitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          AI Adoption
+        </div>
+        <div class="sbody">Integrazione di tool AI nel workflow aziendale per efficienza operativa e qualità dei processi HR.</div>
+      </div>
+      <div class="scard">
+        <div class="stitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          UX Research
+        </div>
+        <div class="sbody">Usability testing, analisi euristiche, prototipazione, Interaction Design — Lab HIT, Unipd.</div>
+      </div>
+      <div class="scard">
+        <div class="stitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Lingue
+        </div>
+        <div class="sbody">Italiano — Madrelingua &nbsp;·&nbsp; Inglese — Fluente.</div>
+      </div>
+      <div class="scard">
+        <div class="stitle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Albo Psicologi
+        </div>
+        <div class="sbody">Psicologo iscritto all'Ordine degli Psicologi della Puglia.</div>
+      </div>
+    </div>
+  </section>
 
-      btn.addEventListener('click', () => {
-        theme = theme === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', theme);
-        setIcon(theme);
-      });
-    })();
+  <div class="pdiv"></div>
 
-    /* ── STICKY NAV SCROLLED STATE ──────────────────────── */
-    const nav = document.getElementById('stickyNav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', scrollY > 60);
-    }, { passive: true });
+  <!-- 6 · INTERESTS -->
+  <section class="ps" id="int">
+    <p class="slabel">Interessi</p>
+    <p class="int-text">
+      Sono una persona molto curiosa, mossa dal desiderio di capire come si muove il mondo
+      e sempre interessata a cogliere i trend emergenti. Questa attitudine mi spinge a riempire
+      il tempo libero assorbendo informazioni di tutti i tipi, spaziando dalla
+      <strong>finanza personale</strong> e il <strong>Web 3.0</strong>, fino al
+      <strong>product design</strong> e alla <strong>psicologia comportamentale</strong>.
+      Mi piace molto confrontarmi e parlare con le persone — nei contesti sociali mi viene
+      naturale fare da collante e creare connessioni.
+    </p>
+  </section>
 
-    /* ── SCROLL REVEAL — PUZZLE SNAP IN ─────────────────── */
-    const revealEls = document.querySelectorAll('.puzzle-section, .puzzle-divider');
+  <!-- FOOTER -->
+  <footer class="footer ps">
+    <div>
+      <div class="fn">Christian Giannone</div>
+      <div class="fs">HR Generalist &amp; Applied Psychologist · Padova, IT</div>
+    </div>
+    <div class="flinks">
+      <a href="mailto:christiangiannone.it@gmail.com" class="flink">Email</a>
+      <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer" class="flink">LinkedIn</a>
+      <a href="tel:+393271204209" class="flink">Telefono</a>
+    </div>
+  </footer>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          // stagger each element slightly
-          entry.target.style.transitionDelay = '0ms';
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -40px 0px'
-    });
+</div><!-- /wrap -->
 
-    revealEls.forEach(el => observer.observe(el));
-  </script>
+<script>
+/* THEME TOGGLE */
+(function(){
+  const btn = document.querySelector('[data-theme-toggle]');
+  const html = document.documentElement;
+  let t = html.getAttribute('data-theme') ||
+    (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+
+  const sunSVG  = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  const moonSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+  function apply(theme) {
+    html.setAttribute('data-theme', theme);
+    btn.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
+    btn.setAttribute('aria-label', 'Passa a modalità ' + (theme === 'dark' ? 'chiara' : 'scura'));
+  }
+
+  apply(t);
+  btn.addEventListener('click', () => { t = t === 'dark' ? 'light' : 'dark'; apply(t); });
+})();
+
+/* STICKY NAV */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* SCROLL REVEAL — puzzle snap */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.ps, .pdiv').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
