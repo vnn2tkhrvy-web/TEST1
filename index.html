@@ -437,12 +437,6 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         Progetti
       </button>
-      <div class="nav-sub">
-        <button class="nav-item" data-page="cornremote">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          CornRemote &amp; Bias Detector
-        </button>
-      </div>
 
       <button class="nav-item" data-page="contatti">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -569,7 +563,7 @@
               </div>
               <div class="cloc">📍 Padova, IT</div>
               <div class="cbullets">
-                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri il progetto e gioca</button></div></div>
+                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri i progetti e gioca</button></div></div>
                 <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
               </div>
             </div>
@@ -655,7 +649,7 @@
           <div class="footer-links">
             <button class="footer-link" data-page="contatti">Contatti</button>
             <button class="footer-link" data-page="download">Scarica CV</button>
-            <button class="footer-link" data-page="cornremote">CornRemote</button>
+            <button class="footer-link" data-page="cornremote">Progetti</button>
           </div>
         </footer>
       </div>
@@ -693,6 +687,7 @@
 
     <div class="page" id="page-cornremote">
       <div class="proj-wrap">
+        
         <div class="proj-hero">
           <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto HCI &amp; Interaction Design · Università degli Studi di Padova</p>
           <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
@@ -765,7 +760,7 @@
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Metodologia di Usability Testing e Questionari</div>
+          <div class="proj-section-label">Metodologia di Usability Testing</div>
           <p class="proj-body">
             La validazione del prototipo ha seguito una metodologia rigorosa basata su un disegno di ricerca con somministrazione di <strong>due questionari distinti (Pre-test e Post-test)</strong> tramite piattaforma Qualtrics:
           </p>
@@ -777,9 +772,6 @@
 
         <section class="proj-section ps">
           <div class="proj-section-label">Risultati Quantitativi ed Evidenze</div>
-          <p class="proj-body" style="margin-bottom: 1rem;">
-            I dati raccolti hanno confermato il successo delle scelte di design e l'eccellente accoglienza del prototipo:
-          </p>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: var(--sm);">
             <thead>
               <tr style="background: var(--surfoff); border-bottom: 2px solid var(--div);">
@@ -804,62 +796,51 @@
                 <td style="padding: .75rem; color: var(--muted);"><strong>Gestione del film a distanza</strong></td>
                 <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Efficacia (controllo senza alzarsi)</td>
               </tr>
-              <tr style="border-bottom: 1px solid var(--brd);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Consumo dello snack durante l'uso</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Completamente d'accordo sulla facilità</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Valutazione Estetica</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Eccellente / 25% Positivo</td>
-              </tr>
             </tbody>
           </table>
-          <p class="proj-body">
-            L'unico elemento che ha mostrato una distribuzione più bilanciata riguarda la <em>comodità della posizione dei pulsanti</em> (50% neutro, 50% in accordo), identificando un'area di ottimizzazione ergonomica per le iterazioni successive.
-          </p>
         </section>
 
-        <div class="pdiv"></div>
+        <div class="pdiv" style="margin-block: var(--gap); transform: scaleX(1); opacity: 1; height: 1px; background: var(--div);"></div>
         
-        <section class="proj-section ps">
+        <div class="proj-hero" style="padding-top: 0;">
           <p class="proj-eyebrow">Interactive Psychology Tool · HR &amp; Gamification</p>
-          <h2 class="proj-title" style="font-size: var(--2xl);">Recruiting Bias Detector</h2>
-          <p class="proj-sub" style="font-size: var(--base); margin-bottom: 1.5rem;">
-            Un micro-assessment interattivo per sperimentare in tempo reale l'impatto dei bias cognitivi ed emotivi durante le decisioni di selezione del personale.
+          <h1 class="proj-title" style="font-size: var(--2xl);">Project 2: Recruiting Bias Detector</h1>
+          <p class="proj-sub" style="font-size: var(--base); margin-bottom: 2rem;">
+            Un micro-assessment interattivo progettato per sperimentare in tempo reale l'impatto dei principali bias cognitivi ed emotivi durante i flussi decisionali e di selezione nelle Risorse Umane.
           </p>
-
-          <div class="bias-game-container">
-            <div class="game-screen active" id="screen-intro">
-              <p class="proj-body" style="font-size: var(--sm); margin-bottom: 1.25rem;">
-                Mettiti alla prova nei panni di un selezionatore. Ti verranno proposti <strong>3 scenari rapidi</strong> estratti da reali dinamiche di colloquio. L'algoritmo calcolerà il tuo livello di oggettività finale.
-              </p>
-              <button class="status-cta-btn" onclick="startBiasGame()">Avvia il test interattivo</button>
-            </div>
-
-            <div class="game-screen" id="screen-question">
-              <div class="feedback-pill neutral" id="question-number">Scenario 1 di 3</div>
-              <div class="scenario-box">
-                <p id="scenario-text" class="proj-body" style="font-size: var(--sm); color: var(--txt); font-weight:500;"></p>
-              </div>
-              <div id="options-container"></div>
-            </div>
-
-            <div class="game-screen" id="screen-results">
-              <div class="stitle" style="font-size: var(--base); text-align: center;">Assessment Completato</div>
-              <div class="score-circle-wrap">
-                <div class="score-circle">
-                  <span id="score-value">100%</span>
-                  <span style="font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top:-4px;">Oggettività</span>
-                </div>
-              </div>
-              <div class="scenario-box" style="background: color-mix(in srgb, var(--pri) 5%, var(--surf));">
-                <div class="stitle" id="result-title" style="color: var(--pri); margin-bottom: .5rem;">Profilo Valutativo</div>
-                <p id="result-desc" class="proj-body" style="font-size: var(--sm); line-height: 1.6;"></p>
-              </div>
-              <button class="option-btn" onclick="startBiasGame()" style="text-align: center; font-weight: 600; margin-top: 1rem;">Riprova l'Assessment</button>
-            </div>
-          </div>
         </section>
+
+        <div class="bias-game-container ps">
+          <div class="game-screen active" id="screen-intro">
+            <p class="proj-body" style="font-size: var(--sm); margin-bottom: 1.25rem;">
+              Mettiti alla prova nei panni di un selezionatore. Ti verranno proposti <strong>3 scenari rapidi</strong> estratti da reali dinamiche di colloquio. L'algoritmo calcolerà il tuo livello di oggettività finale.
+            </p>
+            <button class="status-cta-btn" onclick="startBiasGame()">Avvia il test interattivo</button>
+          </div>
+
+          <div class="game-screen" id="screen-question">
+            <div class="feedback-pill neutral" id="question-number">Scenario 1 di 3</div>
+            <div class="scenario-box">
+              <p id="scenario-text" class="proj-body" style="font-size: var(--sm); color: var(--txt); font-weight:500;"></p>
+            </div>
+            <div id="options-container"></div>
+          </div>
+
+          <div class="game-screen" id="screen-results">
+            <div class="stitle" style="font-size: var(--base); text-align: center;">Assessment Completato</div>
+            <div class="score-circle-wrap">
+              <div class="score-circle">
+                <span id="score-value">100%</span>
+                <span style="font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top:-4px;">Oggettività</span>
+              </div>
+            </div>
+            <div class="scenario-box" style="background: color-mix(in srgb, var(--pri) 5%, var(--surf));">
+              <div class="stitle" id="result-title" style="color: var(--pri); margin-bottom: .5rem;">Profilo Valutativo</div>
+              <p id="result-desc" class="proj-body" style="font-size: var(--sm); line-height: 1.6;"></p>
+            </div>
+            <button class="option-btn" onclick="startBiasGame()" style="text-align: center; font-weight: 600; margin-top: 1rem;">Riprova l'Assessment</button>
+          </div>
+        </div>
 
         <div class="back-btn-container">
           <button data-page="cv" class="back-btn">
@@ -1019,7 +1000,7 @@
   // ── LOGICA INTERATTIVA DEL MINIGIOCO HR: BIAS DETECTOR ──
   const scenarios = [
     {
-      text: "Un candidato si presenta al colloquio vestito in modo impeccabile, è estremamente carismatico e ha frequentato la tua stessa identica università prestigiosa. Istintivamente tendi a giudicare positivamente anche le sue risposte tecniche, che in realtà sono piuttosto superficiali. Di quale distorsione si tratta?",
+      text: "Un candidato si presenta al colloquio vestito in modo impeccabile, è estremamente carismatico e ha frequentato la tua stessa identica università prestigiosa. Istintivamente tendi a giudicare positivamente anche le sei risposte tecniche, che in realtà sono piuttosto superficiali. Di quale distorsione si tratta?",
       options: [
         { text: "Effetto Alone (Halo Effect)", correct: true },
         { text: "Effetto Contrasto", correct: false },
