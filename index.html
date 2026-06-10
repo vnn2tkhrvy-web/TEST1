@@ -96,7 +96,6 @@
     }
     .sidebar-role { font-size: var(--xs); color: var(--muted); margin-top: .3rem; }
 
-    /* Micro-UX: Global Status Indicator in Sidebar */
     .sidebar-status {
       display: inline-flex;
       align-items: center;
@@ -300,7 +299,7 @@
     .otw-text { font-size: var(--sm); color: var(--txt); }
     .otw-text strong { font-weight: 700; }
 
-    /* ── REFACTOR CENTRALE STYLE (Rimossi stili inline ridondanti) ── */
+    /* ── REFACTOR CENTRALE STYLE ── */
     .centered-page-container {
       display: flex; align-items: center; justify-content: center; min-height: calc(100dvh - 56px); padding: 2rem;
     }
@@ -391,6 +390,25 @@
       .dl-drive-card { flex-direction: column; text-align: center; }
       .dl-drive-cta { justify-content: center; }
     }
+
+    /* ── HCI SANDBOX STYLES ─────────────────────────────────── */
+    .sandbox-container { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
+    .game-box {
+      width: 100%; height: 380px; background: var(--surf2); border: 2px dashed var(--div);
+      border-radius: var(--r-xl); position: relative; overflow: hidden; margin-block: 2rem;
+      display: flex; align-items: center; justify-content: center; cursor: crosshair;
+    }
+    .game-target {
+      position: absolute; background: var(--pri); border-radius: 50%;
+      transition: transform 0.1s; display: none; z-index: 10;
+      box-shadow: 0 0 12px color-mix(in srgb, var(--pri) 50%, transparent);
+    }
+    .game-target:hover { background: var(--prih); }
+    .start-overlay { text-align: center; z-index: 20; padding: 2rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .stat-card { background: var(--surf); border: 1px solid var(--brd); padding: 1rem; border-radius: var(--r-lg); text-align: center; }
+    .stat-val { font-family: var(--fd); font-size: var(--lg); font-weight: 800; color: var(--pri); margin-top: .2rem; }
+    .explanation-box { background: color-mix(in srgb, var(--pri) 5%, var(--surf)); border-left: 4px solid var(--pri); padding: 1.25rem; border-radius: 0 var(--r-xl) var(--r-xl) 0; margin-top: 2rem; display: none; }
   </style>
 </head>
 <body>
@@ -418,6 +436,10 @@
       <button class="nav-item" data-page="status">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         Status Lavorativo
+      </button>
+      <button class="nav-item" data-page="sandbox">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        HCI Sandbox <span style="font-size:9px; background:var(--pri); color:#fff; padding:1px 5px; border-radius:4px; margin-left:4px;">PROVA</span>
       </button>
 
       <button class="nav-item" data-page="cornremote">
@@ -557,7 +579,7 @@
               <div class="cloc">📍 Padova, IT</div>
               <div class="cbullets">
                 <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri il progetto</button></div></div>
-                <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratta di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
+                <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
               </div>
             </div>
 
@@ -678,6 +700,206 @@
       </div>
     </div>
 
+    <div class="page" id="page-cornremote">
+      <div class="proj-wrap">
+        <div class="proj-hero">
+          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto HCI &amp; Interaction Design · Università degli Studi di Padova</p>
+          <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
+          <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
+            Progettazione, sviluppo e valutazione di un prototipo di contenitore per popcorn interattivo che integra un sistema di controllo remoto per la riproduzione multimediale.
+          </p>
+          <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
+            <span class="proj-tag">Human-Computer Interaction</span>
+            <span class="proj-tag">Ergonomia Cognitiva</span>
+            <span class="proj-tag">Makey Makey Prototyping</span>
+            <span class="proj-tag">User Research</span>
+            <span class="proj-tag">Usability Testing</span>
+            <span class="proj-tag">Design Inclusivo / Age-Friendly</span>
+          </div>
+        </div>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Abstract e Contesto</div>
+          <p class="proj-body">
+            Il progetto <strong>CornRemote</strong> nasce all'interno del corso di Laurea Magistrale in Psicologia Cognitiva Applicata presso l'Università di Padova. L'obiettivo della ricerca è stato quello di trasformare un oggetto quotidiano passivo – un contenitore per popcorn – in un'esperienza interattiva e senza sforzo. Dotato di pulsanti ergonomici e di un sistema di gestione multimediale integrato, il dispositivo mira ad eliminare le frustrazioni legate al controllo dei film quando si è lontani dalla tastiera del computer o si incontrano le barriere d'uso dei telecomandi tradizionali.
+          </p>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Cornice Teorica e Linee Guida di Design</div>
+          <p class="proj-body" style="margin-bottom: 1.5rem;">
+            Il framework concettuale del dispositivo si focalizza sui fondamenti dell'ergonomia fisica e della <strong>Human-Computer Interaction (HCI)</strong>, strutturandosi su tre pilastri principali:
+          </p>
+          <div class="clist" style="gap: 1rem;">
+            <div class="scard" style="padding: 1.25rem;">
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Ergonomia e Manipolazione Monomanuale</div>
+              <p class="proj-body" style="font-size: var(--sm);">La forma mantiene la familiarità del classico bucket di popcorn, ma la disposizione dei pulsanti sul lato è studiata scientificamente per l'uso con una sola mano: l'indice si posiziona naturalmente sul tasto Pausa/Play, mentre il pollice gestisce i comandi del volume.</p>
+            </div>
+            <div class="scard" style="padding: 1.25rem;">
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Design Inclusivo (Age-Friendly)</div>
+              <p class="proj-body" style="font-size: var(--sm);">Partendo dalla letteratura sulle difficoltà incontrate dagli adulti anziani con le interfacce tradizionali (Carvalho et al., 2021), il layout propone pochi comandi, di grandi dimensioni e ad alta intuitività, supportati da icone visive chiare (Lessiter et al., 2004).</p>
+            </div>
+            <div class="scard" style="padding: 1.25rem;">
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Interazione in Ambienti Oscuri e Socialità</div>
+              <p class="proj-body" style="font-size: var(--sm);">L'applicazione di un nastro adesivo fotoluminescente / fosforescente garantisce la rintracciabilità dei tasti al buio senza alterare l'atmosfera cinematografica. Inoltre, la rapidità di interazione favorisce gli scambi sociali e la comunicazione durante la visione (Cesar et al., 2008).</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Processo di Sviluppo del Prototipo</div>
+          <div class="proj-steps">
+            <div class="proj-step">
+              <div class="proj-step-num">01</div>
+              <div class="proj-step-content">
+                <div class="step-title">Benchmarking &amp; Ideazione</div>
+                <div class="step-desc">Analisi dei limiti dei telecomandi remoti standard e dei controlli da tastiera. Studio preliminare sul posizionamento ottimale dei comandi sul corpo cilindrico del bucket.</div>
+              </div>
+            </div>
+            <div class="proj-step">
+              <div class="proj-step-num">02</div>
+              <div class="proj-step-content">
+                <div class="step-title">Sourcing dei Materiali</div>
+                <div class="step-desc">Selezione di un contenitore in plastica (per garantire lavabilità e riutilizzo), nastro adesivo cartaceo, plastilina per migliorare il feedback tattile alla pressione (tactile feeling) e nastro fotoluminescente.</div>
+              </div>
+            </div>
+            <div class="proj-step">
+              <div class="proj-step-num">03</div>
+              <div class="proj-step-content">
+                <div class="step-title">Ingegnerizzazione (Makey Makey)</div>
+                <div class="step-desc">Integrazione della scheda Makey Makey alla base del contenitore per la mappatura degli input capacitivi. Cablaggio interno isolato tramite nastro per eliminare i rumori di movimento e trasmettere robustezza strutturale al device. Finitura estetica inferiore con un secondo bucket concentrico per proteggere i cavi e permettere l'appoggio sicuro su superficie.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Metodologia di Usability Testing e Questionari</div>
+          <p class="proj-body">
+            La validazione del prototipo ha seguito una metodologia rigorosa basata su un disegno di ricerca con somministrazione di <strong>due questionari distinti (Pre-test e Post-test)</strong> tramite piattaforma Qualtrics:
+          </p>
+          <ul class="cbullets" style="margin-top: .5rem; border-top: none; padding-top: 0;">
+            <li class="cb"><div class="cb-text"><strong>Questionario 1 (Baseline):</strong> Somministrato prima dell'uso per indagare i profili utente, la familiarità tecnologica, le abitudini di visione (tutti i partecipanti guardavano contenuti su PC almeno 2-3 volte a settimana) e le esperienze pregresse negativi con telecomandi (riscontrate nel 100% del campione).</div></li>
+            <li class="cb"><div class="cb-text"><strong>Questionario 2 (Esperienziale):</strong> Somministrato immediatamente dopo l'interazione per misurare l'usabilità percepita, l'accessibilità, l'efficacia del controllo e l'estetica.</div></li>
+          </ul>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Risultati Quantitativi ed Evidenze</div>
+          <p class="proj-body" style="margin-bottom: 1rem;">
+            I dati raccolti hanno confermato il successo delle scelte di design e l'eccellente accoglienza del prototipo:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: var(--sm);">
+            <thead>
+              <tr style="background: var(--surfoff); border-bottom: 2px solid var(--div);">
+                <th style="padding: .75rem; text-align: left; font-weight: 700; color: var(--txt);">Dimensione Indagata</th>
+                <th style="padding: .75rem; text-align: center; font-weight: 700; color: var(--txt);">Dato Statistico / Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--brd);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Facilità d'uso e Usabilità</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Intuitività dell'interfaccia</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Individuazione tasti al buio</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Completamente d'accordo</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Gestione del film a distanza</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Efficacia (controllo senza alzarsi)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Consumo dello snack durante l'uso</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Completamente d'accordo sulla facilità</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Valutazione Estetica</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Eccellente / 25% Positivo</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="proj-body">
+            L'unico elemento che ha mostrato una distribution più bilanciata riguarda la <em>comodità della posizione dei pulsanti</em> (50% neutro, 50% in accordo), identificando un'area di ottimizzazione ergonomica per le iterazioni successive.
+          </p>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Limitazioni e Sviluppi Futuri (Next Steps)</div>
+          <p class="proj-body" style="margin-bottom: 1rem;">
+            L'approccio autocritico e l'analisi dei fattori umani hanno permesso di mappare i limiti attuali della manifattura del prototipo e i relativi piani di svecchiamento tecnologico:
+          </p>
+          <div class="sgrid">
+            <div class="scard">
+              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--muted);">Limiti Rilevati</div>
+              <div class="sitem" style="font-size: var(--xs);">La natura cartacea dei tasti accelera il deterioramento.</div>
+              <div class="sitem" style="font-size: var(--xs);">La plastilina interna rischia di solidificarsi nel tempo.</div>
+              <div class="sitem" style="font-size: var(--xs);">I cavi di collegamento limitano la mobilità complessiva.</div>
+            </div>
+            <div class="scard">
+              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--pri);">Evoluzione V2</div>
+              <div class="sitem" style="font-size: var(--xs);"><strong>Iniezione in silicone:</strong> per massimizzare l'igiene, l'ergonomia e la lavabilità dei tasti.</div>
+              <div class="sitem" style="font-size: var(--xs);"><strong>Tecnologia Wireless:</strong> transizione a moduli senza fili per slegare il contenitore dal PC.</div>
+              <div class="sitem" style="font-size: var(--xs);"><strong>Materiali avanzati:</strong> tasti capacitivi polimerici resistenti all'usura.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="back-btn-container">
+          <button data-page="cv" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Torna al Curriculum
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="page-sandbox">
+      <div class="sandbox-container">
+        <h1 class="contact-title">HCI Sandbox: La Legge di Fitts</h1>
+        <p class="contact-sub">Metti alla prova i tuoi riflessi motori e scopri l'algoritmo matematico dietro la progettazione delle interfacce d'uso.</p>
+        
+        <div class="game-box" id="gameBox">
+          <div class="start-overlay" id="startOverlay">
+            <p style="margin-bottom:1.5rem; font-size:var(--sm); color:var(--muted);">Il test consiste nel cliccare il cerchio colorato per 5 volte di fila.<br>Il sistema varierà la dimensione del bersaglio e la sua distanza ad ogni clic.</p>
+            <button class="status-cta-btn" id="startGameBtn">Avvia l'Esperimento</button>
+          </div>
+          <div class="game-target" id="gameTarget"></div>
+        </div>
+
+        <div id="resultsPanel" style="display:none; animation: pageIn .4s forwards;">
+          <h3 class="stitle" style="font-size:var(--base);">📊 I tuoi Dati di Puntamento</h3>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="contact-label">Tempo Medio di Reazione</div>
+              <div class="stat-val" id="avgTime">0 ms</div>
+            </div>
+            <div class="stat-card">
+              <div class="contact-label">Difficoltà Media Gestita</div>
+              <div class="stat-val" id="avgID">0.00 bit</div>
+            </div>
+            <div class="stat-card">
+              <div class="contact-label">Indice di Performance (IP)</div>
+              <div class="stat-val" id="avgIP">0.00 bit/s</div>
+            </div>
+          </div>
+
+          <div class="explanation-box" id="explanationBox" style="display:block;">
+            <div class="stitle" style="color:var(--pri); margin-bottom:.5rem;">🧠 L'Evidenza Psicologica</div>
+            <p class="proj-body" style="font-size:var(--sm); line-height:1.6;">
+              Hai appena sperimentato empiricamente la <strong>Legge di Fitts</strong>. L'algoritmo dimostra che il tempo necessario per raggiungere un obiettivo è una funzione logaritmica del rapporto tra la <strong>Distanza ($D$)</strong> e la <strong>Dimensione ($W$)</strong> del bersaglio. 
+              <br><br>
+              <strong>Applicazione Reale:</strong> Ho utilizzato questo preciso modello matematico durante lo sviluppo di <strong>CornRemote</strong>. Analizzando l'ergonomia monomanuale e i deficit motori tipici dell'invecchiamento (Design Age-Friendly), la formula ha guidato il dimensionamento e il posizionamento dei tasti sul corpo cilindrico del dispositivo per ridurre a zero gli errori di puntamento al buio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="page" id="page-contatti">
       <div class="contact-wrap">
         <h1 class="contact-title" style="opacity:0;transform:translateY(20px);animation:fu .7s .1s ease forwards">Contatti</h1>
@@ -744,164 +966,6 @@
               </div>
             </div>
           </a>
-        </div>
-      </div>
-    </div>
-
-  <div class="page" id="page-cornremote">
-      <div class="proj-wrap">
-        <div class="proj-hero">
-          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto HCI &amp; Interaction Design · Università degli Studi di Padova</p>
-          <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
-          <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
-            Progettazione, sviluppo e valutazione di un prototipo di contenitore per popcorn interattivo che integra un sistema di controllo remoto per la riproduzione multimediale.
-          </p>
-          <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
-            <span class="proj-tag">Human-Computer Interaction</span>
-            <span class="proj-tag">Ergonomia Cognitiva</span>
-            <span class="proj-tag">Makey Makey Prototyping</span>
-            <span class="proj-tag">User Research</span>
-            <span class="proj-tag">Usability Testing</span>
-            <span class="proj-tag">Design Inclusivo / Age-Friendly</span>
-          </div>
-        </div>
-
-        <section class="proj-section ps">
-          <div class="proj-section-label">Abstract e Contesto</div>
-          <p class="proj-body">
-            Il progetto <strong>CornRemote</strong> nasce all'interno del corso di Laurea Magistrale in Psicologia Cognitiva Applicata presso l'Università di Padova. L'obiettivo della ricerca è stato quello di trasformare un oggetto quotidiano passivo – un contenitore per popcorn – in un'esperienza interattiva e senza sforzo. Dotato di pulsanti ergonomici e di un sistema di gestione multimediale integrato, il dispositivo mira ad eliminare le frustrazioni legate al controllo dei film quando si è lontani dalla tastiera del computer o si incontrano le barriere d'uso dei telecomandi tradizionali.
-          </p>
-        </section>
-
-        <section class="proj-section ps">
-          <div class="proj-section-label">Cornice Teorica e Linee Guida di Design</div>
-          <p class="proj-body" style="margin-bottom: 1.5rem;">
-            Il framework concettuale del dispositivo si focalizza sui fondamenti dell'ergonomia fisica e della <strong>Human-Computer Interaction (HCI)</strong>, strutturandosi su tre pilastri principali:
-          </p>
-          <div class="clist" style="gap: 1rem;">
-            <div class="scard" style="padding: 1.25rem;">
-              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Ergonomia e Manipolazione Monomanuale</div>
-              <p class="proj-body" style="font-size: var(--sm);">La forma mantiene la familiarità del classico bucket di popcorn, ma la disposizione dei pulsanti sul lato è studiata scientificamente per l'uso con una sola mano: l'indice si posiziona naturalmente sul tasto Pausa/Play, mentre il pollice gestisce i comandi del volume.</p>
-            </div>
-            <div class="scard" style="padding: 1.25rem;">
-              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Design Inclusivo (Age-Friendly)</div>
-              <p class="proj-body" style="font-size: var(--sm);">Partendo dalla letteratura sulle difficoltà incontrate dagli adulti anziani con le interfacce tradizionali (Carvalho et al., 2021), il layout propone pochi comandi, di grandi dimensioni e ad alta intuitività, supportati da icone visive chiare (Lessiter et al., 2004)</p>
-            </div>
-            <div class="scard" style="padding: 1.25rem;">
-              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Interazione in Ambienti Oscuri e Socialità</div>
-              <p class="proj-body" style="font-size: var(--sm);">L'applicazione di un nastro adesivo fotoluminescente / fosforescente garantisce la rintracciabilità dei tasti al buio senza alterare l'atmosfera cinematografica. Inoltre, la rapidità di interazione favorisce gli scambi sociali e la comunicazione durante la visione (Cesar et al., 2008).</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="proj-section ps">
-          <div class="proj-section-label">Processo di Sviluppo del Prototipo</div>
-          <div class="proj-steps">
-            <div class="proj-step">
-              <div class="proj-step-num">01</div>
-              <div class="proj-step-content">
-                <div class="step-title">Benchmarking &amp; Ideazione</div>
-                <div class="step-desc">Analisi dei limiti dei telecomandi remoti standard e dei controlli da tastiera. Studio preliminare sul posizionamento ottimale dei comandi sul corpo cilindrico del bucket.</div>
-              </div>
-            </div>
-            <div class="proj-step">
-              <div class="proj-step-num">02</div>
-              <div class="proj-step-content">
-                <div class="step-title">Sourcing dei Materiali</div>
-                <div class="step-desc">Selezione di un contenitore in plastica (per garantire lavabilità e riutilizzo) , nastro adesivo cartaceo, plastilina per migliorare il feedback tattile alla pressione (tactile feeling) e nastro fotoluminescente.</div>
-              </div>
-            </div>
-            <div class="proj-step">
-              <div class="proj-step-num">03</div>
-              <div class="proj-step-content">
-                <div class="step-title">Ingegnerizzazione (Makey Makey)</div>
-                <div class="step-desc">Integrazione della scheda Makey Makey alla base del contenitore per la mappatura degli input capacitivi. Cablaggio interno isolato tramite nastro per eliminare i rumori di movimento e trasmettere robustezza strutturale al device. Finitura estetica inferiore con un secondo bucket concentrico per proteggere i cavi e permettere l'appoggio sicuro su superficie.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="proj-section ps">
-          <div class="proj-section-label">Metodologia di Usability Testing e Questionari</div>
-          <p class="proj-body">
-            La validazione del prototipo ha seguito una metodologia rigorosa basata su un disegno di ricerca con somministrazione di <strong>due questionari distinti (Pre-test e Post-test)</strong> tramite piattaforma Qualtrics:
-          </p>
-          <ul class="cbullets" style="margin-top: .5rem; border-top: none; padding-top: 0;">
-            <li class="cb"><div class="cb-text"><strong>Questionario 1 (Baseline):</strong> Somministrato prima dell'uso per indagare i profili utente, la familiarità tecnologica, le abitudini di visione (tutti i partecipanti guardavano contenuti su PC almeno 2-3 volte a settimana) e le esperienze pregresse negativi con telecomandi (riscontrate nel 100% del campione).</div></li>
-            <li class="cb"><div class="cb-text"><strong>Questionario 2 (Esperienziale):</strong> Somministrato immediatamente dopo l'interazione per misurare l'usabilità percepita, l'accessibilità, l'efficacia del controllo e l'estetica.</div></li>
-          </ul>
-        </section>
-
-        <section class="proj-section ps">
-          <div class="proj-section-label">Risultati Quantitativi ed Evidenze</div>
-          <p class="proj-body" style="margin-bottom: 1rem;">
-            I dati raccolti hanno confermato il successo delle scelte di design e l'eccellente accoglienza del prototipo:
-          </p>
-          <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: var(--sm);">
-            <thead>
-              <tr style="background: var(--surfoff); border-bottom: 2px solid var(--div);">
-                <th style="padding: .75rem; text-align: left; font-weight: 700; color: var(--txt);">Dimensione Indagata</th>
-                <th style="padding: .75rem; text-align: center; font-weight: 700; color: var(--txt);">Dato Statistico / Output</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid var(--brd);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Facilità d'uso e Usabilità</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo </td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Intuitività dell'interfaccia</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo </td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--brd);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Individuazione tasti al buio</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Completamente d'accordo </td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Gestione del film a distanza</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Efficacia (controllo senza alzarsi) </td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--brd);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Consumo dello snack durante l'uso</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Completamente d'accordo sulla facilità </td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Valutazione Estetica</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Eccellente / 25% Positivo </td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="proj-body">
-            L'unico elemento che ha mostrato una distribuzione più bilanciata riguarda la <em>comodità della posizione dei pulsanti</em> (50% neutro, 50% in accordo) , identificando un'area di ottimizzazione ergonomica per le iterazioni successive.
-          </p>
-        </section>
-
-        <section class="proj-section ps">
-          <div class="proj-section-label">Limitazioni e Sviluppi Futuri (Next Steps)</div>
-          <p class="proj-body" style="margin-bottom: 1rem;">
-            L'approccio autocritico e l'analisi dei fattori umani hanno permesso di mappare i limiti attuali della manifattura del prototipo e i relativi piani di svecchiamento tecnologico:
-          </p>
-          <div class="sgrid">
-            <div class="scard">
-              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--muted);">Limiti Rilevati</div>
-              <div class="sitem" style="font-size: var(--xs);">La natura cartacea dei tasti accelera il deterioramento.</div>
-              <div class="sitem" style="font-size: var(--xs);">La plastilina interna rischia di solidificarsi nel tempo.</div>
-              <div class="sitem" style="font-size: var(--xs);">I cavi di collegamento limitano la mobilità complessiva.</div>
-            </div>
-            <div class="scard">
-              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--pri);">Evoluzione V2</div>
-              <div class="sitem" style="font-size: var(--xs);"><strong>Iniezione in silicone:</strong> per massimizzare l'igiene, l'ergonomia e la lavabilità dei tasti.</div>
-              <div class="sitem" style="font-size: var(--xs);"><strong>Tecnologia Wireless:</strong> transizione a moduli senza fili per slegare il contenitore dal PC.</div>
-              <div class="sitem" style="font-size: var(--xs);"><strong>Materiali avanzati:</strong> tasti capacitivi polimerici resistenti all'usura.</div>
-            </div>
-          </div>
-        </section>
-
-        <div class="back-btn-container">
-          <button data-page="cv" class="back-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Torna al Curriculum
-          </button>
         </div>
       </div>
     </div>
@@ -982,6 +1046,95 @@
   window.addEventListener('scroll', () => {
     topbarName.classList.toggle('show', window.scrollY > 80);
   }, { passive: true });
+
+  // ── LOGICA INTERATTIVA LEGGE DI FITTS (HCI SANDBOX) ──
+  const gameBox = document.getElementById('gameBox');
+  const gameTarget = document.getElementById('gameTarget');
+  const startOverlay = document.getElementById('startOverlay');
+  const startGameBtn = document.getElementById('startGameBtn');
+  const resultsPanel = document.getElementById('resultsPanel');
+  
+  let clickCount = 0;
+  const maxClicks = 5;
+  let lastTargetTime = 0;
+  let totalReactionTime = 0;
+  let totalID = 0;
+  let lastX = 0;
+  let lastY = 0;
+
+  const targetSizes = [60, 45, 30, 55, 35]; // Dimensioni (W) in pixel
+  
+  startGameBtn.addEventListener('click', startGame);
+  gameTarget.addEventListener('mousedown', targetClicked);
+
+  function startGame() {
+    startOverlay.style.display = 'none';
+    resultsPanel.style.display = 'none';
+    clickCount = 0;
+    totalReactionTime = 0;
+    totalID = 0;
+    
+    lastX = gameBox.offsetWidth / 2;
+    lastY = gameBox.offsetHeight / 2;
+    
+    spawnTarget();
+  }
+
+  function spawnTarget() {
+    if (clickCount >= maxClicks) {
+      endGame();
+      return;
+    }
+
+    const size = targetSizes[clickCount];
+    const maxX = gameBox.offsetWidth - size - 20;
+    const maxY = gameBox.offsetHeight - size - 20;
+    
+    const nextX = Math.max(10, Math.floor(Math.random() * maxX));
+    const nextY = Math.max(10, Math.floor(Math.random() * maxY));
+    
+    const distance = Math.sqrt(Math.pow(nextX - lastX, 2) + Math.pow(nextY - lastY, 2));
+    const indexDifficulty = Math.log2((2 * distance) / size);
+    totalID += indexDifficulty;
+
+    gameTarget.style.width = size + 'px';
+    gameTarget.style.height = size + 'px';
+    gameTarget.style.left = nextX + 'px';
+    gameTarget.style.top = nextY + 'px';
+    gameTarget.style.display = 'block';
+
+    lastX = nextX + (size / 2);
+    lastY = nextY + (size / 2);
+    lastTargetTime = performance.now();
+  }
+
+  function targetClicked(e) {
+    e.stopPropagation();
+    const clickTime = performance.now();
+    const reactionTime = clickTime - lastTargetTime;
+    
+    totalReactionTime += reactionTime;
+    clickCount++;
+    
+    gameTarget.style.display = 'none';
+    spawnTarget();
+  }
+
+  function endGame() {
+    gameTarget.style.display = 'none';
+    startOverlay.style.display = 'block';
+    startGameBtn.innerText = 'Ripeti l\'Esperimento';
+    
+    const avgReactionTime = totalReactionTime / maxClicks;
+    const avgDifficulty = totalID / maxClicks;
+    const throughput = avgDifficulty / (avgReactionTime / 1000);
+
+    document.getElementById('avgTime').innerText = Math.round(avgReactionTime) + ' ms';
+    document.getElementById('avgID').innerText = avgDifficulty.toFixed(2) + ' bit';
+    document.getElementById('avgIP').innerText = throughput.toFixed(2) + ' bit/s';
+    
+    resultsPanel.style.display = 'block';
+  }
 
   function initObserver() {
     const items = document.querySelectorAll('.ps:not(.on), .pdiv:not(.on)');
