@@ -140,8 +140,8 @@
     .nav-item.active { background: var(--surfoff); color: var(--pri); font-weight: 600; }
     .nav-item.active svg { opacity: 1; }
 
-    .nav-sub { padding-left: 1.5rem; }
-    .nav-sub .nav-item { font-size: var(--xs); }
+    .nav-sub { padding-left: 1.25rem; display: flex; flex-direction: column; gap: .15rem; margin-top: .15rem; }
+    .nav-sub .nav-item { padding: .5rem .75rem; font-size: var(--xs); }
 
     .sidebar-footer {
       padding: 1rem 1.25rem;
@@ -433,12 +433,22 @@
         Status Lavorativo
       </button>
 
-      <button class="nav-item" data-page="cornremote">
+      <div class="nav-item" style="cursor: default; pointer-events: none; padding-bottom: 0.2rem; color: var(--txt); font-weight:600;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         Progetti
-      </button>
+      </div>
+      <div class="nav-sub">
+        <button class="nav-item" data-page="cornremote">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          1. CornRemote
+        </button>
+        <button class="nav-item" data-page="biasdetector">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          2. Bias Detector
+        </button>
+      </div>
 
-      <button class="nav-item" data-page="contatti">
+      <button class="nav-item" data-page="contatti" style="margin-top: 0.5rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Contatti
       </button>
@@ -563,7 +573,7 @@
               </div>
               <div class="cloc">📍 Padova, IT</div>
               <div class="cbullets">
-                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri i progetti e gioca</button></div></div>
+                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Apri CornRemote</button></div></div>
                 <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
               </div>
             </div>
@@ -687,7 +697,6 @@
 
     <div class="page" id="page-cornremote">
       <div class="proj-wrap">
-        
         <div class="proj-hero">
           <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto HCI &amp; Interaction Design · Università degli Studi di Padova</p>
           <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
@@ -719,7 +728,7 @@
           <div class="clist" style="gap: 1rem;">
             <div class="scard" style="padding: 1.25rem;">
               <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Ergonomia e Manipolazione Monomanuale</div>
-              <p class="proj-body" style="font-size: var(--sm);">La forma mantiene la familiarità del classico bucket di popcorn, ma la disposizione dei pulsanti sul lato è studiata scientificamente per l'uso con una sola mano: l'indice si posiziona naturalmente sul tasto Pausa/Play, mentre il pollice gestisce i comandi del volume.</p>
+              <p class="proj-body" style="font-size: var(--sm);">La forma mantiene la familiarità del classico bucket di popcorn, ma la disposition dei pulsanti sul lato è studiata scientificamente per l'uso con una sola mano: l'indice si posiziona naturalmente sul tasto Pausa/Play, mentre il pollice gestisce i comandi del volume.</p>
             </div>
             <div class="scard" style="padding: 1.25rem;">
               <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Design Inclusivo (Age-Friendly)</div>
@@ -800,15 +809,30 @@
           </table>
         </section>
 
-        <div class="pdiv" style="margin-block: var(--gap); transform: scaleX(1); opacity: 1; height: 1px; background: var(--div);"></div>
-        
-        <div class="proj-hero" style="padding-top: 0;">
-          <p class="proj-eyebrow">Interactive Psychology Tool · HR &amp; Gamification</p>
-          <h1 class="proj-title" style="font-size: var(--2xl);">Project 2: Recruiting Bias Detector</h1>
-          <p class="proj-sub" style="font-size: var(--base); margin-bottom: 2rem;">
+        <div class="back-btn-container">
+          <button data-page="biasdetector" class="back-btn" style="color: var(--pri); font-weight: 600;">
+            Vai al progetto successivo (Bias Detector) →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="page-biasdetector">
+      <div class="proj-wrap">
+        <div class="proj-hero">
+          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Interactive Psychology Tool · HR &amp; Gamification</p>
+          <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">Recruiting Bias Detector</h1>
+          <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
             Un micro-assessment interattivo progettato per sperimentare in tempo reale l'impatto dei principali bias cognitivi ed emotivi durante i flussi decisionali e di selezione nelle Risorse Umane.
           </p>
-        </section>
+          <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
+            <span class="proj-tag">Gamification HR</span>
+            <span class="proj-tag">Psicologia del Lavoro</span>
+            <span class="proj-tag">Cognitive Biases</span>
+            <span class="proj-tag">Talent Acquisition</span>
+            <span class="proj-tag">Decision Making</span>
+          </div>
+        </div>
 
         <div class="bias-game-container ps">
           <div class="game-screen active" id="screen-intro">
@@ -843,9 +867,9 @@
         </div>
 
         <div class="back-btn-container">
-          <button data-page="cv" class="back-btn">
+          <button data-page="cornremote" class="back-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Torna al Curriculum
+            Torna a CornRemote
           </button>
         </div>
       </div>
@@ -980,9 +1004,7 @@
       window.scrollTo(0,0);
     }
     document.querySelectorAll('[data-page]').forEach(n => {
-      if(n.classList.contains('nav-item')) {
-        n.classList.toggle('active', n.getAttribute('data-page') === name);
-      }
+      n.classList.toggle('active', n.getAttribute('data-page') === name);
     });
     closeSidebar();
     setTimeout(initObserver, 50);
@@ -1000,7 +1022,7 @@
   // ── LOGICA INTERATTIVA DEL MINIGIOCO HR: BIAS DETECTOR ──
   const scenarios = [
     {
-      text: "Un candidato si presenta al colloquio vestito in modo impeccabile, è estremamente carismatico e ha frequentato la tua stessa identica università prestigiosa. Istintivamente tendi a giudicare positivamente anche le sei risposte tecniche, che in realtà sono piuttosto superficiali. Di quale distorsione si tratta?",
+      text: "Un candidato si presenta al colloquio vestito in modo impeccabile, è estremamente carismatico e ha frequentato la tua stessa identica università prestigiosa. Istintivamente tendi a giudicare positivamente anche le sue risposte tecniche, che in realtà sono piuttosto superficiali. Di quale distorsione si tratta?",
       options: [
         { text: "Effetto Alone (Halo Effect)", correct: true },
         { text: "Effetto Contrasto", correct: false },
