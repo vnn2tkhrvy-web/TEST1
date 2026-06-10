@@ -367,16 +367,6 @@
     .proj-step-content .step-title { font-weight: 700; color: var(--txt); font-size: var(--sm); margin-bottom: .4rem; }
     .proj-step-content .step-desc { font-size: var(--xs); color: var(--muted); line-height: 1.65; }
 
-    .footer {
-      padding: 3rem clamp(1rem,5vw,2.5rem); border-top: 1px solid var(--brd);
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-      max-width: 860px; margin-inline: auto;
-    }
-    .footer-name { font-family: var(--fd); font-weight: 800; font-size: var(--sm); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-link { font-size: var(--xs); color: var(--muted); transition: color var(--tr); cursor: pointer; }
-    .footer-link:hover { color: var(--pri); }
-
     .back-btn-container { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--brd); }
     .back-btn { display: inline-flex; align-items: center; gap: .5rem; font-size: var(--sm); color: var(--muted); font-weight: 500; transition: color var(--tr); }
     .back-btn:hover { color: var(--pri); }
@@ -391,24 +381,29 @@
       .dl-drive-cta { justify-content: center; }
     }
 
-    /* ── HCI SANDBOX STYLES ─────────────────────────────────── */
-    .sandbox-container { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
-    .game-box {
-      width: 100%; height: 380px; background: var(--surf2); border: 2px dashed var(--div);
-      border-radius: var(--r-xl); position: relative; overflow: hidden; margin-block: 2rem;
-      display: flex; align-items: center; justify-content: center; cursor: crosshair;
+    /* ── BIAS DETECTOR GAME STYLES ──────────────────────────── */
+    .bias-game-container {
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
+      padding: clamp(1.25rem, 3vw, 2rem); margin-top: 2rem; box-shadow: var(--sh-sm);
     }
-    .game-target {
-      position: absolute; background: var(--pri); border-radius: 50%;
-      transition: transform 0.1s; display: none; z-index: 10;
-      box-shadow: 0 0 12px color-mix(in srgb, var(--pri) 50%, transparent);
+    .game-screen { display: none; }
+    .game-screen.active { display: block; animation: pageIn 0.3s ease-out; }
+    .scenario-box { background: var(--surf2); border: 1px solid var(--brd); padding: 1.25rem; border-radius: var(--r-lg); margin-block: 1rem; }
+    .option-btn {
+      display: block; width: 100%; text-align: left; padding: 1rem 1.25rem; margin-bottom: .75rem;
+      background: var(--bg); border: 1px solid var(--brd); border-radius: var(--r-lg); font-size: var(--sm);
+      color: var(--muted); transition: all var(--tr);
     }
-    .game-target:hover { background: var(--prih); }
-    .start-overlay { text-align: center; z-index: 20; padding: 2rem; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-    .stat-card { background: var(--surf); border: 1px solid var(--brd); padding: 1rem; border-radius: var(--r-lg); text-align: center; }
-    .stat-val { font-family: var(--fd); font-size: var(--lg); font-weight: 800; color: var(--pri); margin-top: .2rem; }
-    .explanation-box { background: color-mix(in srgb, var(--pri) 5%, var(--surf)); border-left: 4px solid var(--pri); padding: 1.25rem; border-radius: 0 var(--r-xl) var(--r-xl) 0; margin-top: 2rem; display: none; }
+    .option-btn:hover { border-color: var(--pri); color: var(--txt); background: var(--surfoff); transform: translateX(2px); }
+    .score-circle-wrap { display: flex; justify-content: center; margin-block: 1.5rem; }
+    .score-circle {
+      width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--pri);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: var(--fd); font-weight: 900; font-size: var(--xl); color: var(--pri);
+    }
+    .feedback-pill { padding: .4rem .85rem; border-radius: var(--r-lg); font-size: var(--xs); font-weight: 600; margin-bottom: .5rem; display: inline-block; }
+    .feedback-pill.neutral { background: rgba(79, 152, 163, 0.15); color: var(--pri); }
+    .feedback-pill.danger { background: rgba(234, 67, 53, 0.12); color: #ea4335; }
   </style>
 </head>
 <body>
@@ -437,10 +432,6 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         Status Lavorativo
       </button>
-      <button class="nav-item" data-page="sandbox">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        HCI Sandbox <span style="font-size:9px; background:var(--pri); color:#fff; padding:1px 5px; border-radius:4px; margin-left:4px;">PROVA</span>
-      </button>
 
       <button class="nav-item" data-page="cornremote">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -449,7 +440,7 @@
       <div class="nav-sub">
         <button class="nav-item" data-page="cornremote">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          CornRemote
+          CornRemote &amp; Bias Detector
         </button>
       </div>
 
@@ -578,7 +569,7 @@
               </div>
               <div class="cloc">📍 Padova, IT</div>
               <div class="cbullets">
-                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri il progetto</button></div></div>
+                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri il progetto e gioca</button></div></div>
                 <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
               </div>
             </div>
@@ -779,7 +770,7 @@
             La validazione del prototipo ha seguito una metodologia rigorosa basata su un disegno di ricerca con somministrazione di <strong>due questionari distinti (Pre-test e Post-test)</strong> tramite piattaforma Qualtrics:
           </p>
           <ul class="cbullets" style="margin-top: .5rem; border-top: none; padding-top: 0;">
-            <li class="cb"><div class="cb-text"><strong>Questionario 1 (Baseline):</strong> Somministrato prima dell'uso per indagare i profili utente, la familiarità tecnologica, le abitudini di visione (tutti i partecipanti guardavano contenuti su PC almeno 2-3 volte a settimana) e le esperienze pregresse negativi con telecomandi (riscontrate nel 100% del campione).</div></li>
+            <li class="cb"><div class="cb-text"><strong>Questionario 1 (Baseline):</strong> Somministrato prima dell'uso per indagare i profili utente, la familiarità tecnologica, le abitudini di visione (tutti i partecipanti guardavano contenuti su PC almeno 2-3 volte a settimana) e le esperienze pregresse negative con telecomandi (riscontrate nel 100% del campione).</div></li>
             <li class="cb"><div class="cb-text"><strong>Questionario 2 (Esperienziale):</strong> Somministrato immediatamente dopo l'interazione per misurare l'usabilità percepita, l'accessibilità, l'efficacia del controllo e l'estetica.</div></li>
           </ul>
         </section>
@@ -824,27 +815,48 @@
             </tbody>
           </table>
           <p class="proj-body">
-            L'unico elemento che ha mostrato una distribution più bilanciata riguarda la <em>comodità della posizione dei pulsanti</em> (50% neutro, 50% in accordo), identificando un'area di ottimizzazione ergonomica per le iterazioni successive.
+            L'unico elemento che ha mostrato una distribuzione più bilanciata riguarda la <em>comodità della posizione dei pulsanti</em> (50% neutro, 50% in accordo), identificando un'area di ottimizzazione ergonomica per le iterazioni successive.
           </p>
         </section>
 
+        <div class="pdiv"></div>
+        
         <section class="proj-section ps">
-          <div class="proj-section-label">Limitazioni e Sviluppi Futuri (Next Steps)</div>
-          <p class="proj-body" style="margin-bottom: 1rem;">
-            L'approccio autocritico e l'analisi dei fattori umani hanno permesso di mappare i limiti attuali della manifattura del prototipo e i relativi piani di svecchiamento tecnologico:
+          <p class="proj-eyebrow">Interactive Psychology Tool · HR &amp; Gamification</p>
+          <h2 class="proj-title" style="font-size: var(--2xl);">Recruiting Bias Detector</h2>
+          <p class="proj-sub" style="font-size: var(--base); margin-bottom: 1.5rem;">
+            Un micro-assessment interattivo per sperimentare in tempo reale l'impatto dei bias cognitivi ed emotivi durante le decisioni di selezione del personale.
           </p>
-          <div class="sgrid">
-            <div class="scard">
-              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--muted);">Limiti Rilevati</div>
-              <div class="sitem" style="font-size: var(--xs);">La natura cartacea dei tasti accelera il deterioramento.</div>
-              <div class="sitem" style="font-size: var(--xs);">La plastilina interna rischia di solidificarsi nel tempo.</div>
-              <div class="sitem" style="font-size: var(--xs);">I cavi di collegamento limitano la mobilità complessiva.</div>
+
+          <div class="bias-game-container">
+            <div class="game-screen active" id="screen-intro">
+              <p class="proj-body" style="font-size: var(--sm); margin-bottom: 1.25rem;">
+                Mettiti alla prova nei panni di un selezionatore. Ti verranno proposti <strong>3 scenari rapidi</strong> estratti da reali dinamiche di colloquio. L'algoritmo calcolerà il tuo livello di oggettività finale.
+              </p>
+              <button class="status-cta-btn" onclick="startBiasGame()">Avvia il test interattivo</button>
             </div>
-            <div class="scard">
-              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--pri);">Evoluzione V2</div>
-              <div class="sitem" style="font-size: var(--xs);"><strong>Iniezione in silicone:</strong> per massimizzare l'igiene, l'ergonomia e la lavabilità dei tasti.</div>
-              <div class="sitem" style="font-size: var(--xs);"><strong>Tecnologia Wireless:</strong> transizione a moduli senza fili per slegare il contenitore dal PC.</div>
-              <div class="sitem" style="font-size: var(--xs);"><strong>Materiali avanzati:</strong> tasti capacitivi polimerici resistenti all'usura.</div>
+
+            <div class="game-screen" id="screen-question">
+              <div class="feedback-pill neutral" id="question-number">Scenario 1 di 3</div>
+              <div class="scenario-box">
+                <p id="scenario-text" class="proj-body" style="font-size: var(--sm); color: var(--txt); font-weight:500;"></p>
+              </div>
+              <div id="options-container"></div>
+            </div>
+
+            <div class="game-screen" id="screen-results">
+              <div class="stitle" style="font-size: var(--base); text-align: center;">Assessment Completato</div>
+              <div class="score-circle-wrap">
+                <div class="score-circle">
+                  <span id="score-value">100%</span>
+                  <span style="font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top:-4px;">Oggettività</span>
+                </div>
+              </div>
+              <div class="scenario-box" style="background: color-mix(in srgb, var(--pri) 5%, var(--surf));">
+                <div class="stitle" id="result-title" style="color: var(--pri); margin-bottom: .5rem;">Profilo Valutativo</div>
+                <p id="result-desc" class="proj-body" style="font-size: var(--sm); line-height: 1.6;"></p>
+              </div>
+              <button class="option-btn" onclick="startBiasGame()" style="text-align: center; font-weight: 600; margin-top: 1rem;">Riprova l'Assessment</button>
             </div>
           </div>
         </section>
@@ -854,48 +866,6 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
             Torna al Curriculum
           </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="page" id="page-sandbox">
-      <div class="sandbox-container">
-        <h1 class="contact-title">HCI Sandbox: La Legge di Fitts</h1>
-        <p class="contact-sub">Metti alla prova i tuoi riflessi motori e scopri l'algoritmo matematico dietro la progettazione delle interfacce d'uso.</p>
-        
-        <div class="game-box" id="gameBox">
-          <div class="start-overlay" id="startOverlay">
-            <p style="margin-bottom:1.5rem; font-size:var(--sm); color:var(--muted);">Il test consiste nel cliccare il cerchio colorato per 5 volte di fila.<br>Il sistema varierà la dimensione del bersaglio e la sua distanza ad ogni clic.</p>
-            <button class="status-cta-btn" id="startGameBtn">Avvia l'Esperimento</button>
-          </div>
-          <div class="game-target" id="gameTarget"></div>
-        </div>
-
-        <div id="resultsPanel" style="display:none; animation: pageIn .4s forwards;">
-          <h3 class="stitle" style="font-size:var(--base);">📊 I tuoi Dati di Puntamento</h3>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="contact-label">Tempo Medio di Reazione</div>
-              <div class="stat-val" id="avgTime">0 ms</div>
-            </div>
-            <div class="stat-card">
-              <div class="contact-label">Difficoltà Media Gestita</div>
-              <div class="stat-val" id="avgID">0.00 bit</div>
-            </div>
-            <div class="stat-card">
-              <div class="contact-label">Indice di Performance (IP)</div>
-              <div class="stat-val" id="avgIP">0.00 bit/s</div>
-            </div>
-          </div>
-
-          <div class="explanation-box" id="explanationBox" style="display:block;">
-            <div class="stitle" style="color:var(--pri); margin-bottom:.5rem;">🧠 L'Evidenza Psicologica</div>
-            <p class="proj-body" style="font-size:var(--sm); line-height:1.6;">
-              Hai appena sperimentato empiricamente la <strong>Legge di Fitts</strong>. L'algoritmo dimostra che il tempo necessario per raggiungere un obiettivo è una funzione logaritmica del rapporto tra la <strong>Distanza ($D$)</strong> e la <strong>Dimensione ($W$)</strong> del bersaglio. 
-              <br><br>
-              <strong>Applicazione Reale:</strong> Ho utilizzato questo preciso modello matematico durante lo sviluppo di <strong>CornRemote</strong>. Analizzando l'ergonomia monomanuale e i deficit motori tipici dell'invecchiamento (Design Age-Friendly), la formula ha guidato il dimensionamento e il posizionamento dei tasti sul corpo cilindrico del dispositivo per ridurre a zero gli errori di puntamento al buio.
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -991,7 +961,6 @@
     });
   }
 
-  // Esecuzione immediata per evitare sfarfallio bianco
   const currentTheme = getPreferredTheme();
   updateThemeUI(currentTheme);
 
@@ -1047,93 +1016,94 @@
     topbarName.classList.toggle('show', window.scrollY > 80);
   }, { passive: true });
 
-  // ── LOGICA INTERATTIVA LEGGE DI FITTS (HCI SANDBOX) ──
-  const gameBox = document.getElementById('gameBox');
-  const gameTarget = document.getElementById('gameTarget');
-  const startOverlay = document.getElementById('startOverlay');
-  const startGameBtn = document.getElementById('startGameBtn');
-  const resultsPanel = document.getElementById('resultsPanel');
-  
-  let clickCount = 0;
-  const maxClicks = 5;
-  let lastTargetTime = 0;
-  let totalReactionTime = 0;
-  let totalID = 0;
-  let lastX = 0;
-  let lastY = 0;
-
-  const targetSizes = [60, 45, 30, 55, 35]; // Dimensioni (W) in pixel
-  
-  startGameBtn.addEventListener('click', startGame);
-  gameTarget.addEventListener('mousedown', targetClicked);
-
-  function startGame() {
-    startOverlay.style.display = 'none';
-    resultsPanel.style.display = 'none';
-    clickCount = 0;
-    totalReactionTime = 0;
-    totalID = 0;
-    
-    lastX = gameBox.offsetWidth / 2;
-    lastY = gameBox.offsetHeight / 2;
-    
-    spawnTarget();
-  }
-
-  function spawnTarget() {
-    if (clickCount >= maxClicks) {
-      endGame();
-      return;
+  // ── LOGICA INTERATTIVA DEL MINIGIOCO HR: BIAS DETECTOR ──
+  const scenarios = [
+    {
+      text: "Un candidato si presenta al colloquio vestito in modo impeccabile, è estremamente carismatico e ha frequentato la tua stessa identica università prestigiosa. Istintivamente tendi a giudicare positivamente anche le sue risposte tecniche, che in realtà sono piuttosto superficiali. Di quale distorsione si tratta?",
+      options: [
+        { text: "Effetto Alone (Halo Effect)", correct: true },
+        { text: "Effetto Contrasto", correct: false },
+        { text: "Bias di Proiezione", correct: false }
+      ]
+    },
+    {
+      text: "Durante uno screening di CV per un ruolo IT, scarti un profilo valido solo perché l'ateneo di provenienza ti ricorda un ex-collaboratore con cui hai avuto forti attriti in passato, proiettando quell'esperienza negativa sul candidato attuale. Che distorsione si sta verificando?",
+      options: [
+        { text: "Bias di Somiglianza (Similar-to-me)", correct: false },
+        { text: "Effetto Ancoraggio", correct: false },
+        { text: "Euristica dell'Affetto / Errore di Associazione", correct: true }
+      ]
+    },
+    {
+      text: "Intervisti consecutivamente tre candidati decisamente impreparati. Il quarto candidato è appena sufficiente, ma a causa del livello bassissimo dei precedenti, lo valuti immediatamente come un profilo 'eccellente ed eccezionale'. Di quale trappola cognitiva parliamo?",
+      options: [
+        { text: "Effetto Contrasto", correct: true },
+        { text: "Bias di Conferma", correct: false },
+        { text: "Effetto Primacy", correct: false }
+      ]
     }
+  ];
 
-    const size = targetSizes[clickCount];
-    const maxX = gameBox.offsetWidth - size - 20;
-    const maxY = gameBox.offsetHeight - size - 20;
-    
-    const nextX = Math.max(10, Math.floor(Math.random() * maxX));
-    const nextY = Math.max(10, Math.floor(Math.random() * maxY));
-    
-    const distance = Math.sqrt(Math.pow(nextX - lastX, 2) + Math.pow(nextY - lastY, 2));
-    const indexDifficulty = Math.log2((2 * distance) / size);
-    totalID += indexDifficulty;
+  let currentGameIndex = 0;
+  let correctAnswers = 0;
 
-    gameTarget.style.width = size + 'px';
-    gameTarget.style.height = size + 'px';
-    gameTarget.style.left = nextX + 'px';
-    gameTarget.style.top = nextY + 'px';
-    gameTarget.style.display = 'block';
-
-    lastX = nextX + (size / 2);
-    lastY = nextY + (size / 2);
-    lastTargetTime = performance.now();
+  function startBiasGame() {
+    currentGameIndex = 0;
+    correctAnswers = 0;
+    document.getElementById('screen-intro').classList.remove('active');
+    document.getElementById('screen-results').classList.remove('active');
+    document.getElementById('screen-question').classList.add('active');
+    renderScenario();
   }
 
-  function targetClicked(e) {
-    e.stopPropagation();
-    const clickTime = performance.now();
-    const reactionTime = clickTime - lastTargetTime;
+  function renderScenario() {
+    const current = scenarios[currentGameIndex];
+    document.getElementById('question-number').innerText = `Scenario ${currentGameIndex + 1} di ${scenarios.length}`;
+    document.getElementById('scenario-text').innerText = current.text;
     
-    totalReactionTime += reactionTime;
-    clickCount++;
+    const container = document.getElementById('options-container');
+    container.innerHTML = '';
     
-    gameTarget.style.display = 'none';
-    spawnTarget();
+    current.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerText = opt.text;
+      btn.onclick = () => handleAnswer(opt.correct);
+      container.appendChild(btn);
+    });
   }
 
-  function endGame() {
-    gameTarget.style.display = 'none';
-    startOverlay.style.display = 'block';
-    startGameBtn.innerText = 'Ripeti l\'Esperimento';
+  function handleAnswer(isCorrect) {
+    if(isCorrect) correctAnswers++;
+    currentGameIndex++;
     
-    const avgReactionTime = totalReactionTime / maxClicks;
-    const avgDifficulty = totalID / maxClicks;
-    const throughput = avgDifficulty / (avgReactionTime / 1000);
+    if(currentGameIndex < scenarios.length) {
+      renderScenario();
+    } else {
+      showGameResults();
+    }
+  }
 
-    document.getElementById('avgTime').innerText = Math.round(avgReactionTime) + ' ms';
-    document.getElementById('avgID').innerText = avgDifficulty.toFixed(2) + ' bit';
-    document.getElementById('avgIP').innerText = throughput.toFixed(2) + ' bit/s';
+  function showGameResults() {
+    document.getElementById('screen-question').classList.remove('active');
+    document.getElementById('screen-results').classList.add('active');
     
-    resultsPanel.style.display = 'block';
+    const percentage = Math.round((correctAnswers / scenarios.length) * 100);
+    document.getElementById('score-value').innerText = percentage + "%";
+    
+    const titleEl = document.getElementById('result-title');
+    const descEl = document.getElementById('result-desc');
+    
+    if(percentage === 100) {
+      titleEl.innerText = "🎯 Profilo: Selezionatore Obiettivo & Scientifico";
+      descEl.innerHTML = "Eccellente! Hai riconosciuto tutte le principali trappole euristiche dell'intervista di selezione. Questo approccio basato sulla consapevolezza cognitiva è fondamentale per strutturare i flussi organizzativi aziendali in modo meritocratico, trasparente e privo di bias valutativi.";
+    } else if (percentage >= 50) {
+      titleEl.innerText = "⚖️ Profilo: Selezionatore Consapevole ma Esposto";
+      descEl.innerHTML = "Buon punteggio, ma hai subito il fascino di alcune distorsioni cognitive involontarie. Nella Talent Acquisition moderna, l'uso di interviste strutturate e l'integrazione di tool di AI adottati in modo trasparente fungono da scudo contro queste euristiche spontanee.";
+    } else {
+      titleEl.innerText = "⚠️ Profilo: Selezione Istintiva (Alto Rischio Bias)";
+      descEl.innerHTML = "I tuoi giudizi risentono dei condizionamenti del contesto e dei bias di associazione. È il comportamento umano standard: il cervello cerca scorciatoie. Per questo, nei contesti di People Operations, promuovo la standardizzazione delle valutazioni per difendere l'equità aziendale.";
+    }
   }
 
   function initObserver() {
