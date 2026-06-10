@@ -115,7 +115,6 @@
     .nav-item.active { background: var(--surfoff); color: var(--pri); font-weight: 600; }
     .nav-item.active svg { opacity: 1; }
 
-    /* sub-items (CV download, CornRemote) */
     .nav-sub { padding-left: 1.5rem; }
     .nav-sub .nav-item { font-size: var(--xs); }
 
@@ -210,7 +209,6 @@
     .pill a { display: flex; align-items: center; gap: .5rem; color: inherit; }
     .pill:hover { color: var(--pri); background: var(--surf2); }
 
-    /* puzzle sections */
     .ps {
       margin-top: var(--gap);
       opacity: 0; transform: translateY(36px);
@@ -260,11 +258,9 @@
     .sitem { font-size: var(--xs); color: var(--muted); padding: .35rem 0; border-bottom: 1px solid var(--brd); }
     .sitem:last-child { border-bottom: none; }
 
-    /* ── INTERESSI ──────────────────────────────────────────── */
     .int-text { font-size: var(--base); line-height: 1.8; color: var(--muted); max-width: 72ch; }
     .int-text strong { color: var(--txt); }
 
-    /* ── OPEN-TO-WORK BANNER ────────────────────────────────── */
     .otw-banner {
       margin-top: var(--gap);
       padding: 1.5rem 2rem;
@@ -278,7 +274,6 @@
     .otw-text { font-size: var(--sm); color: var(--txt); }
     .otw-text strong { font-weight: 700; }
 
-    /* ── CONTATTI PAGE ──────────────────────────────────────── */
     .contact-wrap { max-width: 640px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
     .contact-title { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
     .contact-sub { font-size: var(--base); color: var(--muted); margin-bottom: 2.5rem; max-width: 50ch; }
@@ -296,30 +291,34 @@
     .contact-label { font-size: var(--xs); color: var(--faint); display: block; margin-bottom: .2rem; }
     .contact-value { font-weight: 600; color: var(--txt); font-size: var(--sm); }
 
-    /* ── CV DOWNLOAD PAGE ───────────────────────────────────── */
     .dl-wrap { max-width: 580px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
     .dl-title { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
     .dl-sub { font-size: var(--base); color: var(--muted); margin-bottom: 2.5rem; }
-    .dl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px,100%),1fr)); gap: 1.25rem; }
-    .dl-card {
-      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
-      padding: 2rem; box-shadow: var(--sh-sm); text-align: center;
-      transition: box-shadow var(--tr), transform var(--tr);
-    }
-    .dl-card:hover { box-shadow: var(--sh-md); transform: translateY(-3px); }
-    .dl-flag { font-size: 2.5rem; margin-bottom: 1rem; }
-    .dl-lang { font-family: var(--fd); font-size: var(--lg); font-weight: 800; color: var(--txt); margin-bottom: .5rem; }
-    .dl-desc { font-size: var(--xs); color: var(--muted); margin-bottom: 1.5rem; }
-    .dl-btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .75rem 1.5rem; border-radius: 99px;
-      background: var(--pri); color: #fff; font-weight: 600; font-size: var(--sm);
-      transition: background var(--tr), transform var(--tr);
-      cursor: pointer;
-    }
-    .dl-btn:hover { background: var(--prih); transform: scale(1.04); }
 
-    /* ── CORNREMOTE PAGE ────────────────────────────────────── */
+    .dl-drive-card {
+      display: flex; align-items: center; gap: 2rem;
+      padding: 2.5rem;
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
+      box-shadow: var(--sh-sm);
+      transition: box-shadow var(--tr), transform var(--tr);
+      max-width: 540px;
+      color: inherit;
+    }
+    .dl-drive-card:hover { box-shadow: var(--sh-lg); transform: translateY(-3px); }
+    .dl-drive-icon { flex-shrink: 0; }
+    .dl-drive-title {
+      font-family: var(--fd); font-size: var(--xl); font-weight: 800;
+      color: var(--txt); margin-bottom: .6rem; line-height: 1.2;
+    }
+    .dl-drive-desc { font-size: var(--sm); color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+    .dl-drive-desc strong { color: var(--txt); }
+    .dl-drive-cta {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: var(--sm); font-weight: 600; color: var(--pri);
+      transition: gap var(--tr);
+    }
+    .dl-drive-card:hover .dl-drive-cta { gap: .7rem; }
+
     .proj-wrap { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
     .proj-hero { padding-block: clamp(2rem,6vw,4rem); }
     .proj-eyebrow {
@@ -357,7 +356,6 @@
     .proj-step-content .step-title { font-weight: 700; color: var(--txt); font-size: var(--sm); margin-bottom: .4rem; }
     .proj-step-content .step-desc { font-size: var(--xs); color: var(--muted); line-height: 1.65; }
 
-    /* ── FOOTER ─────────────────────────────────────────────── */
     .footer {
       padding: 3rem clamp(1rem,5vw,2.5rem);
       border-top: 1px solid var(--brd);
@@ -369,21 +367,22 @@
     .footer-link { font-size: var(--xs); color: var(--muted); transition: color var(--tr); cursor: pointer; }
     .footer-link:hover { color: var(--pri); }
 
-    /* ── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 640px) {
       .hero-name { letter-spacing: -.02em; }
       .otw-banner { padding: 1.25rem; }
       .contact-item { padding: 1rem 1.25rem; }
+    }
+    @media (max-width: 500px) {
+      .dl-drive-card { flex-direction: column; text-align: center; }
+      .dl-drive-cta { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
 <div class="shell">
-  <!-- OVERLAY -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar" role="navigation" aria-label="Menu principale">
     <div class="sidebar-header">
       <div class="sidebar-name">Christian Giannone</div>
@@ -398,7 +397,6 @@
         Curriculum
       </button>
 
-      <!-- PROGETTI sub -->
       <button class="nav-item" data-page="cornremote">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         Progetti
@@ -410,38 +408,25 @@
         </button>
       </div>
 
-      <!-- CONTATTI -->
       <button class="nav-item" data-page="contatti">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Contatti
       </button>
 
-      <!-- SCARICA CV sub -->
       <button class="nav-item" data-page="download">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Scarica CV
       </button>
-      <div class="nav-sub">
-        <button class="nav-item" data-page="download">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          🇮🇹 Italiano
-        </button>
-        <button class="nav-item" data-page="download">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          🇬🇧 English
-        </button>
-      </div>
     </nav>
 
     <div class="sidebar-footer">
-      <span style="font-size:var(--xs);color:var(--faint);">© 2025 Christian Giannone</span>
+      <span style="font-size:var(--xs);color:var(--faint);">© 2026 Christian Giannone</span>
       <button class="theme-btn" data-theme-toggle aria-label="Cambia tema">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
     </div>
   </aside>
 
-  <!-- TOP BAR -->
   <header class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="Apri menu" aria-expanded="false" aria-controls="sidebar">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -452,14 +437,10 @@
     </button>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="main">
 
-    <!-- ── PAGE: CV ─────────────────────────────────────────── -->
     <div class="page active" id="page-cv">
       <div class="cv-wrap">
-
-        <!-- HERO -->
         <section class="hero" id="hero">
           <p class="hero-ey">HR Generalist &amp; Applied Psychologist · Padova, IT</p>
           <h1 class="hero-name">Christian<br>Giannone</h1>
@@ -480,7 +461,6 @@
           </div>
         </section>
 
-        <!-- ABOUT -->
         <section class="ps" id="about">
           <p class="slabel">About Me</p>
           <p class="about-text">
@@ -504,7 +484,6 @@
 
         <div class="pdiv"></div>
 
-        <!-- EXPERIENCE -->
         <section class="ps" id="exp">
           <p class="slabel">Esperienza Lavorativa</p>
           <div class="clist">
@@ -545,7 +524,6 @@
 
         <div class="pdiv"></div>
 
-        <!-- EDUCATION -->
         <section class="ps" id="edu">
           <p class="slabel">Formazione</p>
           <div class="clist">
@@ -582,7 +560,6 @@
 
         <div class="pdiv"></div>
 
-        <!-- SKILLS -->
         <section class="ps" id="skills">
           <p class="slabel">Competenze &amp; Strumenti</p>
           <div class="sgrid">
@@ -622,7 +599,6 @@
 
         <div class="pdiv"></div>
 
-        <!-- INTERESSI -->
         <section class="ps" id="interessi">
           <p class="slabel">Interessi</p>
           <p class="int-text">
@@ -634,7 +610,6 @@
           </p>
         </section>
 
-        <!-- OPEN TO WORK -->
         <div class="otw-banner ps">
           <div class="otw-dot"></div>
           <div class="otw-text">
@@ -651,12 +626,9 @@
             <button class="footer-link" data-page="cornremote">CornRemote</button>
           </div>
         </footer>
-
       </div>
-    </div><!-- /page-cv -->
+    </div>
 
-
-    <!-- ── PAGE: CONTATTI ──────────────────────────────────── -->
     <div class="page" id="page-contatti">
       <div class="contact-wrap">
         <h1 class="contact-title" style="opacity:0;transform:translateY(20px);animation:fu .7s .1s ease forwards">Contatti</h1>
@@ -692,39 +664,41 @@
           </div>
         </div>
       </div>
-    </div><!-- /page-contatti -->
+    </div>
 
-
-    <!-- ── PAGE: DOWNLOAD CV ───────────────────────────────── -->
     <div class="page" id="page-download">
       <div class="dl-wrap">
         <h1 class="dl-title" style="opacity:0;transform:translateY(20px);animation:fu .7s .1s ease forwards">Scarica il CV</h1>
-        <p class="dl-sub" style="opacity:0;transform:translateY(16px);animation:fu .7s .2s ease forwards">Disponibile in italiano e in inglese.</p>
-        <div class="dl-grid" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
-          <div class="dl-card">
-            <div class="dl-flag">🇮🇹</div>
-            <div class="dl-lang">Italiano</div>
-            <div class="dl-desc">Versione completa in italiano, aggiornata a giugno 2026.</div>
-            <button class="dl-btn" onclick="dlFile('CV-Christian-Giannone.pdf')">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Scarica PDF
-            </button>
-          </div>
-          <div class="dl-card">
-            <div class="dl-flag">🇬🇧</div>
-            <div class="dl-lang">English</div>
-            <div class="dl-desc">Full English version, updated June 2026.</div>
-            <button class="dl-btn" onclick="dlFile('Christian-Giannone-ENG.pdf')">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download PDF
-            </button>
-          </div>
+        <p class="dl-sub" style="opacity:0;transform:translateY(16px);animation:fu .7s .2s ease forwards">Disponibile in italiano e in inglese su Google Drive.</p>
+        <div style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
+          <a href="https://drive.google.com/drive/folders/1cwUcE4nOaffVu05DWXKdOdvVJow97V57?usp=share_link"
+             target="_blank" rel="noopener"
+             class="dl-drive-card">
+            <div class="dl-drive-icon">
+              <svg width="48" height="48" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
+                <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+                <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
+                <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/>
+                <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/>
+                <path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/>
+                <path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/>
+              </svg>
+            </div>
+            <div class="dl-drive-body">
+              <div class="dl-drive-title">Apri su Google Drive</div>
+              <div class="dl-drive-desc">
+                In questo link Google Drive potrai trovare il mio CV in <strong>inglese</strong> oppure in <strong>italiano</strong>.
+              </div>
+              <div class="dl-drive-cta">
+                Apri la cartella
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
-    </div><!-- /page-download -->
+    </div>
 
-
-    <!-- ── PAGE: CORNREMOTE ────────────────────────────────── -->
     <div class="page" id="page-cornremote">
       <div class="proj-wrap">
         <div class="proj-hero">
@@ -814,15 +788,13 @@
           </button>
         </div>
       </div>
-    </div><!-- /page-cornremote -->
+    </div>
 
   </main>
-</div><!-- /shell -->
+</div>
 
 <script>
-  /* ── THEME ───────────────────────────────────────────────── */
   (function(){
-    const stored = null; // no localStorage in some envs
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
   })();
@@ -833,7 +805,6 @@
       const current = html.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
-      // update all toggle icons
       document.querySelectorAll('[data-theme-toggle]').forEach(b => {
         b.innerHTML = next === 'dark'
           ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
@@ -842,7 +813,6 @@
     });
   });
 
-  /* ── SIDEBAR ─────────────────────────────────────────────── */
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
   const menuBtn = document.getElementById('menuBtn');
@@ -861,65 +831,43 @@
   overlay.addEventListener('click', closeSidebar);
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSidebar(); });
 
-  /* ── PAGE ROUTING ────────────────────────────────────────── */
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const target = document.getElementById('page-' + name);
     if (target) {
       target.classList.add('active');
-      target.scrollIntoView ? window.scrollTo(0,0) : null;
+      window.scrollTo(0,0);
     }
-    // update nav active state
     document.querySelectorAll('.nav-item[data-page]').forEach(n => {
       n.classList.toggle('active', n.getAttribute('data-page') === name);
     });
     closeSidebar();
-    // re-trigger puzzle animations for new page
     setTimeout(initObserver, 50);
   }
 
-  // wire all nav-item[data-page] and footer links
   document.querySelectorAll('[data-page]').forEach(el => {
     el.addEventListener('click', () => showPage(el.getAttribute('data-page')));
   });
 
-  /* ── TOPBAR NAME REVEAL ──────────────────────────────────── */
   const topbarName = document.getElementById('topbarName');
   window.addEventListener('scroll', () => {
     topbarName.classList.toggle('show', window.scrollY > 80);
   }, { passive: true });
 
-  /* ── PUZZLE SCROLL ANIMATIONS ────────────────────────────── */
   function initObserver() {
     const items = document.querySelectorAll('.ps:not(.on), .pdiv:not(.on)');
     if (!items.length) return;
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('on');
+          io.unobserve(e.target);
+        }
+      });
     }, { threshold: 0.12 });
     items.forEach(el => io.observe(el));
   }
   initObserver();
-
-  /* ── PDF DOWNLOAD ────────────────────────────────────────── */
-  function dlFile(filename) {
-    fetch(filename)
-      .then(r => {
-        if (!r.ok) throw new Error('File non trovato: ' + filename);
-        return r.blob();
-      })
-      .then(blob => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
-      })
-      .catch(err => {
-        alert('Impossibile scaricare il file. Assicurati che ' + filename + ' sia nella stessa cartella di index.html.');
-      });
-  }
 </script>
 </body>
 </html>
