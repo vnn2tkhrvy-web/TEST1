@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Christian Giannone</title>
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; style-src 'self' 'unsafe-inline' https://api.fontshare.com; font-src 'self' https://api.fontshare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none';">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 
   <style>
@@ -73,14 +70,7 @@
     ::-webkit-scrollbar-thumb { background: var(--div); border-radius: 99px; }
 
     /* ── LAYOUT SHELL ───────────────────────────────────────── */
-    /*
-      Left sidebar (drawer) + Right main content.
-      On mobile: sidebar is off-canvas.
-    */
-    .shell {
-      display: flex;
-      min-height: 100dvh;
-    }
+    .shell { display: flex; min-height: 100dvh; }
 
     /* ── SIDEBAR ────────────────────────────────────────────── */
     .sidebar {
@@ -104,9 +94,7 @@
       font-family: var(--fd); font-weight: 800; font-size: var(--sm);
       color: var(--txt); line-height: 1.2;
     }
-    .sidebar-role {
-      font-size: var(--xs); color: var(--muted); margin-top: .3rem;
-    }
+    .sidebar-role { font-size: var(--xs); color: var(--muted); margin-top: .3rem; }
 
     .sidebar-nav { padding: 1rem .75rem; flex: 1; }
     .sidebar-section-label {
@@ -124,84 +112,61 @@
     }
     .nav-item svg { flex-shrink: 0; opacity: .7; }
     .nav-item:hover { background: var(--surfoff); color: var(--txt); }
-    .nav-item.active { background: color-mix(in oklch, var(--pri) 12%, var(--surf)); color: var(--pri); }
+    .nav-item.active { background: var(--surfoff); color: var(--pri); font-weight: 600; }
     .nav-item.active svg { opacity: 1; }
 
-    .sidebar-footer {
-      padding: 1rem .75rem 1.5rem;
-      border-top: 1px solid var(--brd);
-    }
-    .sidebar-contact {
-      font-size: var(--xs); color: var(--faint); line-height: 1.8;
-    }
-    .sidebar-contact a { color: var(--muted); transition: color var(--tr); }
-    .sidebar-contact a:hover { color: var(--pri); }
+    /* sub-items (CV download, CornRemote) */
+    .nav-sub { padding-left: 1.5rem; }
+    .nav-sub .nav-item { font-size: var(--xs); }
 
-    /* ── OVERLAY (mobile) ───────────────────────────────────── */
-    .overlay {
-      position: fixed; inset: 0; z-index: 70;
-      background: rgba(0,0,0,.45);
-      opacity: 0; pointer-events: none;
-      transition: opacity .3s ease;
+    .sidebar-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--brd);
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .overlay.on { opacity: 1; pointer-events: all; }
+    .theme-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); transition: background var(--tr), color var(--tr);
+    }
+    .theme-btn:hover { background: var(--surfoff); color: var(--txt); }
+
+    /* ── OVERLAY ────────────────────────────────────────────── */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.45);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+      z-index: 70;
+    }
+    .overlay.show { opacity: 1; pointer-events: all; }
 
     /* ── TOP BAR ────────────────────────────────────────────── */
     .topbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
-      height: 56px;
+      position: fixed; top: 0; left: 0; right: 0; height: 56px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1rem,4vw,2rem);
-      background: color-mix(in oklch, var(--bg) 85%, transparent);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      padding: 0 1.25rem;
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--brd);
+      z-index: 60;
     }
-    .topbar-left { display: flex; align-items: center; gap: .75rem; }
-    .topbar-page-name {
-      font-family: var(--fd); font-weight: 700; font-size: var(--sm); color: var(--txt);
+    .topbar-name {
+      font-family: var(--fd); font-weight: 800; font-size: var(--sm);
+      opacity: 0; transform: translateY(-6px);
+      transition: opacity .3s, transform .3s;
     }
-
-    /* hamburger */
-    .ham {
+    .topbar-name.show { opacity: 1; transform: translateY(0); }
+    .menu-btn {
       width: 40px; height: 40px; border-radius: var(--r-lg);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
-      transition: background var(--tr); color: var(--muted);
-    }
-    .ham:hover { background: var(--surfoff); color: var(--txt); }
-    .ham span {
-      display: block; width: 20px; height: 2px; border-radius: 2px;
-      background: currentColor;
-      transition: transform .3s ease, opacity .3s ease;
-    }
-    .ham.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .ham.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .ham.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .topbar-right { display: flex; align-items: center; gap: .5rem; }
-
-    /* theme toggle */
-    .toggle {
-      width: 38px; height: 38px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: var(--r-lg); color: var(--muted);
-      transition: background var(--tr), color var(--tr);
+      color: var(--txt); transition: background var(--tr);
     }
-    .toggle:hover { background: var(--surfoff); color: var(--txt); }
+    .menu-btn:hover { background: var(--surfoff); }
 
-    /* ── MAIN AREA ──────────────────────────────────────────── */
-    .main {
-      flex: 1;
-      padding-top: 56px; /* topbar height */
-      min-height: 100dvh;
-    }
-
-    /* ── PAGE TRANSITIONS ───────────────────────────────────── */
-    .page {
-      display: none;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity .4s ease, transform .4s ease;
-    }
+    /* ── MAIN ───────────────────────────────────────────────── */
+    .main { flex: 1; padding-top: 56px; }
+    .page { display: none; opacity: 0; transform: translateY(12px); transition: opacity .4s ease, transform .4s ease; }
     .page.active {
       display: block;
       animation: pageIn .45s cubic-bezier(.16,1,.3,1) forwards;
@@ -214,9 +179,8 @@
     /* ── CV PAGE ────────────────────────────────────────────── */
     .cv-wrap { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
 
-    .hero {
-      padding-block: clamp(3rem,8vw,5rem);
-    }
+    .hero { padding-block: clamp(3rem,8vw,5rem); }
+    @keyframes fu { to { opacity: 1; transform: translateY(0); } }
     .hero-ey {
       font-size: var(--xs); font-weight: 500; letter-spacing: .12em;
       text-transform: uppercase; color: var(--pri); margin-bottom: 1rem;
@@ -243,9 +207,10 @@
       border: 1px solid var(--brd); border-radius: 99px; padding: .5rem 1rem;
       transition: color var(--tr), background var(--tr);
     }
+    .pill a { display: flex; align-items: center; gap: .5rem; color: inherit; }
     .pill:hover { color: var(--pri); background: var(--surf2); }
 
-    /* sections */
+    /* puzzle sections */
     .ps {
       margin-top: var(--gap);
       opacity: 0; transform: translateY(36px);
@@ -283,7 +248,6 @@
     .crole { font-size: var(--sm); font-weight: 500; color: var(--pri); margin-top: .4rem; }
     .cdate { font-size: var(--xs); color: var(--faint); background: var(--surfoff); border-radius: 99px; padding: .4rem .85rem; white-space: nowrap; flex-shrink: 0; align-self: flex-start; }
     .cloc { font-size: var(--xs); color: var(--faint); margin-bottom: 1rem; }
-
     .cbullets { display: flex; flex-direction: column; gap: .85rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--brd); }
     .cb { display: flex; align-items: flex-start; gap: .65rem; font-size: var(--sm); color: var(--muted); line-height: 1.65; }
     .cb::before { content: ''; display: block; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--pri); margin-top: .55em; }
@@ -292,469 +256,649 @@
 
     .sgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px,100%), 1fr)); gap: 1rem; }
     .scard { background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-lg); padding: 1.5rem; box-shadow: var(--sh-sm); }
-    .stitle { font-size: var(--sm); font-weight: 700; color: var(--txt); margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem; }
-    .stitle svg { color: var(--pri); flex-shrink: 0; }
-    .sbody { font-size: var(--xs); color: var(--muted); line-height: 1.7; }
+    .stitle { font-size: var(--sm); font-weight: 700; color: var(--txt); margin-bottom: .75rem; }
+    .sitem { font-size: var(--xs); color: var(--muted); padding: .35rem 0; border-bottom: 1px solid var(--brd); }
+    .sitem:last-child { border-bottom: none; }
 
-    .int-text { font-size: var(--base); line-height: 1.8; color: var(--muted); max-width: 65ch; }
-    .int-text strong { color: var(--txt); font-weight: 600; }
+    /* ── INTERESSI ──────────────────────────────────────────── */
+    .int-text { font-size: var(--base); line-height: 1.8; color: var(--muted); max-width: 72ch; }
+    .int-text strong { color: var(--txt); }
 
-    .footer { margin-top: var(--gap); padding-top: 2rem; padding-bottom: 4rem; border-top: 1px solid var(--div); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
-    .fn { font-family: var(--fd); font-weight: 800; font-size: var(--lg); color: var(--txt); }
-    .fs { font-size: var(--xs); color: var(--faint); margin-top: .4rem; }
-    .flinks { display: flex; gap: 1rem; }
-    .flink { font-size: var(--xs); color: var(--muted); transition: color var(--tr); }
-    .flink:hover { color: var(--pri); }
+    /* ── OPEN-TO-WORK BANNER ────────────────────────────────── */
+    .otw-banner {
+      margin-top: var(--gap);
+      padding: 1.5rem 2rem;
+      background: color-mix(in srgb, var(--pri) 10%, var(--surf));
+      border: 1px solid color-mix(in srgb, var(--pri) 30%, transparent);
+      border-radius: var(--r-xl);
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .otw-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pri); flex-shrink: 0; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--pri) 40%, transparent)} 50%{box-shadow:0 0 0 6px transparent} }
+    .otw-text { font-size: var(--sm); color: var(--txt); }
+    .otw-text strong { font-weight: 700; }
 
-    /* ── STATUS PAGE ────────────────────────────────────────── */
-    .status-page {
-      display: flex; align-items: center; justify-content: center;
-      min-height: calc(100dvh - 56px);
-      padding: 2rem;
+    /* ── CONTATTI PAGE ──────────────────────────────────────── */
+    .contact-wrap { max-width: 640px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
+    .contact-title { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
+    .contact-sub { font-size: var(--base); color: var(--muted); margin-bottom: 2.5rem; max-width: 50ch; }
+    .contact-list { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
+      box-shadow: var(--sh-sm);
+      transition: box-shadow var(--tr), transform var(--tr), color var(--tr);
+      font-size: var(--sm); color: var(--muted); font-weight: 500;
     }
-    .status-inner { text-align: center; max-width: 560px; }
-    .status-badge {
-      display: inline-flex; align-items: center; gap: .6rem;
-      font-size: var(--xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      color: #16a34a; background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.25);
-      border-radius: 99px; padding: .55rem 1.2rem; margin-bottom: 2rem;
-      animation: pulse 2.5s ease-in-out infinite;
+    .contact-item:hover { box-shadow: var(--sh-md); transform: translateY(-2px); color: var(--pri); }
+    .contact-item svg { flex-shrink: 0; color: var(--pri); }
+    .contact-label { font-size: var(--xs); color: var(--faint); display: block; margin-bottom: .2rem; }
+    .contact-value { font-weight: 600; color: var(--txt); font-size: var(--sm); }
+
+    /* ── CV DOWNLOAD PAGE ───────────────────────────────────── */
+    .dl-wrap { max-width: 580px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
+    .dl-title { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
+    .dl-sub { font-size: var(--base); color: var(--muted); margin-bottom: 2.5rem; }
+    .dl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px,100%),1fr)); gap: 1.25rem; }
+    .dl-card {
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
+      padding: 2rem; box-shadow: var(--sh-sm); text-align: center;
+      transition: box-shadow var(--tr), transform var(--tr);
     }
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: #16a34a;
-      animation: dot-pulse 2s ease-in-out infinite;
-    }
-    .status-title {
-      font-family: var(--fd); font-size: var(--3xl); font-weight: 900;
-      line-height: 1; letter-spacing: -.03em;
-      color: #16a34a;
-      margin-bottom: 1.25rem;
-    }
-    .status-sub {
-      font-size: var(--lg); color: var(--muted); line-height: 1.6;
-      margin-bottom: 2.5rem;
-    }
-    .status-sub strong { color: var(--txt); }
-    .status-cta {
-      display: inline-flex; align-items: center; gap: .6rem;
+    .dl-card:hover { box-shadow: var(--sh-md); transform: translateY(-3px); }
+    .dl-flag { font-size: 2.5rem; margin-bottom: 1rem; }
+    .dl-lang { font-family: var(--fd); font-size: var(--lg); font-weight: 800; color: var(--txt); margin-bottom: .5rem; }
+    .dl-desc { font-size: var(--xs); color: var(--muted); margin-bottom: 1.5rem; }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem; border-radius: 99px;
       background: var(--pri); color: #fff; font-weight: 600; font-size: var(--sm);
-      padding: .85rem 2rem; border-radius: 99px;
-      transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
-      box-shadow: 0 4px 14px color-mix(in oklch, var(--pri) 40%, transparent);
+      transition: background var(--tr), transform var(--tr);
+      cursor: pointer;
     }
-    .status-cta:hover { background: var(--prih); transform: translateY(-2px); box-shadow: 0 6px 20px color-mix(in oklch, var(--pri) 50%, transparent); }
+    .dl-btn:hover { background: var(--prih); transform: scale(1.04); }
 
-    .status-skills {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem;
-      margin-top: 2.5rem;
+    /* ── CORNREMOTE PAGE ────────────────────────────────────── */
+    .proj-wrap { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
+    .proj-hero { padding-block: clamp(2rem,6vw,4rem); }
+    .proj-eyebrow {
+      font-size: var(--xs); font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--pri); margin-bottom: 1rem;
     }
-    .sk { font-size: var(--xs); color: var(--muted); background: var(--surf); border: 1px solid var(--brd); border-radius: 99px; padding: .45rem .9rem; }
+    .proj-title {
+      font-family: var(--fd); font-size: var(--3xl); font-weight: 900;
+      line-height: 1; letter-spacing: -.03em; margin-bottom: 1rem;
+    }
+    .proj-sub { font-size: var(--lg); color: var(--muted); max-width: 60ch; line-height: 1.7; margin-bottom: 2rem; }
+    .proj-meta { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 3rem; }
+    .proj-tag {
+      font-size: var(--xs); color: var(--muted); background: var(--surf);
+      border: 1px solid var(--brd); border-radius: 99px; padding: .4rem .9rem;
+    }
+    .proj-section { margin-top: 3rem; }
+    .proj-section-label {
+      font-family: var(--fd); font-size: var(--xl); font-weight: 800;
+      color: var(--txt); margin-bottom: 1.25rem; padding-bottom: .75rem;
+      border-bottom: 1px solid var(--brd);
+    }
+    .proj-body { font-size: var(--base); color: var(--muted); line-height: 1.8; max-width: 72ch; }
+    .proj-body strong { color: var(--txt); }
+    .proj-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .proj-step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.25rem 1.5rem;
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
+    }
+    .proj-step-num {
+      font-family: var(--fd); font-size: var(--2xl); font-weight: 900;
+      color: var(--pri); opacity: .25; line-height: 1; flex-shrink: 0; min-width: 2rem;
+    }
+    .proj-step-content .step-title { font-weight: 700; color: var(--txt); font-size: var(--sm); margin-bottom: .4rem; }
+    .proj-step-content .step-desc { font-size: var(--xs); color: var(--muted); line-height: 1.65; }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,.2); }
-      50%       { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .footer {
+      padding: 3rem clamp(1rem,5vw,2.5rem);
+      border-top: 1px solid var(--brd);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      max-width: 860px; margin-inline: auto;
     }
-    @keyframes dot-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .6; transform: scale(.8); }
-    }
+    .footer-name { font-family: var(--fd); font-weight: 800; font-size: var(--sm); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-link { font-size: var(--xs); color: var(--muted); transition: color var(--tr); cursor: pointer; }
+    .footer-link:hover { color: var(--pri); }
 
-    /* ── KEYFRAMES ──────────────────────────────────────────── */
-    @keyframes fu {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    /* ── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 640px) {
-      .ch { flex-direction: column; }
       .hero-name { letter-spacing: -.02em; }
-      .status-title { font-size: var(--2xl); }
+      .otw-banner { padding: 1.25rem; }
+      .contact-item { padding: 1rem 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- OVERLAY -->
-<div class="overlay" id="overlay"></div>
+<div class="shell">
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay"></div>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar" aria-label="Menu di navigazione">
-  <div class="sidebar-header">
-    <div class="sidebar-name">Christian Giannone</div>
-    <div class="sidebar-role">HR Generalist · Applied Psychologist</div>
-  </div>
-
-  <nav class="sidebar-nav">
-    <div class="sidebar-section-label">Menu</div>
-
-    <button class="nav-item active" data-page="cv" aria-label="Vai al CV">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
-      CV
-    </button>
-
-    <button class="nav-item" data-page="status" aria-label="Vai a Status lavorativo">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      Status Lavorativo
-    </button>
-  </nav>
-
-  <div class="sidebar-footer">
-    <div class="sidebar-contact">
-      <a href="mailto:christiangiannone.it@gmail.com">christiangiannone.it@gmail.com</a><br>
-      <a href="tel:+393271204209">+39 327 120 4209</a><br>
-      <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Menu principale">
+    <div class="sidebar-header">
+      <div class="sidebar-name">Christian Giannone</div>
+      <div class="sidebar-role">HR Generalist &amp; Applied Psychologist</div>
     </div>
-  </div>
-</aside>
 
-<!-- TOP BAR -->
-<header class="topbar">
-  <div class="topbar-left">
-    <button class="ham" id="ham" aria-label="Apri menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Navigazione</div>
+
+      <button class="nav-item active" data-page="cv">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Curriculum
+      </button>
+
+      <!-- PROGETTI sub -->
+      <button class="nav-item" data-page="cornremote">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Progetti
+      </button>
+      <div class="nav-sub">
+        <button class="nav-item" data-page="cornremote">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          CornRemote
+        </button>
+      </div>
+
+      <!-- CONTATTI -->
+      <button class="nav-item" data-page="contatti">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contatti
+      </button>
+
+      <!-- SCARICA CV sub -->
+      <button class="nav-item" data-page="download">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Scarica CV
+      </button>
+      <div class="nav-sub">
+        <button class="nav-item" data-page="download">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          🇮🇹 Italiano
+        </button>
+        <button class="nav-item" data-page="download">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          🇬🇧 English
+        </button>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span style="font-size:var(--xs);color:var(--faint);">© 2025 Christian Giannone</span>
+      <button class="theme-btn" data-theme-toggle aria-label="Cambia tema">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Apri menu" aria-expanded="false" aria-controls="sidebar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <span class="topbar-page-name" id="topbar-page-name">CV</span>
-  </div>
-  <div class="topbar-right">
-    <button class="toggle" data-theme-toggle aria-label="Cambia tema"></button>
-  </div>
-</header>
+    <span class="topbar-name" id="topbarName">Christian Giannone</span>
+    <button class="theme-btn" data-theme-toggle aria-label="Cambia tema">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </header>
 
-<!-- MAIN -->
-<main class="main">
+  <!-- MAIN CONTENT -->
+  <main class="main">
 
-  <!-- ─ PAGE: CV ─────────────────────────────────────────────── -->
-  <div class="page active" id="page-cv">
-    <div class="cv-wrap">
+    <!-- ── PAGE: CV ─────────────────────────────────────────── -->
+    <div class="page active" id="page-cv">
+      <div class="cv-wrap">
 
-      <!-- HERO -->
-      <section class="hero">
-        <p class="hero-ey">HR Generalist &amp; Applied Psychologist · Padova, IT</p>
-        <h1 class="hero-name">Christian<br>Giannone</h1>
-        <p class="hero-jt">HR Generalist &amp; <span>Applied Psychologist</span><br>AI Adoption · People Operations · UX</p>
-        <div class="hero-pills">
-          <a href="tel:+393271204209" class="pill">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.81a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
-            +39 327 120 4209
+        <!-- HERO -->
+        <section class="hero" id="hero">
+          <p class="hero-ey">HR Generalist &amp; Applied Psychologist · Padova, IT</p>
+          <h1 class="hero-name">Christian<br>Giannone</h1>
+          <p class="hero-jt">HR Generalist &amp; <span>Applied Psychologist</span><br>AI Adoption · People Operations · UX</p>
+          <div class="hero-pills">
+            <span class="pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:christiangiannone.it@gmail.com">christiangiannone.it@gmail.com</a>
+            </span>
+            <span class="pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.57 3.38 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +39 327 120 4209
+            </span>
+            <span class="pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener">LinkedIn</a>
+            </span>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="ps" id="about">
+          <p class="slabel">About Me</p>
+          <p class="about-text">
+            HR Generalist &amp; Applied Psychologist con una forte passione per l'innovazione.
+            Orientato verso il <strong>mondo tech</strong>, la <strong>psicologia applicata</strong>
+            e la gestione del personale a 360°. Sperimento l'integrazione dell'<strong>AI nel workflow
+            aziendale</strong> per aumentare l'efficienza e la qualità.
+            Non mi stanco mai di apprendere — la <strong>curiosità</strong> è il mio driver principale.
+          </p>
+          <div class="tags">
+            <span class="tag">HR Generalist</span>
+            <span class="tag">Applied Psychology</span>
+            <span class="tag">AI Adoption</span>
+            <span class="tag">Talent Acquisition</span>
+            <span class="tag">UX Research</span>
+            <span class="tag">People Operations</span>
+            <span class="tag">Data Analysis</span>
+            <span class="tag">Org. Development</span>
+          </div>
+        </section>
+
+        <div class="pdiv"></div>
+
+        <!-- EXPERIENCE -->
+        <section class="ps" id="exp">
+          <p class="slabel">Esperienza Lavorativa</p>
+          <div class="clist">
+            <div class="card">
+              <div class="ch">
+                <div>
+                  <div class="ctitle">SIT S.p.A.</div>
+                  <div class="crole">HR Generalist — 1 Year Internship</div>
+                </div>
+                <span class="cdate">Ott 2025 – Presente</span>
+              </div>
+              <div class="cloc">📍 Padova, IT</div>
+              <div class="cbullets">
+                <div class="cb"><div class="cb-text"><strong>HRBP Support &amp; Onboarding:</strong> Supporto operativo all'HRBP nella gestione quotidiana della popolazione aziendale (HQ). Gestione autonoma del processo di Induction tramite colloqui 1:1 periodici con tirocinanti.</div></div>
+                <div class="cb"><div class="cb-text"><strong>Talent Acquisition:</strong> Gestione end-to-end dell'iter selettivo, dallo screening dei CV alla proposta economica. Rappresentanza aziendale ai Career Day universitari con focus su profili R&amp;D e tecnici.</div></div>
+                <div class="cb"><div class="cb-text"><strong>Organizational Development:</strong> Collaborazione attiva al processo di Manager Evaluation e supporto al progetto di Job Levelling, garantendo l'allineamento ai requisiti della Direttiva Europea sulla Pay Transparency.</div></div>
+                <div class="cb"><div class="cb-text"><strong>HQ Services:</strong> Rilascio Comunicazioni Organizzative e aggiornamento degli Organigrammi della BU Heating &amp; Ventilation, interfacciandomi mensilmente con plant produttivi internazionali.</div></div>
+                <div class="cb"><div class="cb-text"><strong>HR Analytics &amp; AI Adoption:</strong> Utilizzo avanzato di Excel, monitoraggio KPI e integrazione di tool AI nel workflow aziendale.</div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="ch">
+                <div>
+                  <div class="ctitle">Randstad Enterprise Italia</div>
+                  <div class="crole">HR Training Specialist Intern</div>
+                </div>
+                <span class="cdate">Dic 2024 – Mag 2025</span>
+              </div>
+              <div class="cloc">📍 Padova, IT</div>
+              <div class="cbullets">
+                <div class="cb"><div class="cb-text"><strong>Coordinamento Formazione (Progetto GOL):</strong> Supporto nella gestione end-to-end dei corsi di formazione finanziata, curando la documentazione di compliance e la pianificazione delle aule. Interfaccia principale tra docenti, partecipanti e fornitori esterni.</div></div>
+                <div class="cb"><div class="cb-text"><strong>Data &amp; Process Management:</strong> Monitoraggio della compliance documentale e organizzazione dati strutturati tramite Excel.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="pdiv"></div>
+
+        <!-- EDUCATION -->
+        <section class="ps" id="edu">
+          <p class="slabel">Formazione</p>
+          <div class="clist">
+            <div class="card">
+              <div class="ch">
+                <div>
+                  <div class="ctitle">Laurea Magistrale in Psicologia Cognitiva Applicata</div>
+                  <div class="crole">Università degli Studi di Padova</div>
+                </div>
+                <span class="cdate">Sett 2022 – Lug 2025</span>
+              </div>
+              <div class="cloc">📍 Padova, IT</div>
+              <div class="cbullets">
+                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button onclick="showPage('cornremote')" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;background:none;border:none;">→ Scopri il progetto</button></div></div>
+                <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="ch">
+                <div>
+                  <div class="ctitle">Laurea Triennale in Scienze e Tecniche Psicologiche</div>
+                  <div class="crole">Università del Salento</div>
+                </div>
+                <span class="cdate">Sett 2018 – Mar 2022</span>
+              </div>
+              <div class="cloc">📍 Lecce, IT</div>
+              <div class="cbullets">
+                <div class="cb"><div class="cb-text"><strong>Tesi Sperimentale:</strong> Studio empirico sulle variazioni di stress e qualità del sonno in seguito a training olfattivo, attraverso la comparazione di diverse stimolazioni sensoriali.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="pdiv"></div>
+
+        <!-- SKILLS -->
+        <section class="ps" id="skills">
+          <p class="slabel">Competenze &amp; Strumenti</p>
+          <div class="sgrid">
+            <div class="scard">
+              <div class="stitle">Data &amp; Analytics</div>
+              <div class="sitem">Excel avanzato (Pivot, formule)</div>
+              <div class="sitem">Power BI — dashboard interattive</div>
+              <div class="sitem">Power Query — data cleaning</div>
+              <div class="sitem">KPI monitoring</div>
+            </div>
+            <div class="scard">
+              <div class="stitle">HR &amp; Talent</div>
+              <div class="sitem">Talent Acquisition end-to-end</div>
+              <div class="sitem">Onboarding &amp; Induction</div>
+              <div class="sitem">Job Levelling &amp; Pay Transparency</div>
+              <div class="sitem">Manager Evaluation</div>
+            </div>
+            <div class="scard">
+              <div class="stitle">AI &amp; Tech</div>
+              <div class="sitem">AI tool integration nel workflow</div>
+              <div class="sitem">Interaction Design &amp; UX</div>
+              <div class="sitem">Usability Testing</div>
+              <div class="sitem">Prototipazione rapida</div>
+            </div>
+            <div class="scard">
+              <div class="stitle">Lingue</div>
+              <div class="sitem">Italiano — Madrelingua</div>
+              <div class="sitem">Inglese — Fluente</div>
+            </div>
+            <div class="scard">
+              <div class="stitle">Albo &amp; Certificazioni</div>
+              <div class="sitem">Psicologo — Ordine Psicologi Puglia</div>
+              <div class="sitem">Formazione Finanziata (Progetto GOL)</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="pdiv"></div>
+
+        <!-- INTERESSI -->
+        <section class="ps" id="interessi">
+          <p class="slabel">Interessi</p>
+          <p class="int-text">
+            Sono una persona molto curiosa, mossa dal desiderio di capire come si muove il mondo
+            e sempre interessata a cogliere i trend emergenti. Questa attitudine mi spinge a riempire
+            il tempo libero assorbendo informazioni di tutti i tipi, spaziando dalla
+            <strong>finanza personale</strong> e il <strong>Web 3.0</strong>, fino al <strong>product design</strong> e alla <strong>psicologia comportamentale</strong>.
+            Mi piace molto confrontarmi e parlare con le persone — nei contesti sociali mi viene naturale fare da collante e creare connessioni.
+          </p>
+        </section>
+
+        <!-- OPEN TO WORK -->
+        <div class="otw-banner ps">
+          <div class="otw-dot"></div>
+          <div class="otw-text">
+            <strong>Ricerca Attiva</strong> — Aperto a ruoli <strong>HR Generalist</strong>, <strong>HRBP Junior</strong> o <strong>HR Specialist</strong>
+            in contesti aziendali strutturati, preferibilmente in ambito industriale o tech.
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span class="footer-name">Christian Giannone</span>
+          <div class="footer-links">
+            <button class="footer-link" data-page="contatti">Contatti</button>
+            <button class="footer-link" data-page="download">Scarica CV</button>
+            <button class="footer-link" data-page="cornremote">CornRemote</button>
+          </div>
+        </footer>
+
+      </div>
+    </div><!-- /page-cv -->
+
+
+    <!-- ── PAGE: CONTATTI ──────────────────────────────────── -->
+    <div class="page" id="page-contatti">
+      <div class="contact-wrap">
+        <h1 class="contact-title" style="opacity:0;transform:translateY(20px);animation:fu .7s .1s ease forwards">Contatti</h1>
+        <p class="contact-sub" style="opacity:0;transform:translateY(16px);animation:fu .7s .2s ease forwards">Scrivimi pure — rispondo entro 24 ore.</p>
+        <div class="contact-list" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
+          <a class="contact-item" href="mailto:christiangiannone.it@gmail.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <span class="contact-label">Email</span>
+              <span class="contact-value">christiangiannone.it@gmail.com</span>
+            </div>
           </a>
-          <a href="mailto:christiangiannone.it@gmail.com" class="pill">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            christiangiannone.it@gmail.com
+          <a class="contact-item" href="tel:+393271204209">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.57 3.38 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <span class="contact-label">Telefono</span>
+              <span class="contact-value">+39 327 120 4209</span>
+            </div>
           </a>
-          <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer" class="pill">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            LinkedIn
+          <a class="contact-item" href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <div>
+              <span class="contact-label">LinkedIn</span>
+              <span class="contact-value">linkedin.com/in/christian-giannone</span>
+            </div>
           </a>
-        </div>
-      </section>
-
-      <!-- ABOUT -->
-      <section class="ps" id="about">
-        <p class="slabel">About Me</p>
-        <p class="about-text">
-          HR Generalist &amp; Applied Psychologist con una forte passione per l'innovazione.
-          Orientato verso il <strong>mondo tech</strong>, la <strong>psicologia applicata</strong>
-          e la gestione del personale a 360°. Sperimento l'integrazione dell'<strong>AI nel workflow
-          aziendale</strong> per aumentare l'efficienza e la qualità.
-          Non mi stanco mai di apprendere — la <strong>curiosità</strong> è il mio driver principale.
-        </p>
-        <div class="tags">
-          <span class="tag">HR Generalist</span>
-          <span class="tag">Applied Psychology</span>
-          <span class="tag">AI Adoption</span>
-          <span class="tag">Talent Acquisition</span>
-          <span class="tag">UX Research</span>
-          <span class="tag">People Operations</span>
-          <span class="tag">Data Analysis</span>
-          <span class="tag">Org. Development</span>
-        </div>
-      </section>
-
-      <div class="pdiv"></div>
-
-      <!-- EXPERIENCE -->
-      <section class="ps" id="exp">
-        <p class="slabel">Esperienza Lavorativa</p>
-        <div class="clist">
-          <div class="card">
-            <div class="ch">
-              <div>
-                <div class="ctitle">SIT S.p.A.</div>
-                <div class="crole">HR Generalist — 1 Year Internship</div>
-              </div>
-              <span class="cdate">Ott 2025 – Presente</span>
-            </div>
-            <div class="cloc">📍 Padova, IT</div>
-            <div class="cbullets">
-              <div class="cb"><div class="cb-text"><strong>HRBP Support &amp; Onboarding:</strong> Supporto operativo all'HRBP nella gestione quotidiana della popolazione aziendale (HQ). Gestione autonoma del processo di Induction tramite colloqui 1:1 periodici con tirocinanti.</div></div>
-              <div class="cb"><div class="cb-text"><strong>Talent Acquisition:</strong> Gestione end-to-end dell'iter selettivo, dallo screening dei CV alla proposta economica. Rappresentanza aziendale ai Career Day universitari con focus su profili R&amp;D e tecnici.</div></div>
-              <div class="cb"><div class="cb-text"><strong>Organizational Development:</strong> Collaborazione attiva al processo di Manager Evaluation e supporto al progetto di Job Levelling, garantendo l'allineamento ai requisiti della Direttiva Europea sulla Pay Transparency.</div></div>
-              <div class="cb"><div class="cb-text"><strong>HQ Services:</strong> Rilascio Comunicazioni Organizzative e aggiornamento degli Organigrammi della BU Heating &amp; Ventilation, interfacciandomi mensilmente con plant produttivi internazionali.</div></div>
-              <div class="cb"><div class="cb-text"><strong>HR Analytics &amp; AI Adoption:</strong> Utilizzo avanzato di Excel, monitoraggio KPI e integrazione di tool AI nel workflow aziendale.</div></div>
+          <div class="contact-item" style="cursor:default;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <span class="contact-label">Posizione</span>
+              <span class="contact-value">Padova, IT — disponibile al trasferimento</span>
             </div>
           </div>
-          <div class="card">
-            <div class="ch">
-              <div>
-                <div class="ctitle">Randstad Enterprise Italia</div>
-                <div class="crole">HR Training Specialist Intern</div>
-              </div>
-              <span class="cdate">Dic 2024 – Mag 2025</span>
-            </div>
-            <div class="cloc">📍 Padova, IT</div>
-            <div class="cbullets">
-              <div class="cb"><div class="cb-text"><strong>Coordinamento Formazione (Progetto GOL):</strong> Supporto nella gestione end-to-end dei corsi di formazione finanziata, curando la documentazione di compliance e la pianificazione delle aule. Interfaccia principale tra docenti, partecipanti e fornitori esterni.</div></div>
-              <div class="cb"><div class="cb-text"><strong>Data &amp; Process Management:</strong> Monitoraggio della compliance documentale e organizzazione dati strutturati tramite Excel.</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="pdiv"></div>
-
-      <!-- EDUCATION -->
-      <section class="ps" id="edu">
-        <p class="slabel">Formazione</p>
-        <div class="clist">
-          <div class="card">
-            <div class="ch">
-              <div>
-                <div class="ctitle">Laurea Magistrale in Psicologia Cognitiva Applicata</div>
-                <div class="crole">Università degli Studi di Padova</div>
-              </div>
-              <span class="cdate">Sett 2022 – Lug 2025</span>
-            </div>
-            <div class="cloc">📍 Padova, IT</div>
-            <div class="cbullets">
-              <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche.</div></div>
-              <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="ch">
-              <div>
-                <div class="ctitle">Laurea Triennale in Scienze e Tecniche Psicologiche</div>
-                <div class="crole">Università del Salento</div>
-              </div>
-              <span class="cdate">Sett 2018 – Mar 2022</span>
-            </div>
-            <div class="cloc">📍 Lecce, IT</div>
-            <div class="cbullets">
-              <div class="cb"><div class="cb-text"><strong>Tesi Sperimentale:</strong> Studio empirico sulle variazioni di stress e qualità del sonno in seguito a training olfattivo, attraverso la comparazione di diverse stimolazioni sensoriali.</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="pdiv"></div>
-
-      <!-- SKILLS -->
-      <section class="ps" id="skills">
-        <p class="slabel">Competenze &amp; Strumenti</p>
-        <div class="sgrid">
-          <div class="scard">
-            <div class="stitle">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-              Data Analysis
-            </div>
-            <div class="sbody">Excel avanzato (formule, Pivot, Power Query), Power BI — dashboard interattive e KPI monitoring.</div>
-          </div>
-          <div class="scard">
-            <div class="stitle">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
-              Talent Acquisition
-            </div>
-            <div class="sbody">Screening CV, colloqui strutturati, proposta economica, Career Day universitari, profili R&amp;D e tecnici.</div>
-          </div>
-          <div class="scard">
-            <div class="stitle">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              AI Adoption
-            </div>
-            <div class="sbody">Integrazione di tool AI nel workflow aziendale per efficienza operativa e qualità dei processi HR.</div>
-          </div>
-          <div class="scard">
-            <div class="stitle">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              UX Research
-            </div>
-            <div class="sbody">Usability testing, analisi euristiche, prototipazione, Interaction Design — Lab HIT, Unipd.</div>
-          </div>
-          <div class="scard">
-            <div class="stitle">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Lingue
-            </div>
-            <div class="sbody">Italiano — Madrelingua &nbsp;·&nbsp; Inglese — Fluente.</div>
-          </div>
-          <div class="scard">
-            <div class="stitle">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              Albo Psicologi
-            </div>
-            <div class="sbody">Psicologo iscritto all'Ordine degli Psicologi della Puglia.</div>
-          </div>
-        </div>
-      </section>
-
-      <div class="pdiv"></div>
-
-      <!-- INTERESTS -->
-      <section class="ps">
-        <p class="slabel">Interessi</p>
-        <p class="int-text">
-          Sono una persona molto curiosa, mossa dal desiderio di capire come si muove il mondo
-          e sempre interessata a cogliere i trend emergenti. Questa attitudine mi spinge a riempire
-          il tempo libero assorbendo informazioni di tutti i tipi, spaziando dalla
-          <strong>finanza personale</strong> e il <strong>Web 3.0</strong>, fino al
-          <strong>product design</strong> e alla <strong>psicologia comportamentale</strong>.
-          Mi piace molto confrontarmi e parlare con le persone — nei contesti sociali mi viene
-          naturale fare da collante e creare connessioni.
-        </p>
-      </section>
-
-      <!-- FOOTER -->
-      <footer class="footer ps">
-        <div>
-          <div class="fn">Christian Giannone</div>
-          <div class="fs">HR Generalist &amp; Applied Psychologist · Padova, IT</div>
-        </div>
-        <div class="flinks">
-          <a href="mailto:christiangiannone.it@gmail.com" class="flink">Email</a>
-          <a href="https://www.linkedin.com/in/christian-giannone/" target="_blank" rel="noopener noreferrer" class="flink">LinkedIn</a>
-          <a href="tel:+393271204209" class="flink">Telefono</a>
-        </div>
-      </footer>
-
-    </div><!-- /cv-wrap -->
-  </div><!-- /page-cv -->
-
-  <!-- ─ PAGE: STATUS ─────────────────────────────────────────── -->
-  <div class="page" id="page-status">
-    <div class="status-page">
-      <div class="status-inner">
-        <div class="status-badge">
-          <div class="status-dot"></div>
-          Disponibile
-        </div>
-        <h1 class="status-title">Ricerca Attiva</h1>
-        <p class="status-sub">
-          Sto attualmente cercando un posto di lavoro.<br>
-          Sono aperto a ruoli <strong>HR Generalist</strong>, <strong>HRBP Junior</strong>
-          o <strong>HR Specialist</strong> in contesti aziendali strutturati, preferibilmente
-          in ambito industriale o tech.
-        </p>
-        <a href="mailto:christiangiannone.it@gmail.com" class="status-cta">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Scrivimi
-        </a>
-        <div class="status-skills">
-          <span class="sk">HR Generalist</span>
-          <span class="sk">HRBP Junior</span>
-          <span class="sk">Padova / Nord-Est</span>
-          <span class="sk">Disponibile al trasferimento</span>
-          <span class="sk">Full-time</span>
         </div>
       </div>
-    </div>
-  </div><!-- /page-status -->
+    </div><!-- /page-contatti -->
 
-</main>
+
+    <!-- ── PAGE: DOWNLOAD CV ───────────────────────────────── -->
+    <div class="page" id="page-download">
+      <div class="dl-wrap">
+        <h1 class="dl-title" style="opacity:0;transform:translateY(20px);animation:fu .7s .1s ease forwards">Scarica il CV</h1>
+        <p class="dl-sub" style="opacity:0;transform:translateY(16px);animation:fu .7s .2s ease forwards">Disponibile in italiano e in inglese.</p>
+        <div class="dl-grid" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
+          <div class="dl-card">
+            <div class="dl-flag">🇮🇹</div>
+            <div class="dl-lang">Italiano</div>
+            <div class="dl-desc">Versione completa in italiano, aggiornata a giugno 2025.</div>
+            <a class="dl-btn" href="CV-Christian-Giannone.pdf" download="CV-Christian-Giannone.pdf">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Scarica PDF
+            </a>
+          </div>
+          <div class="dl-card">
+            <div class="dl-flag">🇬🇧</div>
+            <div class="dl-lang">English</div>
+            <div class="dl-desc">Full English version, updated June 2025.</div>
+            <a class="dl-btn" href="Christian-Giannone-ENG.pdf" download="Christian-Giannone-ENG.pdf">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-download -->
+
+
+    <!-- ── PAGE: CORNREMOTE ────────────────────────────────── -->
+    <div class="page" id="page-cornremote">
+      <div class="proj-wrap">
+        <div class="proj-hero">
+          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto UX · Laboratorio HIT, Università di Padova</p>
+          <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
+          <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
+            Progettazione e sviluppo autonomo di un sistema di telecontrollo per macchina spandiconcime,
+            con focus sull'esperienza utente in contesti operativi agricoli.
+          </p>
+          <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
+            <span class="proj-tag">Interaction Design</span>
+            <span class="proj-tag">UX Research</span>
+            <span class="proj-tag">Usability Testing</span>
+            <span class="proj-tag">Prototipazione</span>
+            <span class="proj-tag">Analisi Euristica</span>
+            <span class="proj-tag">Human Factors</span>
+          </div>
+        </div>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Contesto</div>
+          <p class="proj-body">
+            Il progetto <strong>CornRemote</strong> nasce all'interno del laboratorio di ricerca <strong>HIT (Human Interfaces &amp; Technology)</strong>
+            dell'Università degli Studi di Padova, nell'ambito del corso di Laurea Magistrale in Psicologia Cognitiva Applicata.
+            L'obiettivo era progettare un'interfaccia remota usabile ed efficiente per operatori agricoli che controllano
+            macchinari spandiconcime in condizioni operative reali — spesso con guanti, in ambienti rumorosi, su mezzi in movimento.
+          </p>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Processo di Design</div>
+          <div class="proj-steps">
+            <div class="proj-step">
+              <div class="proj-step-num">01</div>
+              <div class="proj-step-content">
+                <div class="step-title">Ricerca &amp; Analisi del Contesto</div>
+                <div class="step-desc">Studio degli utenti target, analisi dei task operativi, identificazione dei vincoli fisici e cognitivi dell'utilizzo in campo agricolo.</div>
+              </div>
+            </div>
+            <div class="proj-step">
+              <div class="proj-step-num">02</div>
+              <div class="proj-step-content">
+                <div class="step-title">Ideazione &amp; Wireframing</div>
+                <div class="step-desc">Sviluppo di molteplici concept alternativi, sketching su carta, selezione delle soluzioni più promettenti tramite valutazione euristica preliminare.</div>
+              </div>
+            </div>
+            <div class="proj-step">
+              <div class="proj-step-num">03</div>
+              <div class="proj-step-content">
+                <div class="step-title">Prototipazione</div>
+                <div class="step-desc">Realizzazione tecnica del prototipo interattivo ad alta fedeltà, con attenzione agli affordance fisici e alla leggibilità in condizioni di luce solare diretta.</div>
+              </div>
+            </div>
+            <div class="proj-step">
+              <div class="proj-step-num">04</div>
+              <div class="proj-step-content">
+                <div class="step-title">Usability Testing</div>
+                <div class="step-desc">Conduzione di test di usabilità con utenti reali. Raccolta di metriche quantitative (task completion rate, tempo, errori) e dati qualitativi (think-aloud protocol).</div>
+              </div>
+            </div>
+            <div class="proj-step">
+              <div class="proj-step-num">05</div>
+              <div class="proj-step-content">
+                <div class="step-title">Analisi Euristica &amp; Iterazione</div>
+                <div class="step-desc">Applicazione delle 10 euristiche di Nielsen. Identificazione dei problemi critici, revisione del prototipo e validazione dei miglioramenti.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Risultati &amp; Apprendimenti</div>
+          <p class="proj-body">
+            Il progetto ha evidenziato l'importanza del <strong>design centrato sull'utente in contesti estremi</strong>: ogni scelta
+            di layout, dimensione dei controlli e gerarchia visiva era condizionata da fattori ambientali e cognitivi
+            difficilmente simulabili in laboratorio. Il principale apprendimento è stato integrare
+            <strong>psicologia cognitiva applicata</strong> (carico di lavoro, memoria di lavoro, attenzione selettiva)
+            direttamente nelle decisioni di design, trattando le euristiche non come checklist finale
+            ma come strumento guida dall'inizio del processo.
+          </p>
+        </section>
+
+        <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--brd);">
+          <button onclick="showPage('cv')" style="display:inline-flex;align-items:center;gap:.5rem;font-size:var(--sm);color:var(--muted);font-weight:500;transition:color var(--tr);cursor:pointer;background:none;border:none;" onmouseover="this.style.color='var(--pri)'" onmouseout="this.style.color='var(--muted)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Torna al Curriculum
+          </button>
+        </div>
+      </div>
+    </div><!-- /page-cornremote -->
+
+  </main>
+</div><!-- /shell -->
 
 <script>
-/* ── THEME ───────────────────────────────────────────────────── */
-(function(){
-  const btn = document.querySelector('[data-theme-toggle]');
+  /* ── THEME ───────────────────────────────────────────────── */
+  (function(){
+    const stored = null; // no localStorage in some envs
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  })();
+
   const html = document.documentElement;
-  let t = html.getAttribute('data-theme') ||
-    (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      // update all toggle icons
+      document.querySelectorAll('[data-theme-toggle]').forEach(b => {
+        b.innerHTML = next === 'dark'
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+      });
+    });
+  });
 
-  const sunSVG  = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
-  const moonSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  /* ── SIDEBAR ─────────────────────────────────────────────── */
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
 
-  function apply(theme){
-    html.setAttribute('data-theme', theme);
-    btn.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
-    btn.setAttribute('aria-label', 'Passa a modalità ' + (theme === 'dark' ? 'chiara' : 'scura'));
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+    menuBtn.setAttribute('aria-expanded', 'true');
   }
-  apply(t);
-  btn.addEventListener('click', () => { t = t === 'dark' ? 'light' : 'dark'; apply(t); });
-})();
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  menuBtn.addEventListener('click', () => sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
+  overlay.addEventListener('click', closeSidebar);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSidebar(); });
 
-/* ── SIDEBAR / HAMBURGER ─────────────────────────────────────── */
-const sidebar  = document.getElementById('sidebar');
-const overlay  = document.getElementById('overlay');
-const ham      = document.getElementById('ham');
-
-function openSidebar(){
-  sidebar.classList.add('open');
-  overlay.classList.add('on');
-  ham.classList.add('active');
-  ham.setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
-}
-function closeSidebar(){
-  sidebar.classList.remove('open');
-  overlay.classList.remove('on');
-  ham.classList.remove('active');
-  ham.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-}
-
-ham.addEventListener('click', () => sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
-overlay.addEventListener('click', closeSidebar);
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSidebar(); });
-
-/* ── PAGE NAVIGATION ─────────────────────────────────────────── */
-const pages    = document.querySelectorAll('.page');
-const navItems = document.querySelectorAll('.nav-item[data-page]');
-const pageNameEl = document.getElementById('topbar-page-name');
-const pageNames  = { cv: 'CV', status: 'Status Lavorativo' };
-
-navItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const target = item.dataset.page;
-
-    // Update active states
-    navItems.forEach(n => n.classList.remove('active'));
-    item.classList.add('active');
-
-    // Swap page
-    pages.forEach(p => {
-      p.classList.remove('active');
-    });
-    const targetPage = document.getElementById('page-' + target);
-    if(targetPage){
-      targetPage.classList.add('active');
-      targetPage.scrollIntoView({ behavior: 'instant', block: 'start' });
+  /* ── PAGE ROUTING ────────────────────────────────────────── */
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + name);
+    if (target) {
+      target.classList.add('active');
+      target.scrollIntoView ? window.scrollTo(0,0) : null;
     }
-
-    // Update topbar label
-    pageNameEl.textContent = pageNames[target] || target;
-
-    // Close sidebar on mobile / after click
+    // update nav active state
+    document.querySelectorAll('.nav-item[data-page]').forEach(n => {
+      n.classList.toggle('active', n.getAttribute('data-page') === name);
+    });
     closeSidebar();
+    // re-trigger puzzle animations for new page
+    setTimeout(initObserver, 50);
+  }
 
-    // Re-run scroll observer on CV page switch
-    if(target === 'cv'){
-      setTimeout(initObserver, 100);
-    }
+  // wire all nav-item[data-page] and footer links
+  document.querySelectorAll('[data-page]').forEach(el => {
+    el.addEventListener('click', () => showPage(el.getAttribute('data-page')));
   });
-});
 
-/* ── SCROLL REVEAL ───────────────────────────────────────────── */
-function initObserver(){
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('#page-cv .ps, #page-cv .pdiv').forEach(el => {
-    if(!el.classList.contains('on')) io.observe(el);
-  });
-}
-initObserver();
+  /* ── TOPBAR NAME REVEAL ──────────────────────────────────── */
+  const topbarName = document.getElementById('topbarName');
+  window.addEventListener('scroll', () => {
+    topbarName.classList.toggle('show', window.scrollY > 80);
+  }, { passive: true });
+
+  /* ── PUZZLE SCROLL ANIMATIONS ────────────────────────────── */
+  function initObserver() {
+    const items = document.querySelectorAll('.ps:not(.on), .pdiv:not(.on)');
+    if (!items.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach(el => io.observe(el));
+  }
+  initObserver();
 </script>
 </body>
 </html>
