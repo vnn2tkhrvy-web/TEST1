@@ -3,102 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nevrotico.com | HR & Digital Innovator</title>
+    <title>Christian Giannone | HR Generalist</title>
     <style>
-        /* Questa sezione CSS definisce lo stile, i colori e la grafica del sito */
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #c9d1d9;
+            --bg-color: #0b0f17;
+            --text-color: #f0f3f6;
             --accent-color: #58a6ff;
+            --muted-color: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            overflow-x: hidden;
+            /* Creiamo uno spazio virtuale per lo scroll: la pagina è alta 4 volte lo schermo */
+            height: 400vh; 
         }
 
-        .container {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            max-width: 450px;
+        /* Il "muro" fisso dove avvengono le magie visive */
+        .scrolly-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            text-align: center;
-            border: 1px solid #30363d;
-        }
-
-        h1 {
-            color: #ffffff;
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            color: var(--accent-color);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-        }
-
-        p {
-            line-height: 1.6;
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-        }
-
-        .links-container {
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .btn {
-            background-color: #21262d;
+        /* Il Titolo Principale che poi si sposterà */
+        .main-header {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: scale(1.3);
+        }
+
+        .main-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
             color: #ffffff;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid #30363d;
+            margin-bottom: 8px;
         }
 
-        .btn:hover {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
+        .main-header p {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Stato del titolo quando l'utente scende giù */
+        .main-header.scrolled {
+            top: 40px;
+            transform: scale(0.85);
+        }
+
+        /* Il contenitore delle skill di SIT S.p.A. */
+        .content-section {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            margin-top: 60px; /* Lascia spazio al titolo quando va in alto */
+        }
+
+        .experience-title {
+            font-size: 1.1rem;
+            color: var(--muted-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .experience-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stile delle singole schede delle skill */
+        .skill-card {
+            background: rgba(22, 27, 34, 0.7);
+            border: 1px solid #30363d;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: scale(0.9) translateY(30px);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Quando la card diventa attiva durante lo scroll */
+        .skill-card.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .skill-card p {
+            color: var(--muted-color);
+            line-height: 1.5;
+            font-size: 1rem;
+        }
+
+        /* Un piccolo indicatore grafico che suggerisce di scrollare all'inizio */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            color: var(--muted-color);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>nevrotico.com</h1>
-        <div class="subtitle">HR & Tech Enthusiast</div>
+    <div class="scrolly-container">
         
-        <p>
-            Esploro l'intersezione tra comportamento umano, dinamiche organizzative e innovazione digitale. Mi piace sperimentare con l'AI e ottimizzare processi.
-        </p>
+        <header class="main-header" id="mainHeader">
+            <h1>Christian Giannone</h1>
+            <p>HR Generalist</p>
+        </header>
 
-        <div class="links-container">
-            <a href="https://linkedin.com" target="_blank" class="btn">Connettiti su LinkedIn</a>
-            <a href="mailto:info@nevrotico.com" class="btn">Scrivimi un'Email</a>
+        <div class="content-section">
+            <div class="experience-title" id="expTitle">Focus @ SIT S.p.A.</div>
+            
+            <div class="skill-card" id="skill1">
+                <h3>Talent Acquisition</h3>
+                <p>Gestione end-to-end del processo di selezione, intercettando i migliori profili attraverso metodologie di recruiting moderne e canali digitali.</p>
+            </div>
+
+            <div class="skill-card" id="skill2">
+                <h3>Employer Branding</h3>
+                <p>Sviluppo di strategie attrattive per valorizzare l'identità aziendale, curando l'esperienza del candidato dal primo contatto fino all'onboarding.</p>
+            </div>
         </div>
+
+        <div class="scroll-indicator" id="indicator">Scorri o usa il trackpad ↓</div>
+
     </div>
 
+    <script>
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            const header = document.getElementById('mainHeader');
+            const expTitle = document.getElementById('expTitle');
+            const skill1 = document.getElementById('skill1');
+            const skill2 = document.getElementById('skill2');
+            const indicator = document.getElementById('indicator');
+
+            // 1. Gestione del titolo principale e indicatore
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+                indicator.style.opacity = '0';
+            } else {
+                header.classList.remove('scrolled');
+                indicator.style.opacity = '1';
+            }
+
+            // 2. Attivazione del titolo dell'esperienza (SIT S.p.A.)
+            if (scrollTop > windowHeight * 0.4) {
+                expTitle.classList.add('visible');
+            } else {
+                expTitle.classList.remove('visible');
+            }
+
+            // 3. Comparsa della prima skill (Talent Acquisition) con effetto zoom/fade
+            if (scrollTop > windowHeight * 0.8) {
+                skill1.classList.add('active');
+            } else {
+                skill1.classList.remove('active');
+            }
+
+            // 4. Comparsa della seconda skill (Employer Branding)
+            if (scrollTop > windowHeight * 1.6) {
+                skill2.classList.add('active');
+            } else {
+                skill2.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
