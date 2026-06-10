@@ -16,7 +16,7 @@
       --div:     #dcd9d5;
       --brd:     rgba(40,37,29,.10);
       --txt:     #28251d;
-      --muted:   #7a7974;
+      --muted:   #61605c; /* Ottimizzato contrasto per accessibilità WCAG AA */
       --faint:   #bab9b4;
       --pri:     #01696f;
       --prih:    #0c4e54;
@@ -95,6 +95,32 @@
       color: var(--txt); line-height: 1.2;
     }
     .sidebar-role { font-size: var(--xs); color: var(--muted); margin-top: .3rem; }
+
+    /* Micro-UX: Global Status Indicator in Sidebar */
+    .sidebar-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: #16a34a;
+      background: rgba(22,163,74,.1);
+      border: 1px solid rgba(22,163,74,.2);
+      padding: .25rem .6rem;
+      border-radius: 99px;
+      margin-top: .6rem;
+    }
+    .sidebar-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #16a34a;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.4); }
+      50% { box-shadow: 0 0 0 5px rgba(22,163,74,0); }
+    }
 
     .sidebar-nav { padding: 1rem .75rem; flex: 1; }
     .sidebar-section-label {
@@ -274,17 +300,35 @@
     .otw-text { font-size: var(--sm); color: var(--txt); }
     .otw-text strong { font-weight: 700; }
 
+    /* ── REFACTOR CENTRALE STYLE (Rimossi stili inline ridondanti) ── */
+    .centered-page-container {
+      display: flex; align-items: center; justify-content: center; min-height: calc(100dvh - 56px); padding: 2rem;
+    }
+    .status-card { text-align: center; max-width: 560px; }
+    .status-badge-main {
+      display: inline-flex; align-items: center; gap: .6rem; font-size: var(--xs); font-weight: 600; letter-spacing: .1em; 
+      text-transform: uppercase; color: #16a34a; background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.25); 
+      border-radius: 99px; padding: .55rem 1.2rem; margin-bottom: 2rem;
+    }
+    .status-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; display: block; }
+    .status-title { font-family: var(--fd); font-size: var(--3xl); font-weight: 900; line-height: 1; letter-spacing: -.03em; color: #16a34a; margin-bottom: 1.25rem; }
+    .status-desc { font-size: var(--lg); color: var(--muted); line-height: 1.6; margin-bottom: 2.5rem; }
+    .status-desc strong { color: var(--txt); }
+    .status-cta-btn {
+      display: inline-flex; align-items: center; gap: .6rem; background: var(--pri); color: #fff; font-weight: 600; 
+      font-size: var(--sm); padding: .85rem 2rem; border-radius: 99px; transition: background var(--tr), transform var(--tr);
+    }
+    .status-pills-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-top: 2.5rem; }
+    .status-pill-item { font-size: var(--xs); color: var(--muted); background: var(--surf); border: 1px solid var(--brd); border-radius: 99px; padding: .45rem .9rem; }
+
     .contact-wrap { max-width: 640px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
     .contact-title { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
     .contact-sub { font-size: var(--base); color: var(--muted); margin-bottom: 2.5rem; max-width: 50ch; }
     .contact-list { display: flex; flex-direction: column; gap: 1rem; }
     .contact-item {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1.25rem 1.5rem;
-      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
-      box-shadow: var(--sh-sm);
-      transition: box-shadow var(--tr), transform var(--tr), color var(--tr);
-      font-size: var(--sm); color: var(--muted); font-weight: 500;
+      display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem;
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl); box-shadow: var(--sh-sm);
+      transition: box-shadow var(--tr), transform var(--tr), color var(--tr); font-size: var(--sm); color: var(--muted); font-weight: 500;
     }
     .contact-item:hover { box-shadow: var(--sh-md); transform: translateY(-2px); color: var(--pri); }
     .contact-item svg { flex-shrink: 0; color: var(--pri); }
@@ -294,71 +338,38 @@
     .dl-wrap { max-width: 580px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
     .dl-title { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; line-height: 1.1; margin-bottom: .75rem; }
     .dl-sub { font-size: var(--base); color: var(--muted); margin-bottom: 2.5rem; }
-
     .dl-drive-card {
-      display: flex; align-items: center; gap: 2rem;
-      padding: 2.5rem;
-      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
-      box-shadow: var(--sh-sm);
-      transition: box-shadow var(--tr), transform var(--tr);
-      max-width: 540px;
-      color: inherit;
+      display: flex; align-items: center; gap: 2rem; padding: 2.5rem;
+      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl); box-shadow: var(--sh-sm);
+      transition: box-shadow var(--tr), transform var(--tr); max-width: 540px; color: inherit;
     }
     .dl-drive-card:hover { box-shadow: var(--sh-lg); transform: translateY(-3px); }
     .dl-drive-icon { flex-shrink: 0; }
-    .dl-drive-title {
-      font-family: var(--fd); font-size: var(--xl); font-weight: 800;
-      color: var(--txt); margin-bottom: .6rem; line-height: 1.2;
-    }
+    .dl-drive-title { font-family: var(--fd); font-size: var(--xl); font-weight: 800; color: var(--txt); margin-bottom: .6rem; line-height: 1.2; }
     .dl-drive-desc { font-size: var(--sm); color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
     .dl-drive-desc strong { color: var(--txt); }
-    .dl-drive-cta {
-      display: inline-flex; align-items: center; gap: .4rem;
-      font-size: var(--sm); font-weight: 600; color: var(--pri);
-      transition: gap var(--tr);
-    }
+    .dl-drive-cta { display: inline-flex; align-items: center; gap: .4rem; font-size: var(--sm); font-weight: 600; color: var(--pri); transition: gap var(--tr); }
     .dl-drive-card:hover .dl-drive-cta { gap: .7rem; }
 
     .proj-wrap { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
     .proj-hero { padding-block: clamp(2rem,6vw,4rem); }
-    .proj-eyebrow {
-      font-size: var(--xs); font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--pri); margin-bottom: 1rem;
-    }
-    .proj-title {
-      font-family: var(--fd); font-size: var(--3xl); font-weight: 900;
-      line-height: 1; letter-spacing: -.03em; margin-bottom: 1rem;
-    }
+    .proj-eyebrow { font-size: var(--xs); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--pri); margin-bottom: 1rem; }
+    .proj-title { font-family: var(--fd); font-size: var(--3xl); font-weight: 900; line-height: 1; letter-spacing: -.03em; margin-bottom: 1rem; }
     .proj-sub { font-size: var(--lg); color: var(--muted); max-width: 60ch; line-height: 1.7; margin-bottom: 2rem; }
     .proj-meta { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 3rem; }
-    .proj-tag {
-      font-size: var(--xs); color: var(--muted); background: var(--surf);
-      border: 1px solid var(--brd); border-radius: 99px; padding: .4rem .9rem;
-    }
+    .proj-tag { font-size: var(--xs); color: var(--muted); background: var(--surf); border: 1px solid var(--brd); border-radius: 99px; padding: .4rem .9rem; }
     .proj-section { margin-top: 3rem; }
-    .proj-section-label {
-      font-family: var(--fd); font-size: var(--xl); font-weight: 800;
-      color: var(--txt); margin-bottom: 1.25rem; padding-bottom: .75rem;
-      border-bottom: 1px solid var(--brd);
-    }
+    .proj-section-label { font-family: var(--fd); font-size: var(--xl); font-weight: 800; color: var(--txt); margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--brd); }
     .proj-body { font-size: var(--base); color: var(--muted); line-height: 1.8; max-width: 72ch; }
     .proj-body strong { color: var(--txt); }
     .proj-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
-    .proj-step {
-      display: flex; gap: 1.25rem; align-items: flex-start;
-      padding: 1.25rem 1.5rem;
-      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
-    }
-    .proj-step-num {
-      font-family: var(--fd); font-size: var(--2xl); font-weight: 900;
-      color: var(--pri); opacity: .25; line-height: 1; flex-shrink: 0; min-width: 2rem;
-    }
+    .proj-step { display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem 1.5rem; background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl); }
+    .proj-step-num { font-family: var(--fd); font-size: var(--2xl); font-weight: 900; color: var(--pri); opacity: .25; line-height: 1; flex-shrink: 0; min-width: 2rem; }
     .proj-step-content .step-title { font-weight: 700; color: var(--txt); font-size: var(--sm); margin-bottom: .4rem; }
     .proj-step-content .step-desc { font-size: var(--xs); color: var(--muted); line-height: 1.65; }
 
     .footer {
-      padding: 3rem clamp(1rem,5vw,2.5rem);
-      border-top: 1px solid var(--brd);
+      padding: 3rem clamp(1rem,5vw,2.5rem); border-top: 1px solid var(--brd);
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
       max-width: 860px; margin-inline: auto;
     }
@@ -366,6 +377,10 @@
     .footer-links { display: flex; gap: 1.5rem; }
     .footer-link { font-size: var(--xs); color: var(--muted); transition: color var(--tr); cursor: pointer; }
     .footer-link:hover { color: var(--pri); }
+
+    .back-btn-container { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--brd); }
+    .back-btn { display: inline-flex; align-items: center; gap: .5rem; font-size: var(--sm); color: var(--muted); font-weight: 500; transition: color var(--tr); }
+    .back-btn:hover { color: var(--pri); }
 
     @media (max-width: 640px) {
       .hero-name { letter-spacing: -.02em; }
@@ -387,6 +402,10 @@
     <div class="sidebar-header">
       <div class="sidebar-name">Christian Giannone</div>
       <div class="sidebar-role">HR Generalist &amp; Applied Psychologist</div>
+      <div class="sidebar-status">
+        <span class="sidebar-status-dot"></span>
+        Disponibile
+      </div>
     </div>
 
     <nav class="sidebar-nav">
@@ -396,11 +415,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Curriculum
       </button>
-            <button class="nav-item" data-page="status">
+      <button class="nav-item" data-page="status">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         Status Lavorativo
       </button>
-
 
       <button class="nav-item" data-page="cornremote">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -426,9 +444,7 @@
 
     <div class="sidebar-footer">
       <span style="font-size:var(--xs);color:var(--faint);">© 2026 Christian Giannone</span>
-      <button class="theme-btn" data-theme-toggle aria-label="Cambia tema">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <button class="theme-btn" data-theme-toggle aria-label="Cambia tema"></button>
     </div>
   </aside>
 
@@ -437,9 +453,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
     <span class="topbar-name" id="topbarName">Christian Giannone</span>
-    <button class="theme-btn" data-theme-toggle aria-label="Cambia tema">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
+    <button class="theme-btn" data-theme-toggle aria-label="Cambia tema"></button>
   </header>
 
   <main class="main">
@@ -542,8 +556,8 @@
               </div>
               <div class="cloc">📍 Padova, IT</div>
               <div class="cbullets">
-                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button onclick="showPage('cornremote')" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;background:none;border:none;">→ Scopri il progetto</button></div></div>
-                <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratti di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
+                <div class="cb"><div class="cb-text"><strong>Interaction Design &amp; UX Research ("CornRemote"):</strong> Sviluppo autonomo di un prototipo presso il laboratorio HIT. Gestione dell'intero ciclo di design: ideazione, realizzazione tecnica, usability testing e analisi euristiche. <button data-page="cornremote" style="color:var(--pri);font-size:var(--xs);font-weight:600;text-decoration:underline;cursor:pointer;">→ Scopri il progetto</button></div></div>
+                <div class="cb"><div class="cb-text"><strong>Tesi — Psychology of Economic Decisions:</strong> Analisi quantitativa dei processi di decision-making applicata ai contratta di utenze domestiche. Studio dei bias cognitivi e comportamentali nei consumatori.</div></div>
               </div>
             </div>
 
@@ -633,36 +647,36 @@
         </footer>
       </div>
     </div>
+
     <div class="page" id="page-status">
-      <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100dvh - 56px);padding:2rem;">
-        <div style="text-align:center;max-width:560px;">
-          <div style="display:inline-flex;align-items:center;gap:.6rem;font-size:var(--xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.25);border-radius:99px;padding:.55rem 1.2rem;margin-bottom:2rem;">
-            <span style="width:8px;height:8px;border-radius:50%;background:#16a34a;display:block;"></span>
+      <div class="centered-page-container">
+        <div class="status-card">
+          <div class="status-badge-main">
+            <span class="status-badge-dot"></span>
             Disponibile
           </div>
-          <h1 style="font-family:var(--fd);font-size:var(--3xl);font-weight:900;line-height:1;letter-spacing:-.03em;color:#16a34a;margin-bottom:1.25rem;">Ricerca Attiva</h1>
-          <p style="font-size:var(--lg);color:var(--muted);line-height:1.6;margin-bottom:2.5rem;">
+          <h1 class="status-title">Ricerca Attiva</h1>
+          <p class="status-desc">
             Sto attualmente cercando un posto di lavoro.<br>
-            Sono aperto a ruoli <strong style="color:var(--txt);">HR Generalist</strong>,
-            <strong style="color:var(--txt);">HRBP Junior</strong> o
-            <strong style="color:var(--txt);">HR Specialist</strong>
+            Sono aperto a ruoli <strong>HR Generalist</strong>,
+            <strong>HRBP Junior</strong> o
+            <strong>HR Specialist</strong>
             in contesti aziendali strutturati,<br>preferibilmente in ambito industriale o tech.
           </p>
-          <a href="mailto:christiangiannone.it@gmail.com"
-             style="display:inline-flex;align-items:center;gap:.6rem;background:var(--pri);color:#fff;font-weight:600;font-size:var(--sm);padding:.85rem 2rem;border-radius:99px;transition:background var(--tr),transform var(--tr);">
+          <a href="mailto:christiangiannone.it@gmail.com" class="status-cta-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             Scrivimi
           </a>
-          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-top:2.5rem;">
-            <span style="font-size:var(--xs);color:var(--muted);background:var(--surf);border:1px solid var(--brd);border-radius:99px;padding:.45rem .9rem;">HR Generalist</span>
-            <span style="font-size:var(--xs);color:var(--muted);background:var(--surf);border:1px solid var(--brd);border-radius:99px;padding:.45rem .9rem;">HRBP Junior</span>
-            <span style="font-size:var(--xs);color:var(--muted);background:var(--surf);border:1px solid var(--brd);border-radius:99px;padding:.45rem .9rem;">Padova / Nord-Est</span>
-            <span style="font-size:var(--xs);color:var(--muted);background:var(--surf);border:1px solid var(--brd);border-radius:99px;padding:.45rem .9rem;">Disponibile al trasferimento</span>
-            <span style="font-size:var(--xs);color:var(--muted);background:var(--surf);border:1px solid var(--brd);border-radius:99px;padding:.45rem .9rem;">Full-time</span>
+          <div class="status-pills-wrap">
+            <span class="status-pill-item">HR Generalist</span>
+            <span class="status-pill-item">HRBP Junior</span>
+            <span class="status-pill-item">Padova / Nord-Est</span>
+            <span class="status-pill-item">Disponibile al trasferimento</span>
+            <span class="status-pill-item">Full-time</span>
           </div>
         </div>
       </div>
-    </div><!-- /page-status -->
+    </div>
 
     <div class="page" id="page-contatti">
       <div class="contact-wrap">
@@ -816,8 +830,8 @@
           </p>
         </section>
 
-        <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--brd);">
-          <button onclick="showPage('cv')" style="display:inline-flex;align-items:center;gap:.5rem;font-size:var(--sm);color:var(--muted);font-weight:500;transition:color var(--tr);cursor:pointer;background:none;border:none;" onmouseover="this.style.color='var(--pri)'" onmouseout="this.style.color='var(--muted)'">
+        <div class="back-btn-container">
+          <button data-page="cv" class="back-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
             Torna al Curriculum
           </button>
@@ -829,25 +843,35 @@
 </div>
 
 <script>
-  (function(){
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-  })();
-
+  // 1. GESTIONE LIVELLO TEMA (Centralizzazione icone e prevenzione Flicker)
   const html = document.documentElement;
+  
+  function getPreferredTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function updateThemeUI(theme) {
+    html.setAttribute('data-theme', theme);
+    const sunIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+    const moonIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+      btn.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+    });
+  }
+
+  // Esecuzione immediata per evitare sfarfallio bianco
+  const currentTheme = getPreferredTheme();
+  updateThemeUI(currentTheme);
+
   document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      document.querySelectorAll('[data-theme-toggle]').forEach(b => {
-        b.innerHTML = next === 'dark'
-          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
-          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
-      });
+      const nextTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      updateThemeUI(nextTheme);
     });
   });
 
+  // 2. SIDEBAR AUTOMATION & OVERLAY
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
   const menuBtn = document.getElementById('menuBtn');
@@ -866,6 +890,7 @@
   overlay.addEventListener('click', closeSidebar);
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSidebar(); });
 
+  // 3. ROUTING LOGIC & INTERSECTION OBSERVER
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const target = document.getElementById('page-' + name);
@@ -873,8 +898,10 @@
       target.classList.add('active');
       window.scrollTo(0,0);
     }
-    document.querySelectorAll('.nav-item[data-page]').forEach(n => {
-      n.classList.toggle('active', n.getAttribute('data-page') === name);
+    document.querySelectorAll('[data-page]').forEach(n => {
+      if(n.classList.contains('nav-item')) {
+        n.classList.toggle('active', n.getAttribute('data-page') === name);
+      }
     });
     closeSidebar();
     setTimeout(initObserver, 50);
