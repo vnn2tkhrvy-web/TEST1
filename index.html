@@ -748,86 +748,153 @@
       </div>
     </div>
 
-    <div class="page" id="page-cornremote">
+  <div class="page" id="page-cornremote">
       <div class="proj-wrap">
         <div class="proj-hero">
-          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto UX · Laboratorio HIT, Università di Padova</p>
+          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto HCI &amp; Interaction Design · Università degli Studi di Padova</p>
           <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
           <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
-            Progettazione e sviluppo autonomo di un sistema di telecontrollo per macchina spandiconcime,
-            con focus sull'esperienza utente in contesti operativi agricoli.
+            Progettazione, sviluppo e valutazione di un prototipo di contenitore per popcorn interattivo che integra un sistema di controllo remoto per la riproduzione multimediale.
           </p>
           <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
-            <span class="proj-tag">Interaction Design</span>
-            <span class="proj-tag">UX Research</span>
+            <span class="proj-tag">Human-Computer Interaction</span>
+            <span class="proj-tag">Ergonomia Cognitiva</span>
+            <span class="proj-tag">Makey Makey Prototyping</span>
+            <span class="proj-tag">User Research</span>
             <span class="proj-tag">Usability Testing</span>
-            <span class="proj-tag">Prototipazione</span>
-            <span class="proj-tag">Analisi Euristica</span>
-            <span class="proj-tag">Human Factors</span>
+            <span class="proj-tag">Design Inclusivo / Age-Friendly</span>
           </div>
         </div>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Contesto</div>
+          <div class="proj-section-label">Abstract e Contesto</div>
           <p class="proj-body">
-            Il progetto <strong>CornRemote</strong> nasce all'interno del laboratorio di ricerca <strong>HIT (Human Interfaces &amp; Technology)</strong>
-            dell'Università degli Studi di Padova, nell'ambito del corso di Laurea Magistrale in Psicologia Cognitiva Applicata.
-            L'obiettivo era progettare un'interfaccia remota usabile ed efficiente per operatori agricoli che controllano
-            macchinari spandiconcime in condizioni operative reali — spesso con guanti, in ambienti rumorosi, su mezzi in movimento.
+            Il progetto <strong>CornRemote</strong> nasce all'interno del corso di Laurea Magistrale in Psicologia Cognitiva Applicata presso l'Università di Padova[cite: 1]. L'obiettivo della ricerca è stato quello di trasformare un oggetto quotidiano passivo – un contenitore per popcorn – in un'esperienza interattiva e senza sforzo[cite: 4, 22]. Dotato di pulsanti ergonomici e di un sistema di gestione multimediale integrato [cite: 5], il dispositivo mira ad eliminare le frustrazioni legate al controllo dei film quando si è lontani dalla tastiera del computer o si incontrano le barriere d'uso dei telecomandi tradizionali[cite: 5, 16, 26].
           </p>
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Processo di Design</div>
+          <div class="proj-section-label">Cornice Teorica e Linee Guida di Design</div>
+          <p class="proj-body" style="margin-bottom: 1.5rem;">
+            Il framework concettuale del dispositivo si focalizza sui fondamenti dell'ergonomia fisica e della <strong>Human-Computer Interaction (HCI)</strong>, strutturandosi su tre pilastri principali:
+          </p>
+          <div class="clist" style="gap: 1rem;">
+            <div class="scard" style="padding: 1.25rem;">
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Ergonomia e Manipolazione Monomanuale</div>
+              <p class="proj-body" style="font-size: var(--sm);">La forma mantiene la familiarità del classico bucket di popcorn [cite: 13], ma la disposizione dei pulsanti sul lato è studiata scientificamente per l'uso con una sola mano [cite: 13, 41]: l'indice si posiziona naturalmente sul tasto Pausa/Play, mentre il pollice gestisce i comandi del volume[cite: 191].</p>
+            </div>
+            <div class="scard" style="padding: 1.25rem;">
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Design Inclusivo (Age-Friendly)</div>
+              <p class="proj-body" style="font-size: var(--sm);">Partendo dalla letteratura sulle difficoltà incontrate dagli adulti anziani con le interfacce tradizionali (Carvalho et al., 2021) [cite: 16], il layout propone pochi comandi, di grandi dimensioni e ad alta intuitività, supportati da icone visive chiare (Lessiter et al., 2004)[cite: 18, 20, 194].</p>
+            </div>
+            <div class="scard" style="padding: 1.25rem;">
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Interazione in Ambienti Oscuri e Socialità</div>
+              <p class="proj-body" style="font-size: var(--sm);">L'applicazione di un nastro adesivo fotoluminescente / fosforescente garantisce la rintracciabilità dei tasti al buio senza alterare l'atmosfera cinematografica[cite: 37, 44, 195]. Inoltre, la rapidità di interazione favorisce gli scambi sociali e la comunicazione durante la visione (Cesar et al., 2008)[cite: 14].</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Processo di Sviluppo del Prototipo</div>
           <div class="proj-steps">
             <div class="proj-step">
               <div class="proj-step-num">01</div>
               <div class="proj-step-content">
-                <div class="step-title">Ricerca &amp; Analisi del Contesto</div>
-                <div class="step-desc">Studio degli utenti target, analisi dei task operativi, identificazione dei vincoli fisici e cognitivi dell'utilizzo in campo agricolo.</div>
+                <div class="step-title">Benchmarking &amp; Ideazione</div>
+                <div class="step-desc">Analisi dei limiti dei telecomandi remoti standard e dei controlli da tastiera[cite: 26, 27]. Studio preliminare sul posizionamento ottimale dei comandi sul corpo cilindrico del bucket[cite: 33, 41].</div>
               </div>
             </div>
             <div class="proj-step">
               <div class="proj-step-num">02</div>
               <div class="proj-step-content">
-                <div class="step-title">Ideazione &amp; Wireframing</div>
-                <div class="step-desc">Sviluppo di molteplici concept alternativi, sketching su carta, selezione delle soluzioni più promettenti tramite valutazione euristica preliminare.</div>
+                <div class="step-title">Sourcing dei Materiali</div>
+                <div class="step-desc">Selezione di un contenitore in plastica (per garantire lavabilità e riutilizzo) [cite: 36], nastro adesivo cartaceo, plastilina per migliorare il feedback tattile alla pressione (tactile feeling) e nastro fotoluminescente[cite: 37, 38, 198].</div>
               </div>
             </div>
             <div class="proj-step">
               <div class="proj-step-num">03</div>
               <div class="proj-step-content">
-                <div class="step-title">Prototipazione</div>
-                <div class="step-desc">Realizzazione tecnica del prototipo interattivo ad alta fedeltà, con attenzione agli affordance fisici e alla leggibilità in condizioni di luce solare diretta.</div>
-              </div>
-            </div>
-            <div class="proj-step">
-              <div class="proj-step-num">04</div>
-              <div class="proj-step-content">
-                <div class="step-title">Usability Testing</div>
-                <div class="step-desc">Conduzione di test di usabilità con utenti reali. Raccolta di metriche quantitative (task completion rate, tempo, errori) e dati qualitativi (think-aloud protocol).</div>
-              </div>
-            </div>
-            <div class="proj-step">
-              <div class="proj-step-num">05</div>
-              <div class="proj-step-content">
-                <div class="step-title">Analisi Euristica &amp; Iterazione</div>
-                <div class="step-desc">Applicazione delle 10 euristiche di Nielsen. Identificazione dei problemi critici, revisione del prototipo e validazione dei miglioramenti.</div>
+                <div class="step-title">Ingegnerizzazione (Makey Makey)</div>
+                <div class="step-desc">Integrazione della scheda Makey Makey alla base del contenitore per la mappatura degli input capacitivi[cite: 48, 51, 190]. Cablaggio interno isolato tramite nastro per eliminare i rumori di movimento e trasmettere robustezza strutturale al device[cite: 51, 52]. Finitura estetica inferiore con un secondo bucket concentrico per proteggere i cavi e permettere l'appoggio sicuro su superficie[cite: 54].</div>
               </div>
             </div>
           </div>
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Risultati &amp; Apprendimenti</div>
+          <div class="proj-section-label">Metodologia di Usability Testing e Questionari</div>
           <p class="proj-body">
-            Il progetto ha evidenziato l'importanza del <strong>design centrato sull'utente in contesti estremi</strong>: ogni scelta
-            di layout, dimensione dei controlli e gerarchia visiva era condizionata da fattori ambientali e cognitivi
-            difficilmente simulabili in laboratorio. Il principale apprendimento è stato integrare
-            <strong>psicologia cognitiva applicata</strong> (carico di lavoro, memoria di lavoro, attenzione selettiva)
-            direttamente nelle decisioni di design, trattando le euristiche non come checklist finale
-            ma come strumento guida dall'inizio del processo.
+            La validazione del prototipo ha seguito una metodologia rigorosa basata su un disegno di ricerca con somministrazione di <strong>due questionari distinti (Pre-test e Post-test)</strong> tramite piattaforma Qualtrics[cite: 60, 65, 67]:
           </p>
+          <ul class="cbullets" style="margin-top: .5rem; border-top: none; padding-top: 0;">
+            <li class="cb"><div class="cb-text"><strong>Questionario 1 (Baseline):</strong> Somministrato prima dell'uso per indagare i profili utente, la familiarità tecnologica, le abitudini di visione (tutti i partecipanti guardavano contenuti su PC almeno 2-3 volte a settimana) [cite: 61, 64, 73] e le esperienze pregresse negativi con telecomandi (riscontrate nel 100% del campione)[cite: 106].</div></li>
+            <li class="cb"><div class="cb-text"><strong>Questionario 2 (Esperienziale):</strong> Somministrato immediatamente dopo l'interazione per misurare l'usabilità percepita, l'accessibilità, l'efficacia del controllo e l'estetica[cite: 60, 62, 66].</div></li>
+          </ul>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Risultati Quantitativi ed Evidenze</div>
+          <p class="proj-body" style="margin-bottom: 1rem;">
+            I dati raccolti hanno confermato il successo delle scelte di design e l'eccellente accoglienza del prototipo[cite: 6, 177]:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: var(--sm);">
+            <thead>
+              <tr style="background: var(--surfoff); border-bottom: 2px solid var(--div);">
+                <th style="padding: .75rem; text-align: left; font-weight: 700; color: var(--txt);">Dimensione Indagata</th>
+                <th style="padding: .75rem; text-align: center; font-weight: 700; color: var(--txt);">Dato Statistico / Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--brd);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Facilità d'uso e Usabilità</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo [cite: 114]</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Intuitività dell'interfaccia</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo [cite: 122]</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Individuazione tasti al buio</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Completamente d'accordo [cite: 148]</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Gestione del film a distanza</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Efficacia (controllo senza alzarsi) [cite: 175]</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Consumo dello snack durante l'uso</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Completamente d'accordo sulla facilità [cite: 158]</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
+                <td style="padding: .75rem; color: var(--muted);"><strong>Valutazione Estetica</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">75% Eccellente / 25% Positivo [cite: 166, 167]</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="proj-body">
+            L'unico elemento che ha mostrato una distribuzione più bilanciata riguarda la <em>comodità della posizione dei pulsanti</em> (50% neutro, 50% in accordo) [cite: 131, 132], identificando un'area di ottimizzazione ergonomica per le iterazioni successive[cite: 205].
+          </p>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Limitazioni e Sviluppi Futuri (Next Steps)</div>
+          <p class="proj-body" style="margin-bottom: 1rem;">
+            L'approccio autocritico e l'analisi dei fattori umani hanno permesso di mappare i limiti attuali della manifattura del prototipo e i relativi piani di svecchiamento tecnologico[cite: 196]:
+          </p>
+          <div class="sgrid">
+            <div class="scard">
+              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--muted);">Limiti Rilevati</div>
+              <div class="sitem" style="font-size: var(--xs);">La natura cartacea dei tasti accelera il deterioramento[cite: 197].</div>
+              <div class="sitem" style="font-size: var(--xs);">La plastilina interna rischia di solidificarsi nel tempo[cite: 198].</div>
+              <div class="sitem" style="font-size: var(--xs);">I cavi di collegamento limitano la mobilità complessiva[cite: 199].</div>
+            </div>
+            <div class="scard">
+              <div class="stitle" style="font-size: var(--xs); text-transform: uppercase; letter-spacing: .05em; color: var(--pri);">Evoluzione V2</div>
+              <div class="sitem" style="font-size: var(--xs);"><strong>Iniezione in silicone:</strong> per massimizzare l'igiene, l'ergonomia e la lavabilità dei tasti[cite: 7, 201, 202].</div>
+              <div class="sitem" style="font-size: var(--xs);"><strong>Tecnologia Wireless:</strong> transizione a moduli senza fili per slegare il contenitore dal PC[cite: 8, 203, 204].</div>
+              <div class="sitem" style="font-size: var(--xs);"><strong>Materiali avanzati:</strong> tasti capacitivi polimerici resistenti all'usura[cite: 9, 205].</div>
+            </div>
+          </div>
         </section>
 
         <div class="back-btn-container">
