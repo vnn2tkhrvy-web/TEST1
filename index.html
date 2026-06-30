@@ -404,29 +404,75 @@
       .dl-drive-cta { justify-content: center; }
     }
 
-    /* ── BIAS DETECTOR GAME STYLES ──────────────────────────── */
-    .bias-game-container {
-      background: var(--surf); border: 1px solid var(--brd); border-radius: var(--r-xl);
-      padding: clamp(1.25rem, 3vw, 2rem); margin-top: 2rem; box-shadow: var(--sh-sm);
+    
+
+    /* ── CCNL TABLE ─────────────────────────────────────────── */
+    .ccnl-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--sm);
+      margin-top: .5rem;
+      overflow: hidden;
+      border: 1px solid var(--brd);
+      box-shadow: var(--sh-sm);
+      border-radius: var(--r-lg);
     }
-    .game-screen { display: none; }
-    .game-screen.active { display: block; animation: pageIn 0.3s ease-out; }
-    .scenario-box { background: var(--surf2); border: 1px solid var(--brd); padding: 1.25rem; border-radius: var(--r-lg); margin-block: 1rem; }
-    .option-btn {
-      display: block; width: 100%; text-align: left; padding: 1rem 1.25rem; margin-bottom: .75rem;
-      background: var(--bg); border: 1px solid var(--brd); border-radius: var(--r-lg); font-size: var(--sm);
-      color: var(--muted); transition: all var(--tr);
+    .ccnl-table thead tr {
+      background: var(--surfoff);
+      border-bottom: 2px solid var(--div);
     }
-    .option-btn:hover { border-color: var(--pri); color: var(--txt); background: var(--surfoff); transform: translateX(2px); }
-    .score-circle-wrap { display: flex; justify-content: center; margin-block: 1.5rem; }
-    .score-circle {
-      width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--pri);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      font-family: var(--fd); font-weight: 900; font-size: var(--xl); color: var(--pri);
+    .ccnl-table th {
+      padding: .9rem 1.1rem;
+      text-align: left;
+      font-family: var(--fd);
+      font-weight: 700;
+      font-size: var(--xs);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--txt);
+      white-space: nowrap;
     }
-    .feedback-pill { padding: .4rem .85rem; border-radius: var(--r-lg); font-size: var(--xs); font-weight: 600; margin-bottom: .5rem; display: inline-block; }
-    .feedback-pill.neutral { background: rgba(79, 152, 163, 0.15); color: var(--pri); }
-    .feedback-pill.danger { background: rgba(234, 67, 53, 0.12); color: #ea4335; }
+    .ccnl-table td {
+      padding: .85rem 1.1rem;
+      border-bottom: 1px solid var(--brd);
+      color: var(--muted);
+      vertical-align: middle;
+    }
+    .ccnl-table tbody tr:last-child td { border-bottom: none; }
+    .ccnl-table .alt-row { background: var(--surf2); }
+    .ccnl-table tbody tr:hover td {
+      background: color-mix(in srgb, var(--pri) 6%, var(--surfoff));
+      color: var(--txt);
+      transition: background var(--tr), color var(--tr);
+    }
+    .ccnl-table .level-badge {
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: var(--sm);
+      color: var(--pri);
+      letter-spacing: .03em;
+    }
+    .ccnl-table .ex-cat {
+      font-weight: 600;
+      color: var(--faint);
+      font-size: var(--xs);
+      text-align: center;
+    }
+    .ccnl-table .salary {
+      font-weight: 700;
+      color: var(--txt);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .01em;
+    }
+    .ccnl-table .scatto {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--pri);
+    }
+    @media (max-width: 500px) {
+      .ccnl-table th, .ccnl-table td { padding: .65rem .75rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -465,9 +511,16 @@
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           1. CornRemote
         </button>
-        <button class="nav-item" data-page="biasdetector">
+      </div>
+
+      <div class="nav-item" style="cursor: default; pointer-events: none; padding-bottom: 0.2rem; color: var(--txt); font-weight:600;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><line x1="6" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="12" y2="12"/></svg>
+        Minimi Tabellari CCNL
+      </div>
+      <div class="nav-sub">
+        <button class="nav-item" data-page="ccnl-metalmeccanico">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          2. Bias Detector
+          1. Metalmeccanico
         </button>
       </div>
 
@@ -829,68 +882,107 @@
             </tbody>
           </table>
         </section>
-
-        <div class="back-btn-container">
-          <button data-page="biasdetector" class="back-btn" style="color: var(--pri); font-weight: 600;">
-            Vai al progetto successivo (Bias Detector) →
-          </button>
-        </div>
       </div>
     </div>
 
-    <div class="page" id="page-biasdetector">
+
+    <div class="page" id="page-ccnl-metalmeccanico">
       <div class="proj-wrap">
         <div class="proj-hero">
-          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Interactive Psychology Tool · HR &amp; Gamification</p>
-          <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">Recruiting Bias Detector</h1>
+          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Minimi Tabellari CCNL &middot; Federmeccanica-Assistal</p>
+          <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">Metalmeccanico</h1>
           <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
-            Un micro-assessment interattivo progettato per sperimentare in tempo reale l'impatto dei principali bias cognitivi ed emotivi durante i flussi decisionali e di selezione nelle Risorse Umane.
+            Minimi tabellari e scatti di anzianit&agrave; del CCNL Federmeccanica-Assistal in vigore dal <strong>1&deg; giugno 2026</strong>, con i livelli di inquadramento e le ex categorie di riferimento.
           </p>
           <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
-            <span class="proj-tag">Gamification HR</span>
-            <span class="proj-tag">Psicologia del Lavoro</span>
-            <span class="proj-tag">Cognitive Biases</span>
-            <span class="proj-tag">Talent Acquisition</span>
-            <span class="proj-tag">Decision Making</span>
+            <span class="proj-tag">CCNL Federmeccanica-Assistal</span>
+            <span class="proj-tag">Vigore dal 1&deg; giugno 2026</span>
+            <span class="proj-tag">Minimi Tabellari</span>
+            <span class="proj-tag">Scatti di Anzianit&agrave;</span>
           </div>
         </div>
 
-        <div class="bias-game-container ps">
-          <div class="game-screen active" id="screen-intro">
-            <p class="proj-body" style="font-size: var(--sm); margin-bottom: 1.25rem;">
-              Mettiti alla prova nei panni di un selezionatore. Ti verranno proposti <strong>3 scenari rapidi</strong> estratti da reali dinamiche di colloquio. L'algoritmo calcolerà il tuo livello di oggettività finale.
-            </p>
-            <button class="status-cta-btn" onclick="startBiasGame()">Avvia il test interattivo</button>
+        <section class="proj-section ps">
+          <div class="proj-section-label">Minimi Mensili dal 1&deg; Giugno 2026</div>
+          <p class="proj-body" style="margin-bottom: 1.5rem;">
+            La tabella riporta i livelli di inquadramento del CCNL Federmeccanica-Assistal, i corrispondenti minimi mensili lordi in vigore dal <strong>1&deg; giugno 2026</strong> e gli scatti di anzianit&agrave; previsti per ciascun livello.
+          </p>
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table class="ccnl-table">
+              <thead>
+                <tr>
+                  <th>Livello</th>
+                  <th>Ex Categoria</th>
+                  <th>Minimo Mensile<br><span style="font-weight:400; opacity:.65; text-transform:none; letter-spacing:0;">1&deg; giugno 2026</span></th>
+                  <th>Scatto di Anzianit&agrave;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="level-badge">D1</td>
+                  <td class="ex-cat">2</td>
+                  <td class="salary">1.784,94 &euro;</td>
+                  <td class="scatto">21,59 &euro;</td>
+                </tr>
+                <tr class="alt-row">
+                  <td class="level-badge">D2</td>
+                  <td class="ex-cat">3</td>
+                  <td class="salary">1.979,37 &euro;</td>
+                  <td class="scatto">25,05 &euro;</td>
+                </tr>
+                <tr>
+                  <td class="level-badge">C1</td>
+                  <td class="ex-cat">3S</td>
+                  <td class="salary">2.022,12 &euro;</td>
+                  <td class="scatto">25,05 &euro;</td>
+                </tr>
+                <tr class="alt-row">
+                  <td class="level-badge">C2</td>
+                  <td class="ex-cat">4</td>
+                  <td class="salary">2.064,88 &euro;</td>
+                  <td class="scatto">26,75 &euro;</td>
+                </tr>
+                <tr>
+                  <td class="level-badge">C3</td>
+                  <td class="ex-cat">5</td>
+                  <td class="salary">2.211,43 &euro;</td>
+                  <td class="scatto">29,64 &euro;</td>
+                </tr>
+                <tr class="alt-row">
+                  <td class="level-badge">B1</td>
+                  <td class="ex-cat">5S</td>
+                  <td class="salary">2.370,33 &euro;</td>
+                  <td class="scatto">32,43 &euro;</td>
+                </tr>
+                <tr>
+                  <td class="level-badge">B2</td>
+                  <td class="ex-cat">6</td>
+                  <td class="salary">2.542,98 &euro;</td>
+                  <td class="scatto">36,41 &euro;</td>
+                </tr>
+                <tr class="alt-row">
+                  <td class="level-badge">B3</td>
+                  <td class="ex-cat">7</td>
+                  <td class="salary">2.838,99 &euro;</td>
+                  <td class="scatto">40,96 &euro;</td>
+                </tr>
+                <tr>
+                  <td class="level-badge">A1</td>
+                  <td class="ex-cat">8Q</td>
+                  <td class="salary">2.907,01 &euro;</td>
+                  <td class="scatto">40,96 &euro;</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+          <p class="proj-body" style="margin-top: 1.25rem; font-size: var(--xs); color: var(--muted); max-width: 72ch;">
+            <strong>Nota:</strong> I minimi si intendono lordi mensili. Gli scatti di anzianit&agrave; maturano ogni <strong>2 anni</strong> di servizio continuativo, fino a un massimo di <strong>5 scatti</strong> per ogni lavoratore. Fonte: CCNL Federmeccanica-Assistal.
+          </p>
+        </section>
 
-          <div class="game-screen" id="screen-question">
-            <div class="feedback-pill neutral" id="question-number">Scenario 1 di 3</div>
-            <div class="scenario-box">
-              <p id="scenario-text" class="proj-body" style="font-size: var(--sm); color: var(--txt); font-weight:500;"></p>
-            </div>
-            <div id="options-container"></div>
-          </div>
-
-          <div class="game-screen" id="screen-results">
-            <div class="stitle" style="font-size: var(--base); text-align: center;">Assessment Completato</div>
-            <div class="score-circle-wrap">
-              <div class="score-circle">
-                <span id="score-value">100%</span>
-                <span style="font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top:-4px;">Oggettività</span>
-              </div>
-            </div>
-            <div class="scenario-box" style="background: color-mix(in srgb, var(--pri) 5%, var(--surf));">
-              <div class="stitle" id="result-title" style="color: var(--pri); margin-bottom: .5rem;">Profilo Valutativo</div>
-              <p id="result-desc" class="proj-body" style="font-size: var(--sm); line-height: 1.6;"></p>
-            </div>
-            <div style="display:flex; gap:.5rem;">
-              <button class="option-btn" onclick="startBiasGame()" style="text-align: center; font-weight: 600; margin-top: 1rem; flex:1;">Riprova l'Assessment</button>
-              <button class="option-btn" onclick="showPage('cornremote')" style="text-align: center; font-weight: 600; margin-top: 1rem; flex:1; border-color:var(--pri); color:var(--pri);">Torna a CornRemote</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
+
 
     <div class="page" id="page-contatti">
       <div class="contact-wrap">
@@ -1036,170 +1128,6 @@
     topbarName.classList.toggle('show', window.scrollY > 80);
   }, { passive: true });
 
-  // ── LOGICA INTERATTIVA DEL MINIGIOCO HR: BIAS DETECTOR ──
-  const scenarios = [
-    {
-      text: "Un candidato si presenta al colloquio vestito in modo impeccabile, è estremamente carismatico e ha frequentato la tua stessa identica università prestigiosa. Istintivamente tendi a giudicare positivamente anche le sue risposte tecniche, che in realtà sono piuttosto superficiali. Di quale distorsione si tratta?",
-      options: [
-        { text: "Effetto Alone (Halo Effect)", correct: true },
-        { text: "Effetto Contrasto", correct: false },
-        { text: "Bias di Proiezione", correct: false }
-      ]
-    },
-    {
-      text: "Durante uno screening di CV per un ruolo IT, scarti un profilo valido solo perché l'ateneo di provenienza ti ricorda un ex-collaboratore con cui hai avuto forti attriti in passato, proiettando quell'esperienza negativa sul candidato attuale. Che distorsione si sta verificando?",
-      options: [
-        { text: "Bias di Somiglianza (Similar-to-me)", correct: false },
-        { text: "Effetto Ancoraggio", correct: false },
-        { text: "Euristica dell'Affetto / Errore di Associazione", correct: true }
-      ]
-    },
-    {
-      text: "Intervisti consecutivamente tre candidati decisamente impreparati. Il quarto candidato è appena sufficiente, ma a causa del livello bassissimo dei precedenti, lo valuti immediatamente come un profilo 'eccellente ed eccezionale'. Di quale trappola cognitiva parliamo?",
-      options: [
-        { text: "Effetto Contrasto", correct: true },
-        { text: "Bias di Conferma", correct: false },
-        { text: "Effetto Primacy", correct: false }
-      ]
-    }
-  ];
-
-  let currentGameIndex = 0;
-  let correctAnswers = 0;
-
-  function startBiasGame() {
-    currentGameIndex = 0;
-    correctAnswers = 0;
-    document.getElementById('screen-intro').classList.remove('active');
-    document.getElementById('screen-results').classList.remove('active');
-    document.getElementById('screen-question').classList.add('active');
-    renderScenario();
-  }
-
-  function renderScenario() {
-    const current = scenarios[currentGameIndex];
-    document.getElementById('question-number').innerText = `Scenario ${currentGameIndex + 1} di ${scenarios.length}`;
-    document.getElementById('scenario-text').innerText = current.text;
-    
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
-    
-    current.options.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.innerText = opt.text;
-      btn.onclick = () => handleAnswer(opt.correct);
-      container.appendChild(btn);
-    });
-  }
-
-  function handleAnswer(isCorrect) {
-    if(isCorrect) correctAnswers++;
-    currentGameIndex++;
-    
-    if(currentGameIndex < scenarios.length) {
-      renderScenario();
-    } else {
-      showGameResults();
-    }
-  }
-
-  function showGameResults() {
-    document.getElementById('screen-question').classList.remove('active');
-    document.getElementById('screen-results').classList.add('active');
-    
-    const percentage = Math.round((correctAnswers / scenarios.length) * 100);
-    document.getElementById('score-value').innerText = percentage + "%";
-    
-    const titleEl = document.getElementById('result-title');
-    const descEl = document.getElementById('result-desc');
-    
-    if(percentage === 100) {
-      titleEl.innerText = "🎯 Profilo: Selezionatore Obiettivo & Scientifico";
-      descEl.innerHTML = "Eccellente! Hai riconosciuto tutte le principali trappole euristiche dell'intervista di selezione. Questo approccio basato sulla consapevolezza cognitiva è fondamentale per strutturare i flussi organizzativi aziendali in modo meritocratico, trasparente e privo di bias valutativi.";
-    } else if (percentage >= 50) {
-      titleEl.innerText = "⚖️ Profilo: Selezionatore Consapevole ma Esposto";
-      descEl.innerHTML = "Buon punteggio, ma hai subito il fascino di alcune distorsioni cognitive involontarie. Nella Talent Acquisition moderna, l'uso di interviste strutturate e l'integrazione di tool di AI adottati in modo trasparente fungono da scudo contro queste euristiche spontanee.";
-    } else {
-      titleEl.innerText = "⚠️ Profilo: Selezione Istintiva (Alto Rischio Bias)";
-      descEl.innerHTML = "I tuoi giudizi risentono dei condizionamenti del contesto e dei bias di associazione. È il comportamento umano standard: il cervello cerca scorciatoie. Per questo, nei contesti di People Operations, promuovo la standardizzazione delle valutazioni per difendere l'equità aziendale.";
-    }
-  }
-
-  // ── LOGICA STRATEGICA EASTER EGG: TIC TAC TOE IMBATTIBILE (MINIMAX) ──
-  const tttCells = document.querySelectorAll('.ttt-cell');
-  const tttStatus = document.getElementById('tttStatus');
-  let tttBoard = ["", "", "", "", "", "", "", "", ""];
-  let tttGameActive = true;
-
-  const winPhrases = "🏆 Promosso! Hai superato l'assessment psicologico.";
-  const losePhrases = "🤖 Ops! Turnover imprevisto. L'algoritmo ha vinto.";
-  const drawPhrases = "⚖️ Accordo sindacale! Un pareggio perfetto.";
-
-  tttCells.forEach(cell => {
-    cell.addEventListener('click', () => {
-      const index = parseInt(cell.getAttribute('data-index'));
-      if (tttBoard[index] !== "" || !tttGameActive) return;
-
-      // Mossa del Giocatore (X)
-      makeMove(index, "X");
-      
-      if (checkWinCondition(tttBoard, "X")) {
-        tttStatus.innerText = winPhrases;
-        tttGameActive = false;
-        setTimeout(resetTTT, 4500);
-        return;
-      }
-
-      if (tttBoard.every(c => c !== "")) {
-        tttStatus.innerText = drawPhrases;
-        tttGameActive = false;
-        setTimeout(resetTTT, 4500);
-        return;
-      }
-
-      // Mossa dell'AI (O) - Calcolata con Minimax
-      tttGameActive = false;
-      tttStatus.innerText = "L'AI sta valutando la mossa... 🤔";
-      
-      setTimeout(() => {
-        const bestMoveIndex = getBestMove(tttBoard);
-        makeMove(bestMoveIndex, "O");
-
-        if (checkWinCondition(tttBoard, "O")) {
-          tttStatus.innerText = losePhrases;
-          setTimeout(resetTTT, 4500);
-          return;
-        }
-
-        if (tttBoard.every(c => c !== "")) {
-          tttStatus.innerText = drawPhrases;
-          setTimeout(resetTTT, 4500);
-          return;
-        }
-
-        tttStatus.innerText = "Tocca a te! ☕";
-        tttGameActive = true;
-      }, 400);
-    });
-  });
-
-  function makeMove(index, player) {
-    tttBoard[index] = player;
-    tttCells[index].innerText = player;
-    tttCells[index].style.color = player === "X" ? "var(--pri)" : "#ea4335";
-  }
-
-  function checkWinCondition(board, player) {
-    const winStates = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8],
-      [0, 3, 6], [1, 4, 7], [2, 5, 8],
-      [0, 4, 8], [2, 4, 6]
-    ];
-    return winStates.some(comb => comb.every(idx => board[idx] === player));
-  }
-
-  // ALGORITMO DECISIONALE MINIMAX
   function minimax(board, depth, isMaximizing) {
     if (checkWinCondition(board, "O")) return 10 - depth;
     if (checkWinCondition(board, "X")) return depth - 10;
