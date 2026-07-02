@@ -781,121 +781,154 @@
     <div class="page" id="page-cornremote">
       <div class="proj-wrap">
         <div class="proj-hero">
-          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto HCI &amp; Interaction Design · Università degli Studi di Padova</p>
+          <p class="proj-eyebrow" style="opacity:0;transform:translateY(12px);animation:fu .7s .05s ease forwards">Progetto Universitario · Interaction Design</p>
           <h1 class="proj-title" style="opacity:0;transform:translateY(20px);animation:fu .8s .15s ease forwards">CornRemote</h1>
           <p class="proj-sub" style="opacity:0;transform:translateY(16px);animation:fu .8s .3s ease forwards">
-            Progettazione, sviluppo e valutazione di un prototipo di contenitore per popcorn interattivo che integra un sistema di controllo remoto per la riproduzione multimediale.
+            Un contenitore per popcorn con pulsanti integrati per controllare film e serie senza doversi alzare o cercare il telecomando.
           </p>
           <div class="proj-meta" style="opacity:0;animation:fu .8s .4s ease forwards">
-            <span class="proj-tag">Human-Computer Interaction</span>
-            <span class="proj-tag">Ergonomia Cognitiva</span>
-            <span class="proj-tag">Makey Makey Prototyping</span>
-            <span class="proj-tag">User Research</span>
+            <span class="proj-tag">Interaction Design</span>
+            <span class="proj-tag">Ergonomia</span>
+            <span class="proj-tag">Makey Makey</span>
             <span class="proj-tag">Usability Testing</span>
-            <span class="proj-tag">Design Inclusivo / Age-Friendly</span>
           </div>
         </div>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Abstract e Contesto</div>
+          <div class="proj-section-label">Da dove nasce l'idea</div>
           <p class="proj-body">
-            Il progetto <strong>CornRemote</strong> nasce all'interno del corso di Laurea Magistrale in Psicologia Cognitiva Applicata presso l'Università di Padova. L'obiettivo della ricerca è stato quello di trasformare un oggetto quotidiano passivo – un contenitore per popcorn – in un'esperienza interattiva e senza sforzo. Dotato di pulsanti ergonomici e di un sistema di gestione multimediale integrato, il dispositivo mira ad eliminare le frustrazioni legate al controllo dei film quando si è lontani dalla tastiera del computer o si incontrano le barriere d'uso dei telecomandi tradizionali.
+            Per il corso di Interaction Design volevo lavorare su qualcosa di concreto e un po' fuori dagli schemi, non solo un'app o un'interfaccia su schermo. Mi sono chiesto quante volte capita di dover mettere in pausa un film per rispondere al telefono o gestire il volume, alzandosi ogni volta o cercando alla cieca il telecomando o la tastiera. Da qui è nata l'idea di CornRemote: un contenitore per popcorn che è anche un telecomando, con i pulsanti per play/pausa, volume e avanti/indietro posizionati direttamente sul lato del bucket.
           </p>
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Cornice Teorica e Linee Guida di Design</div>
+          <div class="proj-section-label">Le scelte di design</div>
           <p class="proj-body" style="margin-bottom: 1.5rem;">
-            Il framework concettuale del dispositivo si focalizza sui fondamenti dell'ergonomia fisica e della <strong>Human-Computer Interaction (HCI)</strong>, strutturandosi su tre pilastri principali:
+            Prima di costruire il prototipo ho studiato un po' di letteratura su ergonomia e telecomandi, per capire cosa rende un dispositivo davvero facile da usare (e cosa invece frustra le persone).
           </p>
           <div class="clist" style="gap: 1rem;">
             <div class="scard" style="padding: 1.25rem;">
-              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Ergonomia e Manipolazione Monomanuale</div>
-              <p class="proj-body" style="font-size: var(--sm);">La forma mantiene la familiarità del classico bucket di popcorn, ma la disposizione dei pulsanti sul lato è studiata scientificamente per l'uso con una sola mano: l'indice si posiziona naturalmente sul tasto Pausa/Play, mentre il pollice gestisce i comandi del volume.</p>
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Uso con una mano sola</div>
+              <p class="proj-body" style="font-size: var(--sm);">Ho tenuto la forma classica del bucket, ma i pulsanti sul lato sono posizionati così che l'indice cada naturalmente su Pausa/Play e il pollice raggiunga i tasti del volume senza sforzo.</p>
             </div>
             <div class="scard" style="padding: 1.25rem;">
-              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Design Inclusivo (Age-Friendly)</div>
-              <p class="proj-body" style="font-size: var(--sm);">Partendo dalla letteratura sulle difficoltà incontrate dagli adulti anziani con le interfacce tradizionali (Carvalho et al., 2021), il layout propone pochi comandi, di grandi dimensioni e ad alta intuitività, supportati da icone visive chiare (Lessiter et al., 2004).</p>
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Pensato anche per gli anziani</div>
+              <p class="proj-body" style="font-size: var(--sm);">Studi come quello di Carvalho et al. (2021) mostrano quanto i telecomandi tradizionali mettano in difficoltà le persone anziane. Per questo ho scelto pochi pulsanti, grandi, con icone chiare invece di simboli ambigui.</p>
             </div>
             <div class="scard" style="padding: 1.25rem;">
-              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Interazione in Ambienti Oscuri e Socialità</div>
-              <p class="proj-body" style="font-size: var(--sm);">L'applicazione di un nastro adesivo fotoluminescente / fosforescente garantisce la rintracciabilità dei tasti al buio senza alterare l'atmosfera cinematografica. Inoltre, la rapidità di interazione favorisce gli scambi sociali e la comunicazione durante la visione (Cesar et al., 2008).</p>
+              <div class="stitle" style="color: var(--pri); margin-bottom: .4rem;">Al buio e in compagnia</div>
+              <p class="proj-body" style="font-size: var(--sm);">Ho applicato del nastro fosforescente sui pulsanti così restano visibili anche a luci spente, senza dover accendere nulla. L'idea è anche di rendere più fluida la gestione del film quando si guarda in gruppo, senza spezzare la conversazione.</p>
             </div>
           </div>
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Processo di Sviluppo del Prototipo</div>
+          <div class="proj-section-label">Come l'ho costruito</div>
           <div class="proj-steps">
             <div class="proj-step">
               <div class="proj-step-num">01</div>
               <div class="proj-step-content">
-                <div class="step-title">Benchmarking &amp; Ideazione</div>
-                <div class="step-desc">Analisi dei limiti dei telecomandi remoti standard e dei controlli da tastiera. Studio preliminare sul posizionamento ottimale dei comandi sul corpo cilindrico del bucket.</div>
+                <div class="step-title">Bozze e posizionamento</div>
+                <div class="step-desc">Ho iniziato guardando cosa già esiste sul mercato (telecomandi classici, tastiera) per capirne i limiti, poi ho provato diverse disposizioni dei pulsanti sul contenitore prima di trovare quella giusta.</div>
               </div>
             </div>
             <div class="proj-step">
               <div class="proj-step-num">02</div>
               <div class="proj-step-content">
-                <div class="step-title">Sourcing dei Materiali</div>
-                <div class="step-desc">Selezione di un contenitore in plastica (per garantire lavabilità e riutilizzo), nastro adesivo cartaceo, plastilina per migliorare il feedback tattile alla pressione (tactile feeling) e nastro fotoluminescente.</div>
+                <div class="step-title">Materiali</div>
+                <div class="step-desc">Contenitore di popcorn in plastica (lavabile e riutilizzabile), nastro adesivo fotoluminescente per i pulsanti, plastilina sotto i tasti per dare una sensazione di pressione più solida al tocco.</div>
               </div>
             </div>
             <div class="proj-step">
               <div class="proj-step-num">03</div>
               <div class="proj-step-content">
-                <div class="step-title">Ingegnerizzazione (Makey Makey)</div>
-                <div class="step-desc">Integrazione della scheda Makey Makey alla base del contenitore per la mappatura degli input capacitivi. Cablaggio interno isolato tramite nastro per eliminare i rumori di movimento e trasmettere robustezza strutturale al device. Finitura estetica inferiore con un secondo bucket concentrico per proteggere i cavi e permettere l'appoggio sicuro su superficie.</div>
+                <div class="step-title">Elettronica con Makey Makey</div>
+                <div class="step-desc">Ho usato una scheda Makey Makey collegata alla base del contenitore per trasformare i pulsanti in veri input da tastiera. I cavi interni sono stati fissati con del nastro per evitare rumori e dare più solidità al prototipo, e ho nascosto tutto con un secondo bucket sotto la base.</div>
               </div>
             </div>
           </div>
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Metodologia di Usability Testing</div>
+          <div class="proj-section-label">Come ho testato il prototipo</div>
           <p class="proj-body">
-            La validazione del prototipo ha seguito una metodologia rigorosa basata su un disegno di ricerca con somministrazione di <strong>due questionari distinti (Pre-test e Post-test)</strong> tramite piattaforma Qualtrics:
+            Per capire se funzionava davvero ho fatto provare CornRemote a un gruppo di utenti, facendo compilare due questionari su Qualtrics: uno prima e uno dopo l'utilizzo.
           </p>
           <ul class="cbullets" style="margin-top: .5rem; border-top: none; padding-top: 0;">
-            <li class="cb"><div class="cb-text"><strong>Questionario 1 (Baseline):</strong> Somministrato prima dell'uso per indagare i profili utente, la familiarità tecnologica, le abitudini di visione (tutti i partecipanti guardavano contenuti su PC almeno 2-3 volte a settimana) e le esperienze pregresse negative con telecomandi (riscontrate nel 100% del campione).</div></li>
-            <li class="cb"><div class="cb-text"><strong>Questionario 2 (Esperienziale):</strong> Somministrato immediatamente dopo l'interazione per misurare l'usabilità percepita, l'accessibilità, l'efficacia del controllo e l'estetica.</div></li>
+            <li class="cb"><div class="cb-text"><strong>Prima del test:</strong> ho chiesto abitudini di visione, esperienze passate con i telecomandi e quanto spesso capitasse di alzarsi durante un film. Tutti guardavano contenuti da PC almeno 2-3 volte a settimana, e tutti avevano avuto almeno un'esperienza negativa con un telecomando tradizionale.</div></li>
+            <li class="cb"><div class="cb-text"><strong>Dopo il test:</strong> ho chiesto quanto fosse stato facile e intuitivo usare il dispositivo, se i pulsanti fossero facili da trovare al buio, e se si fosse riusciti a gestire il film senza alzarsi.</div></li>
           </ul>
         </section>
 
         <section class="proj-section ps">
-          <div class="proj-section-label">Risultati Quantitativi ed Evidenze</div>
+          <div class="proj-section-label">Cosa è emerso dai test</div>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: var(--sm);">
             <thead>
               <tr style="background: var(--surfoff); border-bottom: 2px solid var(--div);">
-                <th style="padding: .75rem; text-align: left; font-weight: 700; color: var(--txt);">Dimensione Indagata</th>
-                <th style="padding: .75rem; text-align: center; font-weight: 700; color: var(--txt);">Dato Statistico / Output</th>
+                <th style="padding: .75rem; text-align: left; font-weight: 700; color: var(--txt);">Cosa ho chiesto</th>
+                <th style="padding: .75rem; text-align: center; font-weight: 700; color: var(--txt);">Risposta dei partecipanti</th>
               </tr>
             </thead>
             <tbody>
               <tr style="border-bottom: 1px solid var(--brd);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Facilità d'uso e Usabilità</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo</td>
+                <td style="padding: .75rem; color: var(--muted);"><strong>È stato facile da usare?</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% d'accordo</td>
               </tr>
               <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Intuitività dell'interfaccia</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Accordo Positivo</td>
+                <td style="padding: .75rem; color: var(--muted);"><strong>Era intuitivo?</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% d'accordo</td>
               </tr>
               <tr style="border-bottom: 1px solid var(--brd);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Individuazione tasti al buio</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Completamente d'accordo</td>
+                <td style="padding: .75rem; color: var(--muted);"><strong>Pulsanti trovabili al buio?</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% completamente d'accordo</td>
               </tr>
               <tr style="border-bottom: 1px solid var(--brd); background: var(--surf2);">
-                <td style="padding: .75rem; color: var(--muted);"><strong>Gestione del film a distanza</strong></td>
-                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% Efficacia (controllo senza alzarsi)</td>
+                <td style="padding: .75rem; color: var(--muted);"><strong>Film gestito senza alzarsi?</strong></td>
+                <td style="padding: .75rem; text-align: center; color: var(--pri); font-weight: 600;">100% completamente d'accordo</td>
               </tr>
             </tbody>
           </table>
+          <p class="proj-body">
+            Un dato che mi ha fatto piacere: il 75% ha detto di essere riuscito a mangiare i popcorn più comodamente durante l'uso, e la maggior parte ha apprezzato anche l'estetica del prototipo, non solo la funzione.
+          </p>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Limiti e prossimi passi</div>
+          <p class="proj-body">
+            Il prototipo funziona bene ma ha ancora dei margini di miglioramento: i pulsanti di carta si consumano nel tempo, la plastilina dietro potrebbe indurirsi, e i cavi limitano un po' la libertà di movimento. Le idee per il futuro sono passare al silicone (più resistente e lavabile), rendere il tutto wireless ed esplorare materiali più duraturi per i pulsanti.
+          </p>
+        </section>
+
+        <section class="proj-section ps">
+          <div class="proj-section-label">Documenti del progetto</div>
+          <p class="proj-body" style="margin-bottom: 1rem;">
+            Il report completo della ricerca e le slide di presentazione del prodotto sono disponibili qui sotto.
+          </p>
+          <div class="clist" style="gap: 1rem; margin-bottom: 1.5rem;">
+            <a href="assets/report.pdf" target="_blank" rel="noopener" class="scard" style="padding: 1.25rem; display: flex; align-items: center; gap: .75rem; text-decoration: none; color: inherit;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; color: var(--pri);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div>
+                <div class="stitle" style="margin-bottom: .15rem;">Report della ricerca</div>
+                <div class="proj-body" style="font-size: var(--xs); margin: 0;">Metodologia, risultati dei questionari e conclusioni (PDF)</div>
+              </div>
+            </a>
+            <a href="assets/slide.pdf" target="_blank" rel="noopener" class="scard" style="padding: 1.25rem; display: flex; align-items: center; gap: .75rem; text-decoration: none; color: inherit;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; color: var(--pri);"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              <div>
+                <div class="stitle" style="margin-bottom: .15rem;">Slide di presentazione</div>
+                <div class="proj-body" style="font-size: var(--xs); margin: 0;">Presentazione del prodotto (PDF)</div>
+              </div>
+            </a>
+          </div>
+          <div style="border: 1px solid var(--brd); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--sh-sm); background: var(--surf);">
+            <iframe src="assets/slide.pdf" title="Presentazione CornRemote" style="width: 100%; height: 70vh; border: none; display: block;" loading="lazy"></iframe>
+          </div>
         </section>
       </div>
     </div>
 
 
-    
       <div class="page" id="page-nft">
         <div class="proj-wrap">
           <div class="proj-hero">
