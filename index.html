@@ -58,7 +58,8 @@
     /* ── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-    body { min-height: 100dvh; font-family: var(--fb); font-size: var(--base); color: var(--txt); background: var(--bg); overflow-x: hidden; }
+    html { background: var(--bg); }
+    body { min-height: 100dvh; font-family: var(--fb); font-size: var(--base); color: var(--txt); background: transparent; overflow-x: hidden; position: relative; z-index: 0; }
     ul { list-style: none; }
     a { color: inherit; text-decoration: none; }
     button { pointer: pointer; background: none; border: none; font: inherit; color: inherit; }
@@ -473,9 +474,107 @@
       .ccnl-table th, .ccnl-table td { padding: .65rem .75rem; }
     }
 
+
+    /* ── SCROLL PROGRESS BAR ────────────────────────────────── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--pri), var(--prih));
+      box-shadow: 0 0 10px color-mix(in srgb, var(--pri) 70%, transparent);
+      z-index: 100; transition: width .12s ease-out;
+    }
+
+    /* ── AURORA / MESH BACKGROUND ──────────────────────────── */
+    .aurora { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+    .aurora span {
+      position: absolute; border-radius: 50%; filter: blur(90px);
+      opacity: .3; will-change: transform;
+    }
+    .aurora span:nth-child(1) { width: 440px; height: 440px; background: var(--pri); top: -12%; left: -10%; animation: auroraMove1 24s ease-in-out infinite; }
+    .aurora span:nth-child(2) { width: 380px; height: 380px; background: #7c5cff; top: 6%; right: -12%; animation: auroraMove2 28s ease-in-out infinite; }
+    .aurora span:nth-child(3) { width: 340px; height: 340px; background: var(--prih); bottom: -14%; left: 22%; animation: auroraMove3 32s ease-in-out infinite; }
+    [data-theme="light"] .aurora span { opacity: .14; }
+    @keyframes auroraMove1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(70px,90px) scale(1.15); } }
+    @keyframes auroraMove2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-80px,60px) scale(1.1); } }
+    @keyframes auroraMove3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px,-70px) scale(1.2); } }
+
+    /* ── FILM GRAIN OVERLAY ─────────────────────────────────── */
+    .grain {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      opacity: .035; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── CURSOR GLOW ────────────────────────────────────────── */
+    .cursor-glow {
+      position: fixed; width: 26px; height: 26px; border-radius: 50%;
+      background: radial-gradient(circle, var(--pri), transparent 70%);
+      pointer-events: none; z-index: 9999; opacity: 0;
+      transform: translate(-50%,-50%); filter: blur(3px);
+      transition: opacity .3s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .cursor-glow.active { opacity: .5; }
+    }
+
+    /* ── ANIMATED GRADIENT TITLES ──────────────────────────── */
+    .hero-name, .proj-title {
+      background: linear-gradient(110deg, var(--txt) 35%, var(--pri) 55%, var(--prih) 70%, var(--txt) 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: fu .8s .15s ease forwards, shineText 7s linear infinite;
+    }
+    @keyframes shineText { to { background-position: -220% center; } }
+
+    /* ── CARD SPOTLIGHT & LIFT ─────────────────────────────── */
+    .card, .scard, .contact-item, .dl-drive-card {
+      position: relative; overflow: hidden;
+      transition: transform var(--tr), box-shadow var(--tr), border-color var(--tr);
+    }
+    .card::before, .scard::before, .contact-item::before, .dl-drive-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(380px circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--pri) 16%, transparent), transparent 70%);
+      opacity: 0; transition: opacity .35s; pointer-events: none;
+    }
+    .card:hover::before, .scard:hover::before, .contact-item:hover::before, .dl-drive-card:hover::before { opacity: 1; }
+    .card:hover, .scard:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--sh-lg);
+      border-color: color-mix(in srgb, var(--pri) 45%, var(--brd));
+    }
+
+    /* ── MAGNETIC / GLOW BUTTONS ────────────────────────────── */
+    .status-cta-btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 28px color-mix(in srgb, var(--pri) 45%, transparent); }
+    .pill { transition: transform var(--tr), color var(--tr), background var(--tr), box-shadow var(--tr); }
+    .pill:hover { transform: translateY(-2px); box-shadow: var(--sh-sm); }
+
+    /* ── NAV ACTIVE INDICATOR ──────────────────────────────── */
+    .nav-item.active { position: relative; }
+    .nav-item.active::before {
+      content: ''; position: absolute; left: -.6rem; top: 50%; transform: translateY(-50%);
+      width: 3px; height: 60%; background: var(--pri); border-radius: 0 4px 4px 0;
+      box-shadow: 0 0 8px var(--pri);
+    }
+
+    /* ── SECTION LABEL ACCENT ──────────────────────────────── */
+    .proj-section-label { border-left: 3px solid var(--pri); padding-left: .85rem; }
+
+    /* ── TOPBAR SCROLL SHADOW & THEME ICON MOTION ──────────── */
+    .topbar.scrolled { box-shadow: var(--sh-sm); }
+    .theme-btn svg { transition: transform .45s cubic-bezier(.16,1,.3,1); }
+    .theme-btn:hover svg { transform: rotate(25deg) scale(1.12); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora span, .hero-name, .proj-title { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <div class="shell">
   <div class="overlay" id="overlay"></div>
@@ -1394,6 +1493,42 @@
     items.forEach(el => io.observe(el));
   }
   initObserver();
+
+  // ── SCROLL PROGRESS BAR ──────────────────────────────────
+  const scrollProgress = document.getElementById('scrollProgress');
+  function updateScrollProgress() {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop || document.body.scrollTop);
+    const max = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    if (scrollProgress) scrollProgress.style.width = pct + '%';
+    document.querySelector('.topbar')?.classList.toggle('scrolled', scrolled > 20);
+  }
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  updateScrollProgress();
+
+  // ── CURSOR GLOW (solo per dispositivi con mouse) ─────────────────
+  const cursorGlow = document.getElementById('cursorGlow');
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && cursorGlow) {
+    let cgX = 0, cgY = 0, cgActive = false;
+    window.addEventListener('mousemove', (e) => {
+      cgX = e.clientX; cgY = e.clientY;
+      if (!cgActive) { cgActive = true; cursorGlow.classList.add('active'); }
+      cursorGlow.style.left = cgX + 'px';
+      cursorGlow.style.top = cgY + 'px';
+    }, { passive: true });
+    document.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+  }
+
+  // ── CARD SPOTLIGHT (segue il mouse su card/scard/contact-item) ─────────
+  document.querySelectorAll('.card, .scard, .contact-item, .dl-drive-card').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+      el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    });
+  });
+
 </script>
 </body>
 </html>
