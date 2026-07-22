@@ -9,10 +9,10 @@
   <style>
     /* ── TOKENS ─────────────────────────────────────────────── */
     :root, [data-theme="light"] {
-      --bg:      #f7f6f2;
-      --surf:    #f9f8f5;
-      --surf2:   #fbfbf9;
-      --surfoff: #f0ede8;
+      --bg:      #fafaf8;
+      --surf:    #ffffff;
+      --surf2:   #ffffff;
+      --surfoff: #f1efe9;
       --div:     #dcd9d5;
       --brd:     rgba(40,37,29,.10);
       --txt:     #28251d;
@@ -39,10 +39,10 @@
       --tr:   200ms cubic-bezier(.16,1,.3,1);
     }
     [data-theme="dark"] {
-      --bg:      #0f0e0c;
-      --surf:    #161513;
-      --surf2:   #1c1b19;
-      --surfoff: #222120;
+      --bg:      #0a0a09;
+      --surf:    #141312;
+      --surf2:   #1a1918;
+      --surfoff: #1f1e1c;
       --div:     #262523;
       --brd:     rgba(255,255,255,.08);
       --txt:     #e8e6e2;
@@ -75,17 +75,19 @@
 
     /* ── SIDEBAR ────────────────────────────────────────────── */
     .sidebar {
-      position: fixed; top: 0; left: 0;
-      width: 260px; height: 100dvh;
+      position: fixed; top: .85rem; left: .85rem; bottom: .85rem;
+      width: 270px; height: calc(100dvh - 1.7rem);
       background: var(--surf);
-      border-right: 1px solid var(--brd);
+      border: 1px solid var(--brd);
+      border-radius: var(--r-xl);
       display: flex; flex-direction: column;
-      transform: translateX(-100%);
-      transition: transform .35s cubic-bezier(.16,1,.3,1);
+      transform: translateX(calc(-100% - 1.5rem));
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
       z-index: 80;
       overflow-y: auto;
+      box-shadow: var(--sh-lg);
     }
-    .sidebar.open { transform: translateX(0); box-shadow: var(--sh-lg); }
+    .sidebar.open { transform: translateX(0); }
 
     .sidebar-header {
       padding: 1.5rem 1.25rem 1rem;
@@ -190,16 +192,19 @@
 
     /* ── TOP BAR ────────────────────────────────────────────── */
     .topbar {
-      position: fixed; top: 0; left: 0; right: 0; height: 60px;
+      position: fixed; top: .85rem; left: .85rem; right: .85rem; height: 58px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 1.5rem;
-      background: color-mix(in srgb, var(--bg) 72%, transparent);
-      backdrop-filter: blur(16px) saturate(1.4);
-      -webkit-backdrop-filter: blur(16px) saturate(1.4);
-      border-bottom: 1px solid var(--brd);
+      padding: 0 .6rem 0 1.4rem;
+      background: color-mix(in srgb, var(--surf) 88%, transparent);
+      backdrop-filter: blur(18px) saturate(1.5);
+      -webkit-backdrop-filter: blur(18px) saturate(1.5);
+      border: 1px solid var(--brd);
+      border-radius: 99px;
+      box-shadow: var(--sh-md);
       z-index: 60;
-      transition: box-shadow .3s ease;
+      transition: box-shadow .3s ease, background .3s ease;
     }
+    .topbar.scrolled { box-shadow: var(--sh-lg); }
     .topbar-name {
       font-family: var(--fd); font-weight: 800; font-size: var(--sm);
       opacity: 0; transform: translateY(-6px);
@@ -214,7 +219,7 @@
     .menu-btn:hover { background: var(--surfoff); transform: scale(1.06); }
 
     /* ── MAIN ───────────────────────────────────────────────── */
-    .main { flex: 1; padding-top: 56px; }
+    .main { flex: 1; padding-top: 5.5rem; }
     .page { display: none; opacity: 0; transform: translateY(12px); transition: opacity .4s ease, transform .4s ease; }
     .page.active {
       display: block;
@@ -228,11 +233,11 @@
     /* ── CV PAGE ────────────────────────────────────────────── */
     .cv-wrap { max-width: 860px; margin-inline: auto; padding: clamp(1.5rem,5vw,3rem) clamp(1rem,5vw,2.5rem) 6rem; }
 
-    .hero { padding-block: clamp(3rem,8vw,5rem); }
+    .hero { padding-block: clamp(4rem,10vw,6.5rem); }
     @keyframes fu { to { opacity: 1; transform: translateY(0); } }
     .hero-ey {
-      font-size: var(--xs); font-weight: 500; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--pri); margin-bottom: 1rem;
+      font-size: var(--xs); font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--pri); margin-bottom: 1.25rem;
       opacity: 0; transform: translateY(12px); animation: fu .7s .05s ease forwards;
     }
     .hero-name {
@@ -560,7 +565,7 @@
     .proj-section-label { border-left: 3px solid var(--pri); padding-left: .85rem; }
 
     /* ── TOPBAR SCROLL SHADOW & THEME ICON MOTION ──────────── */
-    .topbar.scrolled { box-shadow: var(--sh-sm); }
+    /* .topbar.scrolled merged above */
     .theme-btn svg { transition: transform .45s cubic-bezier(.16,1,.3,1); }
     .theme-btn:hover svg { transform: rotate(25deg) scale(1.12); }
 
@@ -573,9 +578,9 @@
 <body>
 
 <div class="scroll-progress" id="scrollProgress"></div>
-<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-<div class="grain" aria-hidden="true"></div>
-<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<!-- aurora removed for cleaner minimal look -->
+<!-- grain removed for cleaner minimal look -->
+<!-- cursor glow removed for cleaner minimal look -->
 
 <div class="shell">
   <div class="overlay" id="overlay"></div>
